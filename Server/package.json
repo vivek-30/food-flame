@@ -8,5 +8,13 @@
     "devStart": "nodemon server.js"
   },
   "author": "Vivek Singh",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "moongose": "^1.0.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3",
+    "nodemon": "^2.0.20"
+  }
 }
