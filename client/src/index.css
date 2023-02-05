@@ -8,6 +8,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Authentication Component */
 .authentication .input-field {
   margin: 3.5rem 0;
 }
@@ -18,4 +19,21 @@ body {
   background: #fbf7f7;
   border-radius: 0.8em;
   box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
+}
+
+/* EmptyData Component */
+.main-content {
+  position: relative;
+}
+
+.no-data {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+}
+
+.no-data > img {
+  height: 230px;
+  width: 230px;
 }
