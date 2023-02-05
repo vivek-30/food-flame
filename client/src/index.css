@@ -86,3 +86,10 @@ body {
   position: absolute;
   right: 1% !important;
 }
+
+/* Loading Spinner */
+.loading-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
