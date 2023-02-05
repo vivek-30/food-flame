@@ -1,8 +1,21 @@
 body {
   margin: 0;
+  background-color: #eceff1;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.authentication .input-field {
+  margin: 3.5rem 0;
+}
+
+.authentication > div {
+  margin: 3rem auto;
+  padding: 3rem;
+  background: #fbf7f7;
+  border-radius: 0.8em;
+  box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
 }
