@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+
+// Images and icons.
 import CookingGIF from '../assets/cooking.gif';
 import DishIcon from '../assets/dish-icon.svg';
 
@@ -10,14 +13,14 @@ const Landing = () => {
           <img src={DishIcon} alt="Dish icon" className="landing-dish-icon" />
         </div>
         <p className="flow-text">
-          Find It,<br />
-          Check It,<br />
-          Taste IT!!!
+          Find IT,<br />
+          Check IT,<br />
+          Taste IT !!!
         </p>
-        <button className="explore-btn btn-large blue-grey darken-2">
+        <Link to="/home" className="explore-btn btn-large blue-grey darken-2">
           Explore
           <i className="material-icons right">arrow_forward</i>
-        </button>
+        </Link>
       </div>
       <div className="col s7 m7 l7 landing-img-box">
         <img src={CookingGIF} alt="Cooking GIF" />
