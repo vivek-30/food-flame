@@ -21,23 +21,6 @@ body {
   box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
 }
 
-/* EmptyData Component */
-.main-content {
-  position: relative;
-}
-
-.no-data {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, 50%);
-}
-
-.no-data > img {
-  height: 230px;
-  width: 230px;
-}
-
 /* Landing Page */
 .landing-page-container {
   width: 80vw;
@@ -65,4 +48,41 @@ body {
 
 .explore-btn {
   border-radius: 2rem;
+}
+
+/* Home Page */
+.recipes-list-container {
+  position: relative;
+}
+
+.no-data {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+}
+
+.no-data > img {
+  height: 230px;
+  width: 230px;
+}
+
+.recipe-card {
+  min-height: 22rem !important;
+  min-width: 20vw !important;
+  margin: 1rem;
+  border-radius: 0.5rem;
+}
+
+.recipe-card .card-title {
+  text-transform: capitalize;
+}
+
+.recipe-card .card-content {
+  position: relative;
+}
+
+.recipe-card .card-title i {
+  position: absolute;
+  right: 1% !important;
 }

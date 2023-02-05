@@ -21,13 +21,15 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="main-content">
+    <main className="recipes-list-container container">
+      <div className="row">
       {
         recipes.length !== 0
         ? recipes.map((recipe) => <Recipe key={recipe._id} recipeObject={recipe} />)
         : <EmptyData />
       }
-    </div>
+      </div>
+    </main>
   );
 }
 
