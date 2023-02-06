@@ -17,18 +17,19 @@ const Home = () => {
       if(response.ok) {
         setRecipes(data);
       } else {
-        console.log(data.error);
-        alert(data.message);
+        let { message, error } = data;
+        alert(message);
+        console.log(`Error Occured While Fetching Recipes ${error}`);
       }
     })();
-  }, []);
+  }, [recipes]);
 
   return (
     <main className="recipes-list-container container">
       <div className="row">
       {
         isLoading ? <LoadingSpinner /> : recipes.length !== 0
-        ? recipes.map((recipe) => <Recipe key={recipe._id} recipeObject={recipe} />)
+        ? recipes.map((recipe) => <Recipe key={recipe._id} recipeObject={recipe} setRecipes={setRecipes} />)
         : <EmptyData />
       }
       </div>

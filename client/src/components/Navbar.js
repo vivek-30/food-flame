@@ -9,8 +9,8 @@ const Navbar = () => {
           Recipes
         </Link>
         <ul id="nav-mobile" className="right hide-on-small-only">
-          <li><Link to="/sign-up" className="blue-grey-text">Sign Up</Link></li>
-          <li><Link to="/log-in" className="blue-grey-text">Log In</Link></li>
+          <li><Link to="/sign-up" className="blue-grey-text text-darken-1">Sign Up</Link></li>
+          <li><Link to="/log-in" className="blue-grey-text text-darken-1">Log In</Link></li>
         </ul>
       </div>
     </nav>
