@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import Recipe from '../components/Recipe';
 import EmptyData from '../components/EmptyData';
-import Loading from '../components/Loading';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const Home = () => {
   const [recipes, setRecipes] = useState([]);
@@ -27,7 +27,7 @@ const Home = () => {
     <main className="recipes-list-container container">
       <div className="row">
       {
-        isLoading ? <Loading /> : recipes.length !== 0
+        isLoading ? <LoadingSpinner /> : recipes.length !== 0
         ? recipes.map((recipe) => <Recipe key={recipe._id} recipeObject={recipe} />)
         : <EmptyData />
       }
