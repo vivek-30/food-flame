@@ -17,7 +17,7 @@ const Landing = () => {
           Check IT,<br />
           Taste IT !!!
         </p>
-        <Link to="/home" className="explore-btn btn-large blue-grey darken-2">
+        <Link to="/home" className="round-large-btn btn-large blue-grey darken-2">
           Explore
           <i className="material-icons right">arrow_forward</i>
         </Link>

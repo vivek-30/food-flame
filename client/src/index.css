@@ -8,6 +8,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.round-large-btn {
+  border-radius: 2rem;
+}
+
 /* Authentication Component */
 .authentication .input-field {
   margin: 3.5rem 0;
@@ -46,13 +50,15 @@ body {
   height: 100%;
 }
 
-.explore-btn {
-  border-radius: 2rem;
-}
-
 /* Home Page */
 .recipes-list-container {
   position: relative;
+}
+
+.recipes-list-container .round-large-btn {
+  margin: 0 auto 1.5em;
+  display: flex;
+  justify-content: center;
 }
 
 .no-data {

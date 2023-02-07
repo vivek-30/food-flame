@@ -7,6 +7,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 const Home = () => {
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isDisabled, setIsDiasbled] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -33,6 +34,14 @@ const Home = () => {
         : <EmptyData />
       }
       </div>
+      {
+        !isLoading && recipes.length && (
+          <button className={`btn-large center blue darken-2 round-large-btn col s12 m12 l12 ${isDisabled ? 'disabled' : ''}`}>
+            Show More
+            <i className="material-icons right">arrow_downward</i>
+          </button>
+        )
+      }
     </main>
   );
 }
