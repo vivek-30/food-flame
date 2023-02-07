@@ -1,4 +1,4 @@
-const Loading = () => {
+const LoadingSpinner = () => {
   return (
     <div className="loading-spinner">
       <div className="preloader-wrapper active">
@@ -18,4 +18,4 @@ const Loading = () => {
   );
 }
 
-export default Loading;
+export default LoadingSpinner;

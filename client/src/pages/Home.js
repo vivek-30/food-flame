@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 
-import Recipe from '../components/Recipe';
 import EmptyData from '../components/EmptyData';
 import LoadingSpinner from '../components/LoadingSpinner';
+import RecipesList from '../components/RecipesList';
 
 const Home = () => {
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isDisabled, setIsDiasbled] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -29,19 +28,11 @@ const Home = () => {
     <main className="recipes-list-container container">
       <div className="row">
       {
-        isLoading ? <LoadingSpinner /> : recipes.length !== 0
-        ? recipes.map((recipe) => <Recipe key={recipe._id} recipeObject={recipe} setRecipes={setRecipes} />)
-        : <EmptyData />
+        isLoading ? <LoadingSpinner /> : 
+        recipes.length ? <RecipesList recipes={recipes} setRecipes={setRecipes} /> : 
+        <EmptyData />
       }
       </div>
-      {
-        !isLoading && recipes.length && (
-          <button className={`btn-large center blue darken-2 round-large-btn col s12 m12 l12 ${isDisabled ? 'disabled' : ''}`}>
-            Show More
-            <i className="material-icons right">arrow_downward</i>
-          </button>
-        )
-      }
     </main>
   );
 }

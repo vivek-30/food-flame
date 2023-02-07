@@ -55,12 +55,6 @@ body {
   position: relative;
 }
 
-.recipes-list-container .round-large-btn {
-  margin: 0 auto 1.5em;
-  display: flex;
-  justify-content: center;
-}
-
 .no-data {
   position: absolute;
   top: 50%;
@@ -100,6 +94,18 @@ body {
   /* To center the "Read Recipe" text */
   /* display: flex;
   justify-content: center; */
+}
+
+#add-recipe-card {
+  border: 2px dotted #546e7a;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+}
+
+#add-recipe-card:hover {
+  transform: scale(0.99);
+  background-color: rgba(241, 241, 241, 0.1);
 }
 
 /* Loading Spinner */
