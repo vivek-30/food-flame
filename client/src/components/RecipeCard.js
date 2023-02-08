@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
-const Recipe = ({ recipeObject, setRecipes }) => {
+const RecipeCard = ({ recipeObject, setRecipes }) => {
+  
   const { name, description, imageSRC, _id: recipeID } = recipeObject;
 
   const updateState = (state) => {
@@ -10,7 +11,7 @@ const Recipe = ({ recipeObject, setRecipes }) => {
   const removeRecipe = async () => {
     const response = await fetch(`http://localhost:4000/recipes/${recipeID}`, { method: 'DELETE' });
     const data = await response.json();
-    console.log(`recipe ID: ${recipeID}`);
+
     if(response.ok) {
       setRecipes(updateState);
     } else {
@@ -45,4 +46,4 @@ const Recipe = ({ recipeObject, setRecipes }) => {
   );
 }
 
-export default Recipe;
+export default RecipeCard;

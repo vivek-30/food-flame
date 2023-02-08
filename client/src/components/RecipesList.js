@@ -1,18 +1,12 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
 
-import Recipe from './Recipe';
+import RecipeCard from './RecipeCard';
 import SearchRecipe from './SearchRecipe';
+import AddRecipeCard from './AddRecipeCard';
 
 const RecipesList = ({ recipes, setRecipes }) => {
-
-  const [recipesToDisplay, setRecipesToDisplay] = useState(recipes);
-
-  const navigate = useNavigate();
   
-  const handleCardClick = () => {
-    navigate('/add-recipe');
-  }
+  const [recipesToDisplay, setRecipesToDisplay] = useState(recipes);
 
   return (
     <>
@@ -22,15 +16,10 @@ const RecipesList = ({ recipes, setRecipes }) => {
       />
       {
         recipesToDisplay.map((recipe) => (
-          <Recipe key={recipe._id} recipeObject={recipe} setRecipes={setRecipes} />
+          <RecipeCard key={recipe._id} recipeObject={recipe} setRecipes={setRecipes} />
         ))
       }
-      <div id="add-recipe-card" className="card recipe-card col s12 m5 l3" onClick={handleCardClick}>
-        <i className="material-icons medium center blue-grey-text text-darken-2">add_circle</i>
-        <h5 className="card-title truncate blue-grey-text text-darken-2 left">
-          Add Recipe
-        </h5>
-      </div>
+      <AddRecipeCard />
     </>
   );
 }

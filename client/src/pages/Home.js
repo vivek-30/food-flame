@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 
 import EmptyData from '../components/EmptyData';
-import LoadingSpinner from '../components/LoadingSpinner';
 import RecipesList from '../components/RecipesList';
+import AddRecipeCard from '../components/AddRecipeCard';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const Home = () => {
+  
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -30,7 +32,10 @@ const Home = () => {
       {
         isLoading ? <LoadingSpinner /> : 
         recipes.length ? <RecipesList recipes={recipes} setRecipes={setRecipes} />
-        : <EmptyData />
+        : <>
+          <AddRecipeCard />
+          <EmptyData />
+        </>
       }
       </div>
     </main>

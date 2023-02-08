@@ -57,7 +57,7 @@ const SearchRecipe = ({ recipes, setRecipesToDisplay }) => {
         />
       </div>
     </div>
-  )
+  );
 }
 
 export default SearchRecipe;
