@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import Recipe from './Recipe';
+import SearchRecipe from './SearchRecipe';
 
 const RecipesList = ({ recipes, setRecipes}) => {
 
@@ -12,6 +13,7 @@ const RecipesList = ({ recipes, setRecipes}) => {
 
   return (
     <>
+      <SearchRecipe />
       {
         recipes.map((recipe) => (
           <Recipe key={recipe._id} recipeObject={recipe} setRecipes={setRecipes} />

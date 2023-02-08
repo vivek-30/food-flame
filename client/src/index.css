@@ -114,3 +114,21 @@ body {
   top: 50%;
   left: 50%;
 }
+
+/* Input Fields */
+.search-recipe-box .input-field {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  margin: 1.8em 1.8em 0.8em;
+  box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
+}
+
+.search-recipe-box i {
+  margin: 3px 0rem;
+  border-right: 2px solid #78909c;
+}
+
+.search-recipe-box input {
+  text-align: center;
+  border-bottom: 0 !important;
+}
