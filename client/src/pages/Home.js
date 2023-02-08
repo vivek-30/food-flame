@@ -29,8 +29,8 @@ const Home = () => {
       <div className="row">
       {
         isLoading ? <LoadingSpinner /> : 
-        recipes.length ? <RecipesList recipes={recipes} setRecipes={setRecipes} /> : 
-        <EmptyData />
+        recipes.length ? <RecipesList recipes={recipes} setRecipes={setRecipes} />
+        : <EmptyData />
       }
       </div>
     </main>

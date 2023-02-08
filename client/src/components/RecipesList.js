@@ -1,9 +1,12 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 import Recipe from './Recipe';
 import SearchRecipe from './SearchRecipe';
 
-const RecipesList = ({ recipes, setRecipes}) => {
+const RecipesList = ({ recipes, setRecipes }) => {
+
+  const [recipesToDisplay, setRecipesToDisplay] = useState(recipes);
 
   const navigate = useNavigate();
   
@@ -13,9 +16,12 @@ const RecipesList = ({ recipes, setRecipes}) => {
 
   return (
     <>
-      <SearchRecipe />
+      <SearchRecipe 
+        recipes={recipes}
+        setRecipesToDisplay={setRecipesToDisplay} 
+      />
       {
-        recipes.map((recipe) => (
+        recipesToDisplay.map((recipe) => (
           <Recipe key={recipe._id} recipeObject={recipe} setRecipes={setRecipes} />
         ))
       }
