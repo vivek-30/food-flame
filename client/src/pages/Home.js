@@ -19,7 +19,7 @@ const Home = () => {
       if(response.ok) {
         setRecipes(data);
       } else {
-        let { message, error } = data;
+        const { message, error } = data;
         alert(message);
         console.log(`Error Occured While Fetching Recipes ${error}`);
       }

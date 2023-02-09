@@ -15,9 +15,9 @@ const RecipeCard = ({ recipeObject, setRecipes }) => {
     if(response.ok) {
       setRecipes(updateState);
     } else {
-      let { message, error } = data;
+      const { message, error } = data;
       alert(message);
-      console.log(`Error Occured While Fetching Recipes ${error}`);
+      console.log(`Error Occured While Deleting A Recipes ${error}`);
     }
   }
 

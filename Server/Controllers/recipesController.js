@@ -19,7 +19,7 @@ const getSpecificRecipe = async (req, res) => {
       res.status(200).json(recipe);
     }
   } catch(error) {
-    res.status(500).json({message: 'Internal Error.', error: error.message});
+    res.status(500).json({message: 'Internal Server Error.', error: error.message});
   }
 }
 
