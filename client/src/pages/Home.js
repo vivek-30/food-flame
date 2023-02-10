@@ -6,7 +6,6 @@ import AddRecipeCard from '../components/AddRecipeCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 const Home = () => {
-  
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -16,6 +15,7 @@ const Home = () => {
       const data = await response.json();
 
       setIsLoading(false);    
+
       if(response.ok) {
         setRecipes(data);
       } else {
@@ -24,7 +24,7 @@ const Home = () => {
         console.log(`Error Occured While Fetching Recipes ${error}`);
       }
     })();
-  }, [recipes]);
+  }, []);
 
   return (
     <main className="recipes-list-container container">

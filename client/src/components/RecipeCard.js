@@ -5,7 +5,7 @@ const RecipeCard = ({ recipeObject, setRecipes }) => {
   const { name, description, imageSRC, _id: recipeID } = recipeObject;
 
   const updateState = (state) => {
-    return state.filter(recipe => recipe.id !== recipeID);
+    return state.filter((recipe) => recipe._id !== recipeID);
   }
 
   const removeRecipe = async () => {
