@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 4000;
 const DATABASE_URI = 'mongodb://localhost:27017';
 const corsOptions = {
   origin: 'http://localhost:3000',
-  methods: ['GET', 'POST', 'PATCH', 'DELETE']
+  methods: ['GET', 'POST', 'PUT', 'DELETE']
 };
 
 app.use(express.json());
