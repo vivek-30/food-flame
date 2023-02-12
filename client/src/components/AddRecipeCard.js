@@ -1,11 +1,12 @@
-import { useNavigate } from 'react-router-dom';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 
 const AddRecipeCard = () => {
 
   const navigate = useNavigate();
   
   const handleCardClick = () => {
-    navigate('/add-recipe');
+    const params = createSearchParams({ updating: false, id: null });
+    navigate(`/add-recipe?${params}`);
   }
 
   return (

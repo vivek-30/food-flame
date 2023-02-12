@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 
 const RecipeUpdateBox = ({ recipeID }) => {
 
@@ -22,7 +22,8 @@ const RecipeUpdateBox = ({ recipeID }) => {
   }
 
   const updateRecipe = () => {
-    console.log('updating....')
+    const params = createSearchParams({ updating: true, id: recipeID });
+    navigate(`/add-recipe?${params}`);
   }
 
   return (
