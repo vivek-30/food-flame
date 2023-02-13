@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
 import LoadingSpinner from '../components/LoadingSpinner';
+import RecipeInputField from '../components/RecipeInputField'
 
 // Icons For Input Field
 import UrlIcon from '../assets/url.svg';
@@ -31,6 +32,8 @@ const AddRecipe = () => {
   // Extract Query String Parameters.
   const updatingParam = searchParams.get('updating');
   const recipeID = updatingParam === 'true' ? searchParams.get('id') : 'invalid';
+
+  const defaultImageURL = 'https://cdn.pixabay.com/photo/2015/08/25/03/50/background-906135_960_720.jpg';
 
   const fetchRecipeData = () => {    
     (async () => {
@@ -104,7 +107,9 @@ const AddRecipe = () => {
     data.ingredients = data.ingredients.filter((ingredient) => ingredient.trim() !== '');
     data.cookingSteps = data.cookingSteps.filter((step) => step.trim() !== '');
 
-    if(data.imageSRC && data.imageSRC.trim() === '') delete data.imageSRC;
+    if(data.imageSRC.trim() === '') {
+      data.imageSRC = defaultImageURL;
+    }
 
     if(data.name === '') {
       alert('Recipe Name Is Required');
@@ -156,62 +161,34 @@ const AddRecipe = () => {
       {
         isLoading ? <LoadingSpinner /> :
         <form onSubmit={manageRecipe} className="row">
-          <div className="col s12 m6 l6">
-            <label htmlFor="name">Recipe Name</label>
-            <div className="input-field">
-              <img src={TitleIcon} alt="Icon" className="input-field-icon" />
-              <input 
-                type="text" 
-                name="name" 
-                value={recipeData.name} 
-                onChange={handleInputChange} 
-                spellCheck="false" 
-                autoComplete="off" 
-              />
-            </div>
-          </div>
-          <div className="col s12 m6 l6">
-            <label htmlFor="description">Recipe Description</label>
-            <div className="input-field">
-              <img src={DescriptionIcon} alt="Icon" className="input-field-icon" />
-              <input 
-                type="text" 
-                name="description" 
-                value={recipeData.description} 
-                onChange={handleInputChange} 
-                spellCheck="false" 
-                autoComplete="off" 
-              />
-            </div>
-          </div>
-          <div className="col s12 m6 l6">
-            <label htmlFor="imageSRC">Paste Image URL (Not Required)</label>
-            <div className="input-field">
-              <img src={UrlIcon} alt="Icon" className="input-field-icon" />
-              <input 
-                type="text" 
-                name="imageSRC" 
-                value={recipeData.imageSRC} 
-                onChange={handleInputChange} 
-                spellCheck="false" 
-                autoComplete="off" 
-              />
-            </div>
-          </div>
-          <div className="col s12 m6 l6">
-            <label htmlFor="ingredients">Ingredients (Seperate By Comma)</label>
-            <div className="input-field">
-              <img src={IngredientIcon} alt="Icon" className="input-field-icon" />
-              <input 
-                type="text" 
-                name="ingredients" 
-                value={recipeData.ingredients} 
-                onChange={handleInputChange} 
-                spellCheck="false" 
-                autoComplete="off" 
-              />
-            </div>
-          </div>
+          <RecipeInputField 
+            fieldName="name"
+            fieldValue={recipeData.name}
+            inputLabel="Recipe Name"
+            imageIcon={TitleIcon}
+            handleInputChange={handleInputChange}
+          />
+          <RecipeInputField 
+            fieldName="description"
+            fieldValue={recipeData.description}
+            inputLabel="Recipe Description"
+            imageIcon={DescriptionIcon}
+            handleInputChange={handleInputChange}
+          />
+          <RecipeInputField 
+            fieldName="imageSRC"
+            fieldValue={recipeData.imageSRC}
+            inputLabel="Paste Image URL (Not Required)"
+            imageIcon={UrlIcon}
+            handleInputChange={handleInputChange}
+          />
+          <RecipeInputField 
+            fieldName="ingredients"
+            fieldValue={recipeData.ingredients}
+            inputLabel="Ingredients (Seperate By Comma)"
+            imageIcon={IngredientIcon}
+            handleInputChange={handleInputChange}
+          />
           <div className="col s12 m12 l12">
             <h3>Cooking Steps</h3>
             <div className="input-field">
