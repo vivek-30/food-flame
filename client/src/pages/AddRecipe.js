@@ -60,7 +60,18 @@ const AddRecipe = () => {
   }, []);
 
   const handleInputChange = (e) => {
-    setRecipeData({ ...recipeData, [e.target.name]: e.target.value });
+    let {
+      name: fieldName,
+      value: fieldValue
+    } = e.target;
+
+    if(fieldName === 'ingredients') {
+      fieldValue = fieldValue.split(',');
+    } else if(fieldName === 'cookingSteps') {
+      fieldValue = fieldValue.split(',');  
+    }
+
+    setRecipeData((recipeData) => ({ ...recipeData, [fieldName]: fieldValue }));
   }
 
   // Recipe Utility Functions.
@@ -86,13 +97,47 @@ const AddRecipe = () => {
     })();
   }
 
+  const validateRecipeData = (data) => {
+
+    data.name = data.name.trim();
+    data.description = data.description.trim();
+    data.ingredients = data.ingredients.filter((ingredient) => ingredient.trim() !== '');
+    data.cookingSteps = data.cookingSteps.filter((step) => step.trim() !== '');
+
+    if(data.imageSRC && data.imageSRC.trim() === '') delete data.imageSRC;
+
+    if(data.name === '') {
+      alert('Recipe Name Is Required');
+      return false;
+    } else if(data.description=== '') {
+      alert('Please Provide A Suitable Recipe Description');
+      return false;
+    } else { 
+      if(data.ingredients.length === 0) {
+        alert(`You have to provide some ingredients to ${isUpdating === 'true' ? 'update' : 'save'} this recipe.`);
+        return false;
+      }
+
+      if(data.cookingSteps.length === 0) {
+        alert(`You have to provide atleast one cooking step to ${isUpdating === 'true' ? 'update' : 'save'} this recipe`);
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   // Bottom Button Handlers.
   const manageRecipe = (e) => {
     e.preventDefault();
+
+    let modifiedRecipeData = recipeData;
+    if(validateRecipeData(modifiedRecipeData) === false) return;
+
     if(isUpdating === 'false') {
-      manageRecipeUtil('http://localhost:4000/recipes/add-recipe', 'POST', recipeData);
+      manageRecipeUtil('http://localhost:4000/recipes/add-recipe', 'POST', modifiedRecipeData);
     } else {
-      manageRecipeUtil(`http://localhost:4000/recipes/${recipeID}`, 'PUT', recipeData);
+      manageRecipeUtil(`http://localhost:4000/recipes/${recipeID}`, 'PUT', modifiedRecipeData);
       setIsUpdating('false');
     }
   }

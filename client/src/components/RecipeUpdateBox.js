@@ -28,7 +28,7 @@ const RecipeUpdateBox = ({ recipeID }) => {
 
   return (
     <div className="col s10 m10 l10" id="recipe-update-box">
-      <div className="col s6 m5 l4">
+      <div className="col s12 m12 l12">
         <i 
           onClick={navigateBackward}
           className="material-icons small blue-grey-text text-darken-2 z-depth-1">
