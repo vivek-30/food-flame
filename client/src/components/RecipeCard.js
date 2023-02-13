@@ -24,7 +24,7 @@ const RecipeCard = ({ recipeObject, setRecipes }) => {
   return (
     <div className="card recipe-card stick-action col s12 m5 l3">
       <div className="card-image waves-effect waves-block waves-light">
-        <img className="activator" src={imageSRC} alt={name} />
+        <img className="activator recipe-img" src={imageSRC} alt={name} />
       </div>
       <div className="card-content">
         <strong className="card-title truncate grey-text text-darken-4 left">
