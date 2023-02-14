@@ -1,9 +1,11 @@
-const RecipeInputField = ({ fieldName, fieldValue, inputLabel, imageIcon, handleInputChange }) => {
+const RecipeInputField = ({ fieldName, fieldValue, inputLabel, alignRight, imageIcon, handleInputChange }) => {
   return (
-    <div className="col s12 m6 l6">
-      <label htmlFor={fieldName}>{inputLabel}</label>
-      <div className="input-field">
+    <div className={`col s12 m5 l5 recipe-input-field ${alignRight ? 'push-m1 push-l1' : ''}`}>
+      <div className="icon-label-conatiner">
         <img src={imageIcon} alt="Icon" className="input-field-icon" />
+        <label htmlFor={fieldName} className="input-field-label">{inputLabel}</label>
+      </div>
+      <div className="input-field">
         <input
           type="text"
           name={fieldName}

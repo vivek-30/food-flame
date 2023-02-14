@@ -191,19 +191,14 @@ body {
   transform: scale(0.96);
 }
 
-/* Add Recipe Page */
+/* Add/Update Recipe Page */
 #add-recipe-container > form {
   margin-top: 4em;
 }
 
 .input-field-icon {
-  width: 6%;
-  height: 6%;
-}
-
-.steps-icon {
-  width: 3.5%;
-  height: 3.5%;
+  width: 8%;
+  height: 8%;
 }
 
 #btn-group {
@@ -211,5 +206,49 @@ body {
 }
 
 #btn-group button {
-  margin: 0 .7rem;
+  margin: .5rem;
 }
+
+.icon-label-container {
+  position: relative;
+}
+
+.input-field-label {
+  position: absolute;
+  font-size: 1.2rem;
+  color: #000;
+  margin: 0 1rem;
+}
+
+.recipe-input-field {
+  margin: 1rem 0;
+}
+
+.recipe-input-field > .input-field {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  margin: 1.8rem auto;
+  box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.recipe-input-field > .input-field input {
+  /* text-align: center; */
+  padding: 3px 12px;
+  border: 0 !important
+}
+
+.procedure-input-field .input-field-icon {
+  width: 7%;
+  height: 7%;
+}
+
+.procedure-input-field .input-field-label {
+  font-size: 1.7rem;
+  font-weight: 280;
+}
+
+.procedure-input-field > .input-field i {
+  margin: .3rem .6rem;
+}
+
