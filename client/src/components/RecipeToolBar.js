@@ -1,17 +1,8 @@
-import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { emptyRecipe, initialCookingStep } from '../pages/AddRecipe';
-import M from 'materialize-css';
 
 const RecipeToolBar = ({ setRecipeData, setCookingSteps, manageRecipe }) => {
-  const floatingActionButtonRef = useRef();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setTimeout(() => {
-      M.FloatingActionButton.init(floatingActionButtonRef.current, { hoverEnabled: false });
-    }, 1000);
-  }, []);
 
   // Toolbar Handlers.
   const addNewCookingStep = (e) => {
@@ -33,32 +24,29 @@ const RecipeToolBar = ({ setRecipeData, setCookingSteps, manageRecipe }) => {
   }
 
   return (
-    <div ref={floatingActionButtonRef} className="fixed-action-btn">
-      <button onClick={(e) => e.preventDefault()} className="btn-floating btn-large teal darken-1">
-        <i className="large material-icons">menu</i>
-      </button>
-      <ul>
-        <li>
-          <button onClick={addNewCookingStep} className="btn-floating teal darken-1">
-            <i className="material-icons">add</i>
-          </button>
-        </li>
-        <li>
-          <button onClick={navigateBackward} className="btn-floating teal darken-1">
-            <i className="material-icons">arrow_back</i>
-          </button>
-        </li>
-        <li>
-          <button onClick={clearAllInputFields} className="btn-floating teal darken-1">
-            <i className="material-icons">delete_sweep</i>
-          </button>
-        </li>
-        <li>
-          <button onClick={manageRecipe} className="btn-floating teal darken-1">
-            <i className="material-icons">save</i>
-          </button>
-        </li>
-      </ul>
+    <div className="col s12 m12 l12" id="recipe-toolbar">
+      <div className="col s12 m10 l10 push-s2 push-m3 push-l4">
+        <i 
+          onClick={addNewCookingStep}
+          className="material-icons small blue-grey-text text-darken-2 z-depth-1">
+          add
+        </i>
+        <i 
+          onClick={navigateBackward}
+          className="material-icons small blue-grey-text text-darken-2 z-depth-1">
+          arrow_back
+        </i>
+        <i 
+          onClick={clearAllInputFields}
+          className="material-icons small blue-grey-text text-darken-2 z-depth-1">
+          delete_sweep
+        </i>
+        <i 
+          onClick={manageRecipe}
+          className="material-icons small blue-grey-text text-darken-2 z-depth-1">
+          save
+        </i>
+      </div>
     </div>
   );
 }
