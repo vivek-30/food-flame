@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
 
+// Components.
 import EmptyData from '../components/EmptyData';
 import RecipesList from '../components/RecipesList';
 import AddRecipeCard from '../components/AddRecipeCard';
 import LoadingSpinner from '../components/LoadingSpinner';
+
+// Controllers.
+import customAlert from '../controllers/CustomAlert';
 
 const Home = () => {
   const [recipes, setRecipes] = useState([]);
@@ -20,7 +24,7 @@ const Home = () => {
         setRecipes(data);
       } else {
         const { message, error } = data;
-        alert(message);
+        customAlert(message);
         console.log(`Error Occured While Fetching Recipes ${error}`);
       }
     })();

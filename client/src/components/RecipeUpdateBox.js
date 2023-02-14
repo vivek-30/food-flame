@@ -1,4 +1,5 @@
 import { createSearchParams, useNavigate } from 'react-router-dom';
+import customAlert from '../controllers/CustomAlert';
 
 const RecipeUpdateBox = ({ recipeID }) => {
 
@@ -16,7 +17,7 @@ const RecipeUpdateBox = ({ recipeID }) => {
       navigate('/home');
     } else {
       const { message, error } = data;
-      alert(message);
+      customAlert(message);
       console.log(`Error Occured While Deleting A Recipes ${error}`);
     }
   }

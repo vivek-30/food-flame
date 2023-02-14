@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import customAlert from '../controllers/CustomAlert';
 
 const RecipeCard = ({ recipeObject, setRecipes }) => {
   
@@ -16,7 +17,7 @@ const RecipeCard = ({ recipeObject, setRecipes }) => {
       setRecipes(updateState);
     } else {
       const { message, error } = data;
-      alert(message);
+      customAlert(message);
       console.log(`Error Occured While Deleting A Recipes ${error}`);
     }
   }

@@ -216,6 +216,7 @@ body {
 .input-field-label {
   position: absolute;
   font-size: 1.2rem;
+  cursor: text;
   color: #000;
   margin: 0 1rem;
 }
@@ -250,6 +251,7 @@ body {
 
 .procedure-input-field > .input-field i {
   margin: .3rem .6rem;
+  cursor: pointer;
 }
 
 /* Recipe ToolBar */

@@ -14,6 +14,9 @@ import ProcedureIcon from '../assets/procedure.svg';
 import IngredientIcon from '../assets/ingredients.svg';
 import DescriptionIcon from '../assets/description.svg';
 
+// Controllers.
+import customAlert from '../controllers/CustomAlert';
+
 // Default Recipe Data.
 export const emptyRecipe = {
   name: '',
@@ -51,7 +54,7 @@ const AddRecipe = () => {
         }));
       } else {
         const { message, error } = data;
-        alert(message);
+        customAlert(message);
         console.log(`Error Occured While Fetching A Recipe: ${error}`);
       }
     })();
@@ -95,10 +98,10 @@ const AddRecipe = () => {
       if(response.ok) {
         setRecipeData(emptyRecipe);
         setCookingSteps(initialCookingStep);
-        alert(`Recipe ${method === 'POST' ? 'Saved' : 'Updated'} Successfully.`);
+        customAlert(`Recipe ${method === 'POST' ? 'Saved' : 'Updated'} Successfully.`);
       } else {
         const { message, error } = data;
-        alert(message);
+        customAlert(message);
         console.log(`Error Occured While ${method === 'POST' ? 'Saving' : 'Updating'} A Recipe: ${error}`);
       }
     })();
@@ -118,19 +121,19 @@ const AddRecipe = () => {
     }
 
     if(data.name === '') {
-      alert('Recipe Name Is Required');
+      customAlert('Recipe Name Is Required');
       return false;
     } else if(data.description === '') {
-      alert('Please Provide A Suitable Recipe Description');
+      customAlert('Please Provide A Suitable Recipe Description');
       return false;
     } else { 
       if(data.ingredients.length === 0) {
-        alert(`You have to provide some ingredients to ${isUpdating === 'true' ? 'update' : 'save'} this recipe.`);
+        customAlert(`You have to provide some ingredients to ${isUpdating === 'true' ? 'update' : 'save'} this recipe.`);
         return false;
       }
 
       if(data.cookingSteps.length === 0) {
-        alert(`You have to provide atleast one cooking step to ${isUpdating === 'true' ? 'update' : 'save'} this recipe`);
+        customAlert(`You have to provide atleast one cooking step to ${isUpdating === 'true' ? 'update' : 'save'} this recipe`);
         return false;
       }
     }
@@ -170,7 +173,7 @@ const AddRecipe = () => {
   const removeCookingStep = (e) => {
     let stepIndex = parseInt(e.target.dataset.stepIndex);
     if(cookingSteps.length === 1) {
-      alert("Single Cooking Step Can't be Deleted.");
+      customAlert("Single Cooking Step Can't be Deleted.");
       return;
     }
 

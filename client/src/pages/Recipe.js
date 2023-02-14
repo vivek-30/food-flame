@@ -2,10 +2,14 @@ import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import M from 'materialize-css';
 
+// Components.
 import EmptyData from '../components/EmptyData';
 import RecipeSteps from '../components/RecipeSteps';
 import LoadingSpinner from '../components/LoadingSpinner';
 import RecipeUpdateBox from '../components/RecipeUpdateBox';
+
+// Controllers.
+import customAlert from '../controllers/CustomAlert';
 
 const Recipe = () => {
 
@@ -25,7 +29,7 @@ const Recipe = () => {
         setRecipe(data);
       } else {
         const { message, error } = data;
-        alert(message);
+        customAlert(message);
         console.log(`Error Occured While Fetching A Recipe ${error}`);
       }
     })();
