@@ -12,12 +12,12 @@ const Landing = () => {
           <h3 className="landing-title">Recipes</h3>
           <img src={DishIcon} alt="Dish icon" className="landing-dish-icon" />
         </div>
-        <p className="flow-text">
+        <p>
           Find IT,<br />
           Check IT,<br />
           Taste IT !!!
         </p>
-        <Link to="/home" className="round-large-btn btn-large blue-grey darken-2">
+        <Link to="/home" className="round-large-btn btn-large teal z-depth-2">
           Explore
           <i className="material-icons right">arrow_forward</i>
         </Link>
