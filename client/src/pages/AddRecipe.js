@@ -1,39 +1,39 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
+// Components.
+import CookingStep from '../components/CookingStep';
+import RecipeToolBar from '../components/RecipeToolBar';
 import LoadingSpinner from '../components/LoadingSpinner';
-import RecipeInputField from '../components/RecipeInputField'
+import RecipeInputField from '../components/RecipeInputField';
 
-// Icons For Input Field
+// Icons For Input Field.
 import UrlIcon from '../assets/url.svg';
 import TitleIcon from '../assets/title.svg';
-import IngredientIcon from '../assets/recipe.svg';
-import ProcedureIcon from '../assets/recipe-book.svg';
+import ProcedureIcon from '../assets/procedure.svg';
+import IngredientIcon from '../assets/ingredients.svg';
 import DescriptionIcon from '../assets/description.svg';
 
+// Default Recipe Data.
+export const emptyRecipe = {
+  name: '',
+  description: '',
+  imageSRC: '',
+  ingredients: []
+};
+export const initialCookingStep = [{ index: 0, content: '' }];
+const defaultImageURL = 'https://cdn.pixabay.com/photo/2015/08/25/03/50/background-906135_960_720.jpg';
+
 const AddRecipe = () => {
-
-  const emptyRecipe = {
-    name: '',
-    description: '',
-    imageSRC: '',
-    ingredients: [],
-    cookingSteps: []
-  };
-
   const [recipeData, setRecipeData] = useState(emptyRecipe);
   const [isUpdating, setIsUpdating] = useState('false');
-  // const [cookingSteps, setCookingSteps] = useState([{ index: 0, content: '' }]);
+  const [cookingSteps, setCookingSteps] = useState(initialCookingStep);
   const [isLoading, setIsLoading] = useState(true);
   const [searchParams] = useSearchParams();
-
-  const navigate = useNavigate();
 
   // Extract Query String Parameters.
   const updatingParam = searchParams.get('updating');
   const recipeID = updatingParam === 'true' ? searchParams.get('id') : 'invalid';
-
-  const defaultImageURL = 'https://cdn.pixabay.com/photo/2015/08/25/03/50/background-906135_960_720.jpg';
 
   const fetchRecipeData = () => {    
     (async () => {
@@ -43,7 +43,12 @@ const AddRecipe = () => {
       setIsLoading(false);
 
       if(response.ok) {
-        setRecipeData(data);
+        const { name, description, imageSRC, ingredients, cookingSteps } = data;
+
+        setRecipeData({ name, description, imageSRC, ingredients });
+        setCookingSteps(cookingSteps.map((step, index) => {
+          return { index, content: step };
+        }));
       } else {
         const { message, error } = data;
         alert(message);
@@ -70,8 +75,6 @@ const AddRecipe = () => {
 
     if(fieldName === 'ingredients') {
       fieldValue = fieldValue.split(',');
-    } else if(fieldName === 'cookingSteps') {
-      fieldValue = fieldValue.split(',');  
     }
 
     setRecipeData((recipeData) => ({ ...recipeData, [fieldName]: fieldValue }));
@@ -91,6 +94,7 @@ const AddRecipe = () => {
 
       if(response.ok) {
         setRecipeData(emptyRecipe);
+        setCookingSteps(initialCookingStep);
         alert(`Recipe ${method === 'POST' ? 'Saved' : 'Updated'} Successfully.`);
       } else {
         const { message, error } = data;
@@ -101,11 +105,13 @@ const AddRecipe = () => {
   }
 
   const validateRecipeData = (data) => {
-
     data.name = data.name.trim();
     data.description = data.description.trim();
     data.ingredients = data.ingredients.filter((ingredient) => ingredient.trim() !== '');
-    data.cookingSteps = data.cookingSteps.filter((step) => step.trim() !== '');
+    
+    // Cooking Steps Modification
+    data.cookingSteps = data.cookingSteps.filter(({ content }) => content.trim() !== '');
+    data.cookingSteps = data.cookingSteps.map(({ content }) => content);
 
     if(data.imageSRC.trim() === '') {
       data.imageSRC = defaultImageURL;
@@ -114,7 +120,7 @@ const AddRecipe = () => {
     if(data.name === '') {
       alert('Recipe Name Is Required');
       return false;
-    } else if(data.description=== '') {
+    } else if(data.description === '') {
       alert('Please Provide A Suitable Recipe Description');
       return false;
     } else { 
@@ -132,11 +138,10 @@ const AddRecipe = () => {
     return true;
   }
 
-  // Bottom Button Handlers.
   const manageRecipe = (e) => {
     e.preventDefault();
 
-    let modifiedRecipeData = recipeData;
+    let modifiedRecipeData = { ...recipeData, cookingSteps };
     if(validateRecipeData(modifiedRecipeData) === false) return;
 
     if(isUpdating === 'false') {
@@ -147,13 +152,38 @@ const AddRecipe = () => {
     }
   }
 
-  const navigateBackward = (e) => {
-    e.preventDefault();
-    navigate('/home');
+  // Cooking Steps Handlers.
+  const handleStepInputChange = (e) => {
+    let stepIndex = parseInt(e.target.dataset.stepIndex);
+    const { value } = e.target;
+
+    setCookingSteps((currentCookingSteps) => (
+      currentCookingSteps.map(({ index, content }) => {
+        if(index === stepIndex) {
+          return { index, content: value };
+        }
+        return { index, content };
+      })
+    ));
   }
 
-  const addNewCookingStep = (e) => {
-    e.preventDefault();
+  const removeCookingStep = (e) => {
+    let stepIndex = parseInt(e.target.dataset.stepIndex);
+    if(cookingSteps.length === 1) {
+      alert("Single Cooking Step Can't be Deleted.");
+      return;
+    }
+
+    setCookingSteps((currentCookingSteps) => {
+      let newIndex = 0;
+      let updatedCookingSteps = [];
+      currentCookingSteps.forEach(({ index, content }) => {
+        if(index !== stepIndex) {
+          updatedCookingSteps.push({ index: newIndex++, content });
+        }
+      });
+      return updatedCookingSteps;
+    });
   }
 
   return (
@@ -165,6 +195,7 @@ const AddRecipe = () => {
             fieldName="name"
             fieldValue={recipeData.name}
             inputLabel="Recipe Name"
+            alignRight={false}
             imageIcon={TitleIcon}
             handleInputChange={handleInputChange}
           />
@@ -172,6 +203,7 @@ const AddRecipe = () => {
             fieldName="description"
             fieldValue={recipeData.description}
             inputLabel="Recipe Description"
+            alignRight={true}
             imageIcon={DescriptionIcon}
             handleInputChange={handleInputChange}
           />
@@ -179,6 +211,7 @@ const AddRecipe = () => {
             fieldName="imageSRC"
             fieldValue={recipeData.imageSRC}
             inputLabel="Paste Image URL (Not Required)"
+            alignRight={false}
             imageIcon={UrlIcon}
             handleInputChange={handleInputChange}
           />
@@ -186,30 +219,39 @@ const AddRecipe = () => {
             fieldName="ingredients"
             fieldValue={recipeData.ingredients}
             inputLabel="Ingredients (Seperate By Comma)"
+            alignRight={true}
             imageIcon={IngredientIcon}
             handleInputChange={handleInputChange}
           />
-          <div className="col s12 m12 l12">
-            <h3>Cooking Steps</h3>
-            <div className="input-field">
-              <img src={ProcedureIcon} alt="Icon" className="input-field-icon steps-icon" />
-              <input 
-                type="text" 
-                name="cookingSteps" 
-                value={recipeData.cookingSteps} 
-                onChange={handleInputChange} 
-                spellCheck="false" 
-                autoComplete="off" 
-              />
+          <div className="col s12 m11 l11 recipe-input-field procedure-input-field">
+            <div className="icon-label-conatiner">
+              <img src={ProcedureIcon} alt="Icon" className="input-field-icon" />
+              <label htmlFor="cookingSteps" className="input-field-label">Cooking Steps :</label>
             </div>
+            { 
+              cookingSteps.map(({ index, content }) => (
+                <CookingStep 
+                  key={index}
+                  index={index}
+                  content={content}
+                  removeCookingStep={removeCookingStep}
+                  handleStepInputChange={handleStepInputChange}
+                />
+              ))
+            }
           </div>
-          <div className="col s12 m12 l12" id="btn-group">
-            <button onClick={manageRecipe} className="btn-large col s3 m3 l3">
+          {/* <div className="col s10 m10 l10 push-s1 push-m1 push-l1" id="btn-group">
+            <button onClick={manageRecipe} className="btn-large col s6 m5 l3">
               {isUpdating === 'true' ? 'Update' : 'Add'} Recipe
             </button>
-            <button onClick={navigateBackward} className="btn-large col s3 m3 l3">Go Back</button>
-            <button onClick={addNewCookingStep} className="btn-large col s3 m3 l3">Add Step</button>
-          </div>
+            <button onClick={navigateBackward} className="btn-large col s6 m5 l3">Go Back</button>
+            <button onClick={addNewCookingStep} className="btn-large col s6 m5 l3">Add Step</button>
+          </div> */}
+          <RecipeToolBar 
+            manageRecipe={manageRecipe}
+            setRecipeData={setRecipeData} 
+            setCookingSteps={setCookingSteps}
+          />
         </form>
       }
     </section>
