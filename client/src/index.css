@@ -12,6 +12,10 @@ body {
   border-radius: 2rem;
 }
 
+.sidenav-trigger {
+  cursor: pointer;
+}
+
 /* Authentication Component */
 .authentication .input-field {
   margin: 3.5rem 0;
