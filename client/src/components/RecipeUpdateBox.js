@@ -6,7 +6,7 @@ const RecipeUpdateBox = ({ recipeID }) => {
   const navigate = useNavigate();
 
   const navigateBackward = () => {
-    navigate('/home');
+    navigate('/');
   }
 
   const removeRecipe = async () => {
@@ -14,7 +14,7 @@ const RecipeUpdateBox = ({ recipeID }) => {
     const data = await response.json();
 
     if(response.ok) {
-      navigate('/home');
+      navigate('/');
     } else {
       const { message, error } = data;
       customAlert(message);
@@ -32,20 +32,17 @@ const RecipeUpdateBox = ({ recipeID }) => {
       <div className="col s12 m12 l12">
         <i 
           onClick={navigateBackward}
-          data-tooltip="Go Back"
-          className="material-icons tooltipped small blue-grey-text text-darken-2 z-depth-1">
+          className="material-icons small blue-grey-text text-darken-2 z-depth-1">
           arrow_back
         </i>
         <i 
           onClick={removeRecipe}
-          data-tooltip="Delete Recipe"
-          className="material-icons tooltipped small blue-grey-text text-darken-2 z-depth-1">
+          className="material-icons small blue-grey-text text-darken-2 z-depth-1">
           delete
         </i>
         <i 
           onClick={updateRecipe}
-          data-tooltip="Edit Recipe"
-          className="material-icons tooltipped small blue-grey-text text-darken-2 z-depth-1">
+          className="material-icons small blue-grey-text text-darken-2 z-depth-1">
           edit
         </i>
       </div>

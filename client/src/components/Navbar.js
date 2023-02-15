@@ -30,7 +30,7 @@ const Navbar = () => {
       </nav>
       <ul ref={sideNavRef} id="slide-out" className="sidenav blue-grey lighten-5">
         <li><div className="user-view flow-text">FoodFlame</div></li>
-        <li><Link to="/home">Home</Link></li>
+        <li><Link to="/">Home</Link></li>
         <li><Link to="/sign-up">Sign Up</Link></li>
         <li><Link to="/log-in">Log In</Link></li>
       </ul>
