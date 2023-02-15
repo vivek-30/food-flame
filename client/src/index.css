@@ -8,6 +8,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.material-tooltip {
+  background: #fff;
+  color: #263238;
+  padding: .8rem 1.5rem;
+  border-radius: .6rem;
+}
+
 .round-large-btn {
   border-radius: 2rem;
 }

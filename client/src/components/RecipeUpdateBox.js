@@ -32,17 +32,20 @@ const RecipeUpdateBox = ({ recipeID }) => {
       <div className="col s12 m12 l12">
         <i 
           onClick={navigateBackward}
-          className="material-icons small blue-grey-text text-darken-2 z-depth-1">
+          data-tooltip="Go Back"
+          className="material-icons tooltipped small blue-grey-text text-darken-2 z-depth-1">
           arrow_back
         </i>
         <i 
           onClick={removeRecipe}
-          className="material-icons small blue-grey-text text-darken-2 z-depth-1">
+          data-tooltip="Delete Recipe"
+          className="material-icons tooltipped small blue-grey-text text-darken-2 z-depth-1">
           delete
         </i>
         <i 
           onClick={updateRecipe}
-          className="material-icons small blue-grey-text text-darken-2 z-depth-1">
+          data-tooltip="Edit Recipe"
+          className="material-icons tooltipped small blue-grey-text text-darken-2 z-depth-1">
           edit
         </i>
       </div>

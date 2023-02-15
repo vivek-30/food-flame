@@ -243,14 +243,8 @@ const AddRecipe = () => {
               ))
             }
           </div>
-          {/* <div className="col s10 m10 l10 push-s1 push-m1 push-l1" id="btn-group">
-            <button onClick={manageRecipe} className="btn-large col s6 m5 l3">
-              {isUpdating === 'true' ? 'Update' : 'Add'} Recipe
-            </button>
-            <button onClick={navigateBackward} className="btn-large col s6 m5 l3">Go Back</button>
-            <button onClick={addNewCookingStep} className="btn-large col s6 m5 l3">Add Step</button>
-          </div> */}
-          <RecipeToolBar 
+          <RecipeToolBar
+            isUpdating={isUpdating}
             manageRecipe={manageRecipe}
             setRecipeData={setRecipeData} 
             setCookingSteps={setCookingSteps}

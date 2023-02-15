@@ -1,8 +1,10 @@
-import { 
-  BrowserRouter, 
-  Routes, 
-  Route 
+import { useEffect } from 'react';
+import {
+  BrowserRouter,
+  Routes,
+  Route
 } from 'react-router-dom';
+import M from 'materialize-css';
 
 // Components.
 import Navbar from './components/Navbar';
@@ -15,6 +17,13 @@ import Landing from './pages/Landing';
 import AddRecipe from './pages/AddRecipe';
 
 const App = () => {
+  
+  useEffect(() => {
+    setTimeout(() => {
+      M.AutoInit();
+    }, 1000);
+  }, []);
+  
   return (
     <div className="App">
       <BrowserRouter>
