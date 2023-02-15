@@ -1,20 +1,17 @@
 import { Link } from 'react-router-dom';
+import useRecipeContext from '../hooks/useRecipeContext';
 import customAlert from '../controllers/CustomAlert';
 
-const RecipeCard = ({ recipeObject, setRecipes }) => {
-  
-  const { name, description, imageSRC, _id: recipeID } = recipeObject;
-
-  const updateState = (state) => {
-    return state.filter((recipe) => recipe._id !== recipeID);
-  }
+const RecipeCard = ({ recipe }) => {
+  const { 1:dispatch } = useRecipeContext(); // Grab 1st Index Array Element.
+  const { name, description, imageSRC, _id: recipeID } = recipe;
 
   const removeRecipe = async () => {
     const response = await fetch(`http://localhost:4000/recipes/${recipeID}`, { method: 'DELETE' });
     const data = await response.json();
 
     if(response.ok) {
-      setRecipes(updateState);
+      dispatch({ type: 'REMOVE_RECIPE', payload: data });
     } else {
       const { message, error } = data;
       customAlert(message);

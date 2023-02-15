@@ -43,7 +43,8 @@ const Recipe = () => {
     <section className="container row" id="recipe-page">
       {
         isLoading ? <LoadingSpinner /> :
-        !recipe ? <EmptyData /> : <>
+        !recipe ? <EmptyData /> :
+        <>
           <RecipeUpdateBox recipeID={recipe._id} />
           <div className="col s12 m5 l5 white img-box z-depth-2">
             <img 

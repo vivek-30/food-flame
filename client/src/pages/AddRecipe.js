@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import useRecipeContext from '../hooks/useRecipeContext';
 
 // Components.
 import CookingStep from '../components/CookingStep';
@@ -32,6 +33,7 @@ const AddRecipe = () => {
   const [isUpdating, setIsUpdating] = useState('false');
   const [cookingSteps, setCookingSteps] = useState(initialCookingStep);
   const [isLoading, setIsLoading] = useState(true);
+  const { 1:dispatch } = useRecipeContext(); // Grab 1st Index Array Element.
   const [searchParams] = useSearchParams();
 
   // Extract Query String Parameters.
@@ -96,8 +98,18 @@ const AddRecipe = () => {
       const data = await response.json();
 
       if(response.ok) {
+        // Clearing Input Fields.
         setRecipeData(emptyRecipe);
         setCookingSteps(initialCookingStep);
+        
+        // Updating Global Context State.
+        if(isUpdating) {
+          dispatch({ type: 'UPDATE_RECIPE', payload: data });
+          setIsUpdating('false');
+        } else {
+          dispatch({ type: 'ADD_RECIPE', payload: data });
+        }
+        
         customAlert(`Recipe ${method === 'POST' ? 'Saved' : 'Updated'} Successfully.`);
       } else {
         const { message, error } = data;
@@ -151,7 +163,6 @@ const AddRecipe = () => {
       manageRecipeUtil('http://localhost:4000/recipes/add-recipe', 'POST', modifiedRecipeData);
     } else {
       manageRecipeUtil(`http://localhost:4000/recipes/${recipeID}`, 'PUT', modifiedRecipeData);
-      setIsUpdating('false');
     }
   }
 
@@ -244,7 +255,6 @@ const AddRecipe = () => {
             }
           </div>
           <RecipeToolBar
-            isUpdating={isUpdating}
             manageRecipe={manageRecipe}
             setRecipeData={setRecipeData} 
             setCookingSteps={setCookingSteps}

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import useRecipeContext from '../hooks/useRecipeContext';
 
 // Components.
 import EmptyData from '../components/EmptyData';
@@ -10,7 +11,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import customAlert from '../controllers/CustomAlert';
 
 const Home = () => {
-  const [recipes, setRecipes] = useState([]);
+  const [state, dispatch] = useRecipeContext();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -21,22 +22,22 @@ const Home = () => {
       setIsLoading(false);    
 
       if(response.ok) {
-        setRecipes(data);
+        dispatch({ type: 'SET_RECIPES', payload: data });
       } else {
         const { message, error } = data;
         customAlert(message);
         console.log(`Error Occured While Fetching Recipes ${error}`);
       }
     })();
-  }, []);
+  }, [dispatch]);
 
   return (
     <main className="recipes-list-container container">
       <div className="row">
       {
         isLoading ? <LoadingSpinner /> : 
-        recipes.length ? <RecipesList recipes={recipes} setRecipes={setRecipes} />
-        : <>
+        state.recipes.length !== 0 ? <RecipesList /> : 
+        <>
           <AddRecipeCard />
           <EmptyData />
         </>

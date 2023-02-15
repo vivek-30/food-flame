@@ -1,25 +1,24 @@
 import { useState, useEffect } from 'react';
+import useRecipeContext from '../hooks/useRecipeContext';
 
+// Components.
 import RecipeCard from './RecipeCard';
 import SearchRecipe from './SearchRecipe';
 import AddRecipeCard from './AddRecipeCard';
 
-const RecipesList = ({ recipes, setRecipes }) => {
-  const [recipesToDisplay, setRecipesToDisplay] = useState(recipes);
-
+const RecipesList = () => {
+  const [state] = useRecipeContext();
+  const [recipesToDisplay, setRecipesToDisplay] = useState(state.recipes);
   useEffect(() => {
-    setRecipesToDisplay(recipes);
-  }, [recipes]);
+    setRecipesToDisplay(state.recipes);
+  }, [state.recipes]);
 
   return (
     <>
-      <SearchRecipe 
-        recipes={recipes}
-        setRecipesToDisplay={setRecipesToDisplay} 
-      />
+      <SearchRecipe setRecipesToDisplay={setRecipesToDisplay} />
       {
         recipesToDisplay.map((recipe) => (
-          <RecipeCard key={recipe._id} recipeObject={recipe} setRecipes={setRecipes} />
+          <RecipeCard key={recipe._id} recipe={recipe} />
         ))
       }
       <AddRecipeCard />

@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import useRecipeContext from '../hooks/useRecipeContext';
 
-const SearchRecipe = ({ recipes, setRecipesToDisplay }) => {
-
+const SearchRecipe = ({ setRecipesToDisplay }) => {
   const [query, setQuery] = useState('');
+  const [state] = useRecipeContext();
 
   const handleInputChange = (e) => {
     setQuery(e.target.value);
@@ -26,13 +27,13 @@ const SearchRecipe = ({ recipes, setRecipesToDisplay }) => {
   const searchRecipe = () => {
     const refinedQuery = query.trim().toLowerCase();
     if(refinedQuery === '') {
-      setRecipesToDisplay(recipes);
+      setRecipesToDisplay(state.recipes);
       return;
     }
 
     const searchedResults = [];
 
-    recipes.forEach((recipe) => {
+    state.recipes.forEach((recipe) => {
       if(hasQueryString(recipe.name, recipe.ingredients, refinedQuery)) {
         searchedResults.push(recipe);
       }

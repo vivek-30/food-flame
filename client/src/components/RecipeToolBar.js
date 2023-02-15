@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { emptyRecipe, initialCookingStep } from '../pages/AddRecipe';
 
-const RecipeToolBar = ({ isUpdating, setRecipeData, setCookingSteps, manageRecipe }) => {
+const RecipeToolBar = ({ setRecipeData, setCookingSteps, manageRecipe }) => {
   const navigate = useNavigate();
 
   // Toolbar Handlers.
