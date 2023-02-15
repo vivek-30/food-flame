@@ -35,8 +35,9 @@ const addNewRecipe = async (req, res) => {
 const updateOneRecipe = async (req, res) => {
   const { id } = req.params;
   try {
-    const recipe = await Recipes.findByIdAndUpdate(id, req.body);
-    res.status(200).json(recipe);
+    const outdatedRecipe = await Recipes.findByIdAndUpdate(id, req.body);
+    const updatedRecipe = await Recipes.findById(id);
+    res.status(200).json(updatedRecipe);
   } catch(error) {
     res.status(500).json({message: 'Unable To Update Recipe.', error: error.message})
   }
