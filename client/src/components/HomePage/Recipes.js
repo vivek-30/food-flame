@@ -1,21 +1,22 @@
 import { useState, useEffect } from 'react';
-import useRecipeContext from '../hooks/useRecipeContext';
+import useRecipeContext from '../../hooks/useRecipeContext';
 
 // Components.
 import RecipeCard from './RecipeCard';
-import SearchRecipe from './SearchRecipe';
+import RecipeSearchBox from './RecipeSearchBox';
 import AddRecipeCard from './AddRecipeCard';
 
-const RecipesList = () => {
+const Recipes = () => {
   const [state] = useRecipeContext();
   const [recipesToDisplay, setRecipesToDisplay] = useState(state.recipes);
+  
   useEffect(() => {
     setRecipesToDisplay(state.recipes);
   }, [state.recipes]);
 
   return (
     <>
-      <SearchRecipe setRecipesToDisplay={setRecipesToDisplay} />
+      <RecipeSearchBox setRecipesToDisplay={setRecipesToDisplay} />
       {
         recipesToDisplay.map((recipe) => (
           <RecipeCard key={recipe._id} recipe={recipe} />
@@ -26,4 +27,4 @@ const RecipesList = () => {
   );
 }
 
-export default RecipesList;
+export default Recipes;

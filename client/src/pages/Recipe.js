@@ -3,16 +3,15 @@ import { useParams } from 'react-router-dom';
 import M from 'materialize-css';
 
 // Components.
-import EmptyData from '../components/EmptyData';
-import RecipeSteps from '../components/RecipeSteps';
+import NoData from '../components/NoData';
 import LoadingSpinner from '../components/LoadingSpinner';
-import RecipeUpdateBox from '../components/RecipeUpdateBox';
+import RecipeSteps from '../components/RecipePage/RecipeSteps';
+import RecipeUpdateBox from '../components/RecipePage/RecipeUpdateBox';
 
-// Controllers.
-import customAlert from '../controllers/CustomAlert';
+// Utility Functions.
+import customAlert from '../utils/customAlert';
 
 const Recipe = () => {
-
   const [recipe, setRecipe] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -40,16 +39,16 @@ const Recipe = () => {
   }, [recipeID]);
 
   return (
-    <section className="container row" id="recipe-page">
+    <section className="container row pos-relative" id="recipe-page">
       {
         isLoading ? <LoadingSpinner /> :
-        !recipe ? <EmptyData /> :
+        !recipe ? <NoData /> :
         <>
           <RecipeUpdateBox recipeID={recipe._id} />
           <div className="col s12 m5 l5 white img-box z-depth-2">
             <img 
               ref={recipeImageRef}
-              className="materialboxed col m5 l5 s12 recipe-image" 
+              className="materialboxed col m5 l5 s12 recipe-image full-width" 
               src={recipe.imageSRC} 
               alt="Recipe" 
             />

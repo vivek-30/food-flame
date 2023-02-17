@@ -3,20 +3,20 @@ import { useSearchParams } from 'react-router-dom';
 import useRecipeContext from '../hooks/useRecipeContext';
 
 // Components.
-import CookingStep from '../components/CookingStep';
-import RecipeToolBar from '../components/RecipeToolBar';
 import LoadingSpinner from '../components/LoadingSpinner';
-import RecipeInputField from '../components/RecipeInputField';
+import CookingStep from '../components/AddRecipePage/CookingStep';
+import RecipeToolBar from '../components/AddRecipePage/RecipeToolBar';
+import RecipeInputField from '../components/AddRecipePage/RecipeInputField';
 
 // Icons For Input Field.
-import UrlIcon from '../assets/url.svg';
-import TitleIcon from '../assets/title.svg';
-import ProcedureIcon from '../assets/procedure.svg';
-import IngredientIcon from '../assets/ingredients.svg';
-import DescriptionIcon from '../assets/description.svg';
+import UrlIcon from '../assets/AddRecipePage/url.svg';
+import TitleIcon from '../assets/AddRecipePage/title.svg';
+import ProcedureIcon from '../assets/AddRecipePage/procedure.svg';
+import IngredientIcon from '../assets/AddRecipePage/ingredients.svg';
+import DescriptionIcon from '../assets/AddRecipePage/description.svg';
 
-// Controllers.
-import customAlert from '../controllers/CustomAlert';
+// Utility Functions.
+import customAlert from '../utils/customAlert';
 
 // Default Recipe Data.
 export const emptyRecipe = {
@@ -33,6 +33,7 @@ const AddRecipe = () => {
   const [isUpdating, setIsUpdating] = useState('false');
   const [cookingSteps, setCookingSteps] = useState(initialCookingStep);
   const [isLoading, setIsLoading] = useState(true);
+  
   const { 1:dispatch } = useRecipeContext(); // Grab 1st Index Array Element.
   const [searchParams] = useSearchParams();
 
@@ -238,9 +239,9 @@ const AddRecipe = () => {
             handleInputChange={handleInputChange}
           />
           <div className="col s12 m11 l11 recipe-input-field procedure-input-field">
-            <div className="icon-label-conatiner">
+            <div className="icon-label-conatiner pos-relative">
               <img src={ProcedureIcon} alt="Icon" className="input-field-icon" />
-              <label htmlFor="cookingSteps" className="input-field-label">Cooking Steps :</label>
+              <label htmlFor="cookingSteps" className="input-field-label pos-absolute">Cooking Steps :</label>
             </div>
             { 
               cookingSteps.map(({ index, content }) => (

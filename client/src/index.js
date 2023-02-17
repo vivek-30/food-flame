@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
+import './index.css';
 
 // Context Providers.
 import RecipeContextProvider from './context/RecipeContext';

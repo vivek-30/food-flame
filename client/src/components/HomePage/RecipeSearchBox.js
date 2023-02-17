@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import useRecipeContext from '../hooks/useRecipeContext';
+import useRecipeContext from '../../hooks/useRecipeContext';
 
-const SearchRecipe = ({ setRecipesToDisplay }) => {
+const RecipeSearchBox = ({ setRecipesToDisplay }) => {
   const [query, setQuery] = useState('');
   const [state] = useRecipeContext();
 
@@ -43,22 +43,23 @@ const SearchRecipe = ({ setRecipesToDisplay }) => {
   }
 
   return (
-    <div className="search-recipe-box col s12 m12 l12">
+    <div id="recipe-search-box" className="col s12 m12 l12">
       <div className="input-field col s12 m4 l4 push-m8 push-l10">
         <i className="material-icons prefix">search</i>
         <input 
           type="search" 
-          id="recipe-search" 
+          id="recipe-search-input" 
+          className="text-center"
+          value={query}
+          onKeyUp={searchRecipe}
+          onChange={handleInputChange}
           autoComplete="off" 
           spellCheck="false" 
           placeholder="Search Recipe..."
-          onKeyUp={searchRecipe}
-          onChange={handleInputChange}
-          value={query}
         />
       </div>
     </div>
   );
 }
 
-export default SearchRecipe;
+export default RecipeSearchBox;

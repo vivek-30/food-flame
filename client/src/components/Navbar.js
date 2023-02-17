@@ -16,7 +16,7 @@ const Navbar = () => {
   return (
     <>
       <nav className="blue-grey white">
-        <span className="sidenav-trigger white" data-target="slide-out">
+        <span className="sidenav-trigger white cursor-ptr" data-target="slide-out">
           <i className="material-icons blue-grey-text text-darken-2">menu</i>
         </span>
         <div className="nav-wrapper container">

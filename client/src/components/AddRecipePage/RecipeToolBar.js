@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { emptyRecipe, initialCookingStep } from '../pages/AddRecipe';
+
+// Default Recipe Data.
+import { emptyRecipe, initialCookingStep } from '../../pages/AddRecipe';
 
 const RecipeToolBar = ({ setRecipeData, setCookingSteps, manageRecipe }) => {
   const navigate = useNavigate();

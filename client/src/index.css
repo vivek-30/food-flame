@@ -1,6 +1,29 @@
+/* =========================================== Initial Setup =========================================== */
+:root {
+  /* Background Colors */
+  --bg-color-light: #eceff1;
+
+  /* Font Colors */
+  --white: #fff;
+  --black: #000;
+  
+  /* Border Radius */
+  --radius-round-mx: 50%;
+  --radius-round-lg: 2rem;
+  --radius-round-md: .8rem;
+  --radius-round-sm: .5rem;
+  
+  /* Box Shadow */
+  --box-shadow-dark: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
+  
+  /* Margin And Padding */
+  --base-margin: 1rem;
+  --base-padding: 1rem;
+}
+
 body {
   margin: 0;
-  background-color: #eceff1;
+  background-color: var(--bg-color-light);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -8,36 +31,54 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ============================================= Base Classes ============================================= */
+.text-center { text-align: center; }
+.cursor-ptr { cursor: pointer; }
+
+.pos-relative { position: relative; }
+.pos-absolute { position: absolute; }
+
+.full-width { width: 100% !important }
+.full-height { height: 100% !important }
+.full-width-height { width: 100% !important; height: 100% !important }
+
+.top-left-center { top: 50%; left: 50% }
+
+.hidden { display: none }
+.overflow-hidden { overflow: hidden; }
+
+/* ============================================== Main Styling ============================================== */
 .round-large-btn {
-  border-radius: 2rem;
+  border-radius: var(--radius-round-lg);
 }
 
-.sidenav-trigger {
-  cursor: pointer;
+/* Make All Icon's Pointer To Be Cursor */
+i { 
+  cursor: pointer; 
 }
 
-/* Authentication Component */
-.authentication .input-field {
-  margin: 3.5rem 0;
+#recipe-search-box .input-field,
+.recipe-input-field > .input-field {
+  background-color: var(--white);
+  border-radius: var(--radius-round-sm);
+  box-shadow: var(--box-shadow-dark);
 }
 
-.authentication > div {
-  margin: 3rem auto;
-  padding: 3rem;
-  background: #fbf7f7;
-  border-radius: 0.8em;
-  box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
+#recipe-update-box i, 
+#recipe-toolbar i {
+  background-color: var(--white);
+  padding: .5rem;
+  border-radius: var(--radius-round-mx);
+  margin: 1.2rem .7rem 0rem;
 }
 
-/* Home Page */
-.recipes-list-container {
-  position: relative;
+#recipe-update-box i:hover,
+#recipe-toolbar i:hover {
+  transform: scale(0.96);
 }
 
+/* NoData Component */
 .no-data {
-  position: absolute;
-  top: 50%;
-  left: 50%;
   transform: translate(-50%, 50%);
 }
 
@@ -46,31 +87,60 @@ body {
   width: 230px;
 }
 
+/* AddRecipeCard Component */
+#add-recipe-card {
+  border: 2px dotted #546e7a;
+  display: grid;
+  place-content: center;
+}
+
+#add-recipe-card:hover {
+  transform: scale(0.99);
+  background-color: rgba(241, 241, 241, 0.1);
+}
+
+/* LoadingSpinner Component */
+.loading-spinner {
+  position: fixed;
+}
+
+/* RecipeSearchBox Component */
+#recipe-search-box .input-field {
+  margin: 1.8em 0 0.8em;
+}
+
+#recipe-search-box i {
+  margin: 3px 0rem;
+  border-right: 2px solid #78909c;
+}
+
+#recipe-search-input {
+  border-bottom: 0 !important;
+}
+
+/* Authentication Pages */
+.authentication .input-field {
+  margin: 3.5rem 0;
+}
+
+.authentication > div {
+  margin: 3rem auto;
+  padding: 3rem;
+  background: #fbf7f7;
+  border-radius: var(--radius-round-md);
+  box-shadow: var(--box-shadow-dark);
+}
+
+/* Home Page */
 .recipe-card {
   min-height: 22rem !important;
   min-width: 20vw !important;
-  margin: 1rem;
-  border-radius: 0.5rem;
+  margin: var(--base-margin);
+  border-radius: var(--radius-round-sm);
 }
 
 .recipe-card .recipe-img {
-  width: 100%;
   height: 13rem !important;
-}
-
-.recipe-card .card-title {
-  width: 100%;
-  text-transform: capitalize;
-}
-
-.recipe-card .card-content {
-  position: relative;
-}
-
-.recipe-card .card-title i {
-  position: absolute;
-  right: 1% !important;
-  cursor: pointer;
 }
 
 .recipe-card .card-action {
@@ -80,55 +150,21 @@ body {
   justify-content: center; */
 }
 
-#add-recipe-card {
-  border: 2px dotted #546e7a;
-  display: grid;
-  place-content: center;
-  cursor: pointer;
+.recipe-card .card-title {
+  text-transform: capitalize;
 }
 
-#add-recipe-card:hover {
-  transform: scale(0.99);
-  background-color: rgba(241, 241, 241, 0.1);
-}
-
-/* Loading Spinner */
-.loading-spinner {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-}
-
-/* Input Fields */
-.search-recipe-box .input-field {
-  background-color: #fff;
-  border-radius: 0.5rem;
-  margin: 1.8em 1.8em 0.8em;
-  box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
-}
-
-.search-recipe-box i {
-  margin: 3px 0rem;
-  border-right: 2px solid #78909c;
-}
-
-.search-recipe-box input {
-  text-align: center;
-  border-bottom: 0 !important;
+.recipe-card .card-title i {
+  right: 1% !important;
 }
 
 /* Recipe Page */
-#recipe-page {
-  position: relative;
-}
-
 #recipe-page div.img-box {
   margin: 1.5rem auto;
-  border-radius: .8rem;
+  border-radius: var(--radius-round-md);
 }
 
 #recipe-page .recipe-image {
-  width: 100%;
   height: 20rem;
   margin: 1.5rem auto;
 }
@@ -153,24 +189,12 @@ body {
 #ingredients-box .ingredient {
   margin: .4rem .5rem;
   padding: .4rem .6rem;
-  border-radius: .5rem;
+  border-radius: var(--radius-round-sm);
   /* background-color: #90b7c8; */
   background-color: #80b1c7;
 }
 
-#recipe-update-box i {
-  background-color: white;
-  padding: .5rem;
-  border-radius: 50%;
-  margin: 1.2rem .7rem 0rem;
-  cursor: pointer;
-}
-
-#recipe-update-box i:hover {
-  transform: scale(0.96);
-}
-
-/* Add/Update Recipe Page */
+/* AddRecipe Page */
 #add-recipe-container > form {
   margin-top: 4em;
 }
@@ -180,40 +204,23 @@ body {
   height: 8%;
 }
 
-#btn-group {
-  margin: 2rem 0;
-}
-
-#btn-group button {
-  margin: .5rem;
-}
-
-.icon-label-container {
-  position: relative;
-}
-
 .input-field-label {
-  position: absolute;
   font-size: 1.2rem;
   cursor: text;
-  color: #000;
-  margin: 0 1rem;
+  color: var(--black);
+  margin: 0 var(--base-margin);
 }
 
 .recipe-input-field {
-  margin: 1rem 0;
+  margin: var(--base-margin) 0;
 }
 
 .recipe-input-field > .input-field {
-  background-color: #fff;
-  border-radius: 0.5rem;
   margin: 1.8rem auto;
-  box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
 .recipe-input-field > .input-field input {
-  /* text-align: center; */
   padding: 3px 12px;
   border: 0 !important
 }
@@ -230,18 +237,4 @@ body {
 
 .procedure-input-field > .input-field i {
   margin: .3rem .6rem;
-  cursor: pointer;
-}
-
-/* Recipe ToolBar */
-#recipe-toolbar i {
-  background-color: white;
-  padding: .5rem;
-  border-radius: 50%;
-  margin: 1.2rem .7rem 0rem;
-  cursor: pointer;
-}
-
-#recipe-toolbar i:hover {
-  transform: scale(0.96);
 }

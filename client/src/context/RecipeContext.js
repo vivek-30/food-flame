@@ -3,6 +3,7 @@ import { createContext, useReducer } from 'react';
 // Reducers.
 import recipeReducer from '../reducers/recipeReducer';
 
+// Context And State.
 export const RecipeContext = createContext(null);
 const initialState = {
   recipes: []

@@ -1,8 +1,8 @@
-const Authentication = ({ title }) => {
+const SignUp = () => {
   return (
     <div className="container authentication">
       <div className="container">
-        <h4 className="center-align">{title}</h4>
+        <h4 className="center-align">Sign Up</h4>
         <form>
           <div className="input-field">
             <i className="material-icons prefix">account_circle</i>
@@ -15,8 +15,8 @@ const Authentication = ({ title }) => {
             <label htmlFor="password">Enter Your Password</label>
           </div>
           <div className="center-align">
-            <button className="btn waves-effect waves-light darken-2" type="submit" name={title}>
-              {title}
+            <button className="btn waves-effect waves-light darken-2" type="submit" name="sign-up">
+              Sign Up
               <i className="material-icons right">send</i>
             </button>
           </div>
@@ -26,4 +26,4 @@ const Authentication = ({ title }) => {
   );
 }
 
-export default Authentication;
+export default SignUp;

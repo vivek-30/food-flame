@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import useRecipeContext from '../hooks/useRecipeContext';
-import customAlert from '../controllers/CustomAlert';
+import useRecipeContext from '../../hooks/useRecipeContext';
+import customAlert from '../../utils/customAlert';
 
 const RecipeCard = ({ recipe }) => {
   const { 1:dispatch } = useRecipeContext(); // Grab 1st Index Array Element.
@@ -22,12 +22,12 @@ const RecipeCard = ({ recipe }) => {
   return (
     <div className="card recipe-card stick-action col s12 m5 l3">
       <div className="card-image waves-effect waves-block waves-light">
-        <img className="activator recipe-img" src={imageSRC} alt={name} />
+        <img className="activator recipe-img full-width" src={imageSRC} alt={name} />
       </div>
-      <div className="card-content">
-        <strong className="card-title truncate grey-text text-darken-4 left">
+      <div className="card-content pos-relative">
+        <strong className="card-title truncate grey-text text-darken-4 left full-width">
           {name}
-          <i className="material-icons" onClick={removeRecipe}>delete</i>
+          <i className="material-icons pos-absolute" onClick={removeRecipe}>delete</i>
         </strong>
       </div>
       <div className="card-reveal grey lighten-4">

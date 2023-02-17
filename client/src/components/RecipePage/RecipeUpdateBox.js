@@ -1,8 +1,7 @@
 import { createSearchParams, useNavigate } from 'react-router-dom';
-import customAlert from '../controllers/CustomAlert';
+import customAlert from '../../utils/customAlert';
 
 const RecipeUpdateBox = ({ recipeID }) => {
-
   const navigate = useNavigate();
 
   const navigateBackward = () => {

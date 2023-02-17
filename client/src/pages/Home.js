@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import useRecipeContext from '../hooks/useRecipeContext';
 
 // Components.
-import EmptyData from '../components/EmptyData';
-import RecipesList from '../components/RecipesList';
-import AddRecipeCard from '../components/AddRecipeCard';
+import NoData from '../components/NoData';
+import Recipes from '../components/HomePage/Recipes';
+import AddRecipeCard from '../components/HomePage/AddRecipeCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 
-// Controllers.
-import customAlert from '../controllers/CustomAlert';
+// Utility Functions.
+import customAlert from '../utils/customAlert';
 
 const Home = () => {
   const [state, dispatch] = useRecipeContext();
@@ -32,14 +32,14 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <main className="recipes-list-container container">
+    <main className="recipes-list-container container pos-relative">
       <div className="row">
       {
         isLoading ? <LoadingSpinner /> : 
-        state.recipes.length !== 0 ? <RecipesList /> : 
+        state.recipes.length !== 0 ? <Recipes /> : 
         <>
           <AddRecipeCard />
-          <EmptyData />
+          <NoData />
         </>
       }
       </div>
