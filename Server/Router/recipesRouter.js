@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-// Controllers For Managing CRUD Operations For Recipes.
+// Controllers for managing CRUD operations for recipes.
 const {
   getAllRecipes,
   getSpecificRecipe,
@@ -10,17 +10,23 @@ const {
   removeOneRecipe
 } = require('../Controllers/recipesController');
 
-// Handling All GET Requests.
+// Middlewares.
+const authenticateUser = require('../Middlewares/authenticateUser');
+
+// Applying Middlewares.
+router.use(authenticateUser);
+
+// Handling all GET requests.
 router.get('/', getAllRecipes);
 router.get('/:id', getSpecificRecipe);
 
-// Handling All POST Requests.
+// Handling all POST requests.
 router.post('/add-recipe', addNewRecipe);
 
-// Handling All UPDATE Requests.
+// Handling all UPDATE requests.
 router.put('/:id', updateOneRecipe);
 
-// Handling All DELETE Requests.
+// Handling all DELETE requests.
 router.delete('/:id', removeOneRecipe);
 
 module.exports = router;
