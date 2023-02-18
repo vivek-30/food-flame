@@ -1,14 +1,20 @@
 const express = require('express');
 const router = express.Router();
 
-// Controllers For Managing Users Authentication.
+// Controllers for managing users authentication.
 const {
   handleUserSignUp,
-  handleUserSignIn
+  handleUserLogIn
 } = require('../Controllers/authController');
 
-// Handling All POST Requests.
-router.post('/sign-up', handleUserSignUp);
-router.post('/sign-in', handleUserSignIn);
+// Middlewares.
+const validateCredentials = require('../Middlewares/validateCredentials');
 
-module.express = router;
+// Applying Middlewares.
+router.use(validateCredentials);
+
+// Handling all POST requests.
+router.post('/sign-up', handleUserSignUp);
+router.post('/log-in', handleUserLogIn);
+
+module.exports = router;
