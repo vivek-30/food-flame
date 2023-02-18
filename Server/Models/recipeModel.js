@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
-require('dotenv').config();
 
 const recipeSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'Recipe Name Is Required.']
+    required: [true, 'Please provide a recipe name.']
   },
   imageSRC: {
     type: String,
@@ -12,13 +11,16 @@ const recipeSchema = new mongoose.Schema({
   },
   description: {
     type: String, 
-    required: [true, 'Description Is Required.']
+    required: [true, 'Please provide a recipe description.']
   },
   ingredients: {
-    type: Array,
-    required: [true, 'Ingredients are Required.']
+    type: [String],
+    required: [true, 'Provide atleast one ingredient to save this recipe.']
   },
-  cookingSteps: Array
+  cookingSteps: {
+    type: [String],
+    required: [true, 'Provide atleast one cooking step to save this recipe.']
+  }
 }, {timestamps: true});
 
 module.exports = mongoose.model('Recipe', recipeSchema);

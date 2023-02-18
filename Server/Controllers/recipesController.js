@@ -57,11 +57,11 @@ const removeOneRecipe = async (req, res) => {
   } 
 }
 
-// This Method Is Useful For Pagination Purposes.
+// This method is useful for pagination purposes.
 const getLimitedRecipes = async (req, res) => {
   const { quantity } = req.params;
   try {
-    const recipes = await Recipes.find({}).limit(quantity).sort({createdAt: 'asc'});
+    const recipes = await Recipes.find({}).limit(quantity).sort({createdAt: 'desc'});
     res.status(200).json(recipes);
   } catch(error) {
     res.status(500).json({message: 'Internal Server Error.', error: error.message});
