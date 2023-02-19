@@ -1,4 +1,10 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {
+  Route,
+  Routes,
+  Navigate,
+  BrowserRouter,
+} from 'react-router-dom';
+import useAuthContext from './hooks/useAuthContext';
 
 // Components.
 import Navbar from './components/Navbar';
@@ -11,16 +17,17 @@ import Recipe from './pages/Recipe';
 import AddRecipe from './pages/AddRecipe';
 
 const App = () => {
+  const { state } = useAuthContext();
   return (
     <div className="App">
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/add-recipe" element={<AddRecipe />} />
-          <Route path="/log-in" element={<LogIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/:recipeID" element={<Recipe />} />
+          <Route path="/" element={state.user ? <Home /> : <Navigate to="/log-in" />} />
+          <Route path="/add-recipe" element={state.user ? <AddRecipe /> : <Navigate to="/log-in" />} />
+          <Route path="/log-in" element={!state.user ? <LogIn /> : <Navigate to="/" />} />
+          <Route path="/sign-up" element={!state.user ? <SignUp /> : <Navigate to="/" />} />
+          <Route path="/:recipeID" element={state.user ? <Recipe /> : <Navigate to="/log-in" />} />
         </Routes>
       </BrowserRouter>
     </div>
