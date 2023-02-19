@@ -9,7 +9,10 @@ const RecipeUpdateBox = ({ recipeID }) => {
   }
 
   const removeRecipe = async () => {
-    const response = await fetch(`http://localhost:4000/recipes/${recipeID}`, { method: 'DELETE' });
+    const response = await fetch(`http://localhost:4000/recipes/${recipeID}`, {
+      method: 'DELETE',
+      credentials: 'include'
+    });
     const data = await response.json();
 
     if(response.ok) {

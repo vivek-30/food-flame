@@ -3,7 +3,7 @@ import useRecipeContext from '../../hooks/useRecipeContext';
 
 const RecipeSearchBox = ({ setRecipesToDisplay }) => {
   const [query, setQuery] = useState('');
-  const [state] = useRecipeContext();
+  const { state } = useRecipeContext();
 
   const handleInputChange = (e) => {
     setQuery(e.target.value);

@@ -3,11 +3,14 @@ import useRecipeContext from '../../hooks/useRecipeContext';
 import customAlert from '../../utils/customAlert';
 
 const RecipeCard = ({ recipe }) => {
-  const { 1:dispatch } = useRecipeContext(); // Grab 1st Index Array Element.
+  const { dispatch } = useRecipeContext();
   const { name, description, imageSRC, _id: recipeID } = recipe;
 
   const removeRecipe = async () => {
-    const response = await fetch(`http://localhost:4000/recipes/${recipeID}`, { method: 'DELETE' });
+    const response = await fetch(`http://localhost:4000/recipes/${recipeID}`, {
+      method: 'DELETE',
+      credentials: 'include'
+    });
     const data = await response.json();
 
     if(response.ok) {

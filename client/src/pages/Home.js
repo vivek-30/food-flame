@@ -11,12 +11,12 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import customAlert from '../utils/customAlert';
 
 const Home = () => {
-  const [state, dispatch] = useRecipeContext();
+  const { state, dispatch } = useRecipeContext();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
-      const response = await fetch('http://localhost:4000/recipes/');
+      const response = await fetch('http://localhost:4000/recipes/', { credentials: 'include' });
       const data = await response.json();
 
       setIsLoading(false);    

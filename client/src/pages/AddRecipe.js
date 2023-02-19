@@ -34,7 +34,7 @@ const AddRecipe = () => {
   const [cookingSteps, setCookingSteps] = useState(initialCookingStep);
   const [isLoading, setIsLoading] = useState(true);
   
-  const { 1:dispatch } = useRecipeContext(); // Grab 1st Index Array Element.
+  const { dispatch } = useRecipeContext();
   const [searchParams] = useSearchParams();
 
   // Extract Query String Parameters.
@@ -43,7 +43,7 @@ const AddRecipe = () => {
 
   const fetchRecipeData = () => {    
     (async () => {
-      const response = await fetch(`http://localhost:4000/recipes/${recipeID}`);
+      const response = await fetch(`http://localhost:4000/recipes/${recipeID}`, { credentials: 'include' });
       const data = await response.json();
 
       setIsLoading(false);
@@ -94,7 +94,8 @@ const AddRecipe = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(body) 
+        body: JSON.stringify(body),
+        credentials: 'include'
       });
       const data = await response.json();
 

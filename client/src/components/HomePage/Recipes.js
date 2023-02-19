@@ -7,7 +7,7 @@ import RecipeSearchBox from './RecipeSearchBox';
 import AddRecipeCard from './AddRecipeCard';
 
 const Recipes = () => {
-  const [state] = useRecipeContext();
+  const { state }= useRecipeContext();
   const [recipesToDisplay, setRecipesToDisplay] = useState(state.recipes);
   
   useEffect(() => {

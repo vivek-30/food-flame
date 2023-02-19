@@ -20,7 +20,7 @@ const Recipe = () => {
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(`http://localhost:4000/recipes/${recipeID}`);
+      const response = await fetch(`http://localhost:4000/recipes/${recipeID}`, { credentials: 'include' });
       const data = await response.json();
 
       setIsLoading(false);
