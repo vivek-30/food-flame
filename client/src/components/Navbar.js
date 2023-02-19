@@ -2,7 +2,14 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import M from 'materialize-css';
 
+import useLogout from '../hooks/useLogout';
+import customAlert from '../utils/customAlert';
+import useAuthContext from '../hooks/useAuthContext';
+
 const Navbar = () => {
+  const { state } = useAuthContext();
+  const { logoutUser, isLoading, error } = useLogout();
+
   const sideNavRef = useRef();
 
   useEffect(() => {
@@ -12,6 +19,13 @@ const Navbar = () => {
       });
     }, 1000);
   },  []);
+
+  const handleUserLogout = async () => {
+    await logoutUser();
+    if(error) {
+      customAlert(error);
+    }
+  }
   
   return (
     <>
@@ -25,8 +39,21 @@ const Navbar = () => {
             FoodFlame
           </Link>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
-            <li><Link to="/sign-up" className="blue-grey-text text-darken-2">Sign Up</Link></li>
-            <li><Link to="/log-in" className="blue-grey-text text-darken-2">Log In</Link></li>
+            {
+              state.user ? 
+                <li>
+                  <button 
+                    disabled={isLoading}
+                    onClick={handleUserLogout}
+                    className="auth-btn cursor-ptr blue-grey-text text-darken-2">
+                      Log Out
+                  </button>
+                </li> :
+                <>
+                  <li><Link to="/sign-up" className="blue-grey-text text-darken-2">Sign Up</Link></li>
+                  <li><Link to="/log-in" className="blue-grey-text text-darken-2">Log In</Link></li>
+                </>
+            }
           </ul>
         </div>
       </nav>
