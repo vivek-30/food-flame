@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { LOGIN_URI } from '../utils/URIs';
 import useAuthContext from './useAuthContext';
 
 const useLogin = () => {
@@ -8,7 +9,7 @@ const useLogin = () => {
 
   const loginUser = async (loginCredentials) => {
     setIsLoading(true);
-    const response = await fetch('http://localhost:4000/user/log-in', {
+    const response = await fetch(LOGIN_URI, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

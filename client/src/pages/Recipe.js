@@ -8,8 +8,9 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import RecipeSteps from '../components/RecipePage/RecipeSteps';
 import RecipeUpdateBox from '../components/RecipePage/RecipeUpdateBox';
 
-// Utility Functions.
+// Utility Stuff.
 import customAlert from '../utils/customAlert';
+import { RECIPE_BASE_URI } from '../utils/URIs';
 
 const Recipe = () => {
   const [recipe, setRecipe] = useState(null);
@@ -20,7 +21,7 @@ const Recipe = () => {
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(`http://localhost:4000/recipes/${recipeID}`, { credentials: 'include' });
+      const response = await fetch(`${RECIPE_BASE_URI}/${recipeID}`, { credentials: 'include' });
       const data = await response.json();
 
       setIsLoading(false);

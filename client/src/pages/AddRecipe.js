@@ -15,8 +15,9 @@ import ProcedureIcon from '../assets/AddRecipePage/procedure.svg';
 import IngredientIcon from '../assets/AddRecipePage/ingredients.svg';
 import DescriptionIcon from '../assets/AddRecipePage/description.svg';
 
-// Utility Functions.
+// Utility Stuff.
 import customAlert from '../utils/customAlert';
+import { RECIPE_BASE_URI, ADD_RECIPE_URI } from '../utils/URIs';
 
 // Default Recipe Data.
 export const emptyRecipe = {
@@ -43,7 +44,7 @@ const AddRecipe = () => {
 
   const fetchRecipeData = () => {    
     (async () => {
-      const response = await fetch(`http://localhost:4000/recipes/${recipeID}`, { credentials: 'include' });
+      const response = await fetch(`${RECIPE_BASE_URI}/${recipeID}`, { credentials: 'include' });
       const data = await response.json();
 
       setIsLoading(false);
@@ -162,9 +163,9 @@ const AddRecipe = () => {
     if(validateRecipeData(modifiedRecipeData) === false) return;
 
     if(isUpdating === 'false') {
-      manageRecipeUtil('http://localhost:4000/recipes/add-recipe', 'POST', modifiedRecipeData);
+      manageRecipeUtil(ADD_RECIPE_URI, 'POST', modifiedRecipeData);
     } else {
-      manageRecipeUtil(`http://localhost:4000/recipes/${recipeID}`, 'PUT', modifiedRecipeData);
+      manageRecipeUtil(`${RECIPE_BASE_URI}/${recipeID}`, 'PUT', modifiedRecipeData);
     }
   }
 

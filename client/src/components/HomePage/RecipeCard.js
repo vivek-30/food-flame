@@ -1,13 +1,16 @@
 import { Link } from 'react-router-dom';
 import useRecipeContext from '../../hooks/useRecipeContext';
+
+// Utility Stuff.
 import customAlert from '../../utils/customAlert';
+import { RECIPE_BASE_URI } from '../../utils/URIs';
 
 const RecipeCard = ({ recipe }) => {
   const { dispatch } = useRecipeContext();
   const { name, description, imageSRC, _id: recipeID } = recipe;
 
   const removeRecipe = async () => {
-    const response = await fetch(`http://localhost:4000/recipes/${recipeID}`, {
+    const response = await fetch(`${RECIPE_BASE_URI}/${recipeID}`, {
       method: 'DELETE',
       credentials: 'include'
     });

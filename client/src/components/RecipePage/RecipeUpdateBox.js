@@ -1,5 +1,8 @@
 import { createSearchParams, useNavigate } from 'react-router-dom';
+
+// Utility Stuff.
 import customAlert from '../../utils/customAlert';
+import { RECIPE_BASE_URI } from '../../utils/URIs';
 
 const RecipeUpdateBox = ({ recipeID }) => {
   const navigate = useNavigate();
@@ -9,7 +12,7 @@ const RecipeUpdateBox = ({ recipeID }) => {
   }
 
   const removeRecipe = async () => {
-    const response = await fetch(`http://localhost:4000/recipes/${recipeID}`, {
+    const response = await fetch(`${RECIPE_BASE_URI}/${recipeID}`, {
       method: 'DELETE',
       credentials: 'include'
     });

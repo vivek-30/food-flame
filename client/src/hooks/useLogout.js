@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { LOGOUT_URI } from '../utils/URIs';
 import useAuthContext from './useAuthContext';
 import useRecipeContext from './useRecipeContext';
 
@@ -10,7 +11,7 @@ const useLogout = () => {
 
   const logoutUser = async () => {
     setIsLoading(true);
-    const response = await fetch('http://localhost:4000/user/log-out', { credentials: 'include' });
+    const response = await fetch(LOGOUT_URI, { credentials: 'include' });
     const data = await response.json();
 
     setIsLoading(false);
