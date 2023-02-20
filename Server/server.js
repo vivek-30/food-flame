@@ -12,9 +12,9 @@ const recipesRouter = require('./Router/recipesRouter');
 const app = express();
 const server = http.createServer(app);
 const PORT = process.env.PORT || 4000;
-const DATABASE_URI = 'mongodb://localhost:27017';
+const DATABASE_URI = process.env.DATABASE_URI;
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'https://foodflame.netlify.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 };
@@ -33,7 +33,7 @@ mongoose.set('strictQuery', false);
 mongoose.connect(DATABASE_URI)
   .then(() => {
     server.listen(PORT, () => {
-      console.log(`Server is Running at PORT: ${PORT}`);
+      console.log(`Server is running at PORT: ${PORT}`);
     });
   })
   .catch((error) => console.log(error));

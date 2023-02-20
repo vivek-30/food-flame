@@ -21,7 +21,8 @@ const handleUserSignUp = async (req, res) => {
     res.cookie('jwt', token, {
       maxAge: maxExpireTime,  
       httpOnly: true,
-      // secure: true
+      secure: true,
+      sameSite: 'None'
     });
     
     res.status(200).json(user);
@@ -39,7 +40,8 @@ const handleUserLogIn = async (req, res) => {
     res.cookie('jwt', token, {
       maxAge: maxExpireTime,
       httpOnly: true,
-      // secure: true
+      secure: true,
+      sameSite: 'None'
     });
 
     res.status(200).json(user);
