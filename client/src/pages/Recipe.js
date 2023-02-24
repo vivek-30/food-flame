@@ -54,7 +54,7 @@ const Recipe = () => {
               alt="Recipe" 
             />
           </div>
-          <div className="col s12 m6 l6 push-s1 push-m1 push-l1">
+          <div className="col s12 m6 l6 push-m1 push-l1">
             <h2 className="blue-grey-text text-darken-2">{recipe.name}</h2>
             <p className="grey-text text-darken-2" id="recipe-description">{recipe.description}</p>
             <div id="ingredients-box">

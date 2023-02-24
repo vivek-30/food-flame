@@ -27,7 +27,7 @@ const RecipeCard = ({ recipe }) => {
 
   return (
     <div className="card recipe-card stick-action col s12 m5 l3">
-      <div className="card-image waves-effect waves-block waves-light">
+      <div className="card-image">
         <img className="activator recipe-img full-width" src={imageSRC} alt={name} />
       </div>
       <div className="card-content pos-relative">

@@ -114,6 +114,7 @@ i {
 
 /* AddRecipeCard Component */
 #add-recipe-card {
+  height: 23.8rem !important;
   border: 2px dotted #546e7a;
   display: grid;
   place-content: center;
@@ -165,7 +166,7 @@ i {
 }
 
 .recipe-card .recipe-img {
-  height: 13rem !important;
+  height: 15rem !important;
 }
 
 .recipe-card .card-action {
