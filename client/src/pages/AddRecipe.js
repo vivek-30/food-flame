@@ -32,6 +32,7 @@ const defaultImageURL = 'https://cdn.pixabay.com/photo/2015/08/25/03/50/backgrou
 const AddRecipe = () => {
   const [recipeData, setRecipeData] = useState(emptyRecipe);
   const [isUpdating, setIsUpdating] = useState('false');
+  const [isRequestPending, setIsRequestPending] = useState(false);
   const [cookingSteps, setCookingSteps] = useState(initialCookingStep);
   const [isLoading, setIsLoading] = useState(true);
   
@@ -119,6 +120,9 @@ const AddRecipe = () => {
         customAlert(message);
         console.log(`Error Occured While ${method === 'POST' ? 'Saving' : 'Updating'} A Recipe: ${error}`);
       }
+
+      // Allow user to make another request.
+      setIsRequestPending((state) => !state);
     })();
   }
 
@@ -158,6 +162,10 @@ const AddRecipe = () => {
 
   const manageRecipe = (e) => {
     e.preventDefault();
+    
+    // Check whether a POST/PUT request is already made or not.
+    if(isRequestPending) return;
+    else setIsRequestPending(true);
 
     let modifiedRecipeData = { ...recipeData, cookingSteps };
     if(validateRecipeData(modifiedRecipeData) === false) return;

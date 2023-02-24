@@ -18,7 +18,6 @@ const LogIn = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     await loginUser(credentials);
-    console.log(error)
     if(error) {
       customAlert(error);
     } else {
