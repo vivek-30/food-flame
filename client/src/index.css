@@ -79,6 +79,8 @@ i {
 
 /* NoData Component */
 .no-data {
+  max-height: 30%;
+  max-width: 70%;
   transform: translate(-50%, 50%);
 }
 
@@ -114,6 +116,7 @@ i {
 
 /* AddRecipeCard Component */
 #add-recipe-card {
+  z-index: 1000 !important;
   height: 23.8rem !important;
   border: 2px dotted #546e7a;
   display: grid;
@@ -265,4 +268,11 @@ i {
 
 .procedure-input-field > .input-field i {
   margin: .3rem .6rem;
+}
+
+/* Media Queries */
+@media only screen and (max-width: 600px) {
+  #app-logo {
+    margin: -.3rem;
+  }
 }
