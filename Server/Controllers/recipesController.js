@@ -2,7 +2,7 @@ const Recipes = require('../Models/recipeModel');
 
 const getAllRecipes = async (req, res) => {
   try {
-    const recipes = await Recipes.find({});
+    const recipes = await Recipes.find({}).sort({name: 'asc'});
     res.status(200).json(recipes);
   } catch(error) {
     res.status(500).json({message: 'Internal Server Error.', error: error.message});
