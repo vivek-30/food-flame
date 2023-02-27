@@ -13,6 +13,7 @@ Discover mouth watering dishes or share your loving recipe with others in minima
 - [API Routes](#api-routes)  
 - [Schema](#schema)  
 - [Available PORTS](#available-ports)
+- [ScreenShots](#screenshots)
 
 <a name="setup-and-installation"></a>
 
@@ -117,3 +118,20 @@ __recipe:__
 ## Available PORTS:
   1. `4000` - Server
   2. `3000` - Client
+
+<a name="screenshots"></a>
+
+## ScreenShots:
+![ScreenShot-1](./Screenshots/Screenshot-1.jpg)
+![ScreenShot-2](./Screenshots/Screenshot-2.jpg)
+![ScreenShot-3](./Screenshots/Screenshot-3.jpg)
+![ScreenShot-4](./Screenshots/Screenshot-4.jpg)
+![ScreenShot-5](./Screenshots/Screenshot-5.jpg)
+![ScreenShot-6](./Screenshots/Screenshot-6.jpg)
+![ScreenShot-7](./Screenshots/Screenshot-7.jpg)
+![ScreenShot-8](./Screenshots/Screenshot-8.jpg)
+![ScreenShot-9](./Screenshots/Screenshot-9.jpg)
+![ScreenShot-10](./Screenshots/Screenshot-10.jpg)
+![ScreenShot-11](./Screenshots/Screenshot-11.jpg)
+![ScreenShot-12](./Screenshots/Screenshot-12.jpg)
+![ScreenShot-13](./Screenshots/Screenshot-13.jpg)
