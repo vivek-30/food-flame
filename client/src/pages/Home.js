@@ -33,18 +33,24 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <main className="recipes-list-container container pos-relative">
-      <div className="row">
-      {
-        isLoading ? <LoadingSpinner /> : 
-        state.recipes.length !== 0 ? <Recipes /> : 
-        <>
-          <AddRecipeCard />
-          <NoData />
-        </>
-      }
-      </div>
-    </main>
+    <>
+    {
+      isLoading ? <LoadingSpinner /> : (
+        <main className="recipes-list-container container pos-relative">
+          <div className="row">
+          { 
+            state.recipes.length > 0 ? <Recipes /> : (
+              <div>
+                <AddRecipeCard />
+                <NoData />
+              </div>
+            )
+          }
+          </div>
+        </main>
+      )
+    }
+    </>
   );
 }
 

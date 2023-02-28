@@ -130,7 +130,7 @@ i {
 
 /* LoadingSpinner Component */
 .loading-spinner {
-  position: fixed;
+  transform: translate(-50%, -50%);
 }
 
 /* RecipeSearchBox Component */

@@ -212,67 +212,72 @@ const AddRecipe = () => {
   }
 
   return (
-    <section className="container" id="add-recipe-container">
-      {
-        isLoading ? <LoadingSpinner /> :
-        <form onSubmit={manageRecipe} className="row">
-          <RecipeInputField 
-            fieldName="name"
-            fieldValue={recipeData.name}
-            inputLabel="Recipe Name"
-            alignRight={false}
-            imageIcon={TitleIcon}
-            handleInputChange={handleInputChange}
-          />
-          <RecipeInputField 
-            fieldName="description"
-            fieldValue={recipeData.description}
-            inputLabel="Recipe Description"
-            alignRight={true}
-            imageIcon={DescriptionIcon}
-            handleInputChange={handleInputChange}
-          />
-          <RecipeInputField 
-            fieldName="imageSRC"
-            fieldValue={recipeData.imageSRC}
-            inputLabel="Paste Image URL (Not Required)"
-            alignRight={false}
-            imageIcon={UrlIcon}
-            handleInputChange={handleInputChange}
-          />
-          <RecipeInputField 
-            fieldName="ingredients"
-            fieldValue={recipeData.ingredients}
-            inputLabel="Ingredients (Seperate By Comma)"
-            alignRight={true}
-            imageIcon={IngredientIcon}
-            handleInputChange={handleInputChange}
-          />
-          <div className="col s12 m11 l11 recipe-input-field procedure-input-field">
-            <div className="icon-label-conatiner pos-relative">
-              <img src={ProcedureIcon} alt="Icon" className="input-field-icon" />
-              <label htmlFor="cookingSteps" className="input-field-label pos-absolute">Cooking Steps :</label>
-            </div>
-            { 
-              cookingSteps.map(({ index, content }) => (
-                <CookingStep 
-                  key={index}
-                  index={index}
-                  content={content}
-                  removeCookingStep={removeCookingStep}
-                  handleStepInputChange={handleStepInputChange}
-                />
-              ))
-            }
-          </div>
-          <RecipeToolBar
-            manageRecipe={manageRecipe}
-            setRecipeData={setRecipeData} 
-            setCookingSteps={setCookingSteps}
-          />
-        </form>
-      }
-    </section>
+    <>
+    {
+      isLoading ? <LoadingSpinner /> : (
+          <section className="container" id="add-recipe-container">
+          {
+            <form onSubmit={manageRecipe} className="row">
+              <RecipeInputField 
+                fieldName="name"
+                fieldValue={recipeData.name}
+                inputLabel="Recipe Name"
+                alignRight={false}
+                imageIcon={TitleIcon}
+                handleInputChange={handleInputChange}
+              />
+              <RecipeInputField 
+                fieldName="description"
+                fieldValue={recipeData.description}
+                inputLabel="Recipe Description"
+                alignRight={true}
+                imageIcon={DescriptionIcon}
+                handleInputChange={handleInputChange}
+              />
+              <RecipeInputField 
+                fieldName="imageSRC"
+                fieldValue={recipeData.imageSRC}
+                inputLabel="Paste Image URL (Not Required)"
+                alignRight={false}
+                imageIcon={UrlIcon}
+                handleInputChange={handleInputChange}
+              />
+              <RecipeInputField 
+                fieldName="ingredients"
+                fieldValue={recipeData.ingredients}
+                inputLabel="Ingredients (Seperate By Comma)"
+                alignRight={true}
+                imageIcon={IngredientIcon}
+                handleInputChange={handleInputChange}
+              />
+              <div className="col s12 m11 l11 recipe-input-field procedure-input-field">
+                <div className="icon-label-conatiner pos-relative">
+                  <img src={ProcedureIcon} alt="Icon" className="input-field-icon" />
+                  <label htmlFor="cookingSteps" className="input-field-label pos-absolute">Cooking Steps :</label>
+                </div>
+                { 
+                  cookingSteps.map(({ index, content }) => (
+                    <CookingStep 
+                      key={index}
+                      index={index}
+                      content={content}
+                      removeCookingStep={removeCookingStep}
+                      handleStepInputChange={handleStepInputChange}
+                    />
+                  ))
+                }
+              </div>
+              <RecipeToolBar
+                manageRecipe={manageRecipe}
+                setRecipeData={setRecipeData} 
+                setCookingSteps={setCookingSteps}
+              />
+            </form>
+          }
+        </section>
+      )
+    }
+    </>
   );
 }
 

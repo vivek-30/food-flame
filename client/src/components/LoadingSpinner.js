@@ -1,6 +1,6 @@
 const LoadingSpinner = () => {
   return (
-    <div className="loading-spinner top-left-center">
+    <div className="loading-spinner top-left-center pos-absolute">
       <div className="preloader-wrapper active">
         <div className="spinner-layer spinner-blue-only">
           <div className="circle-clipper left">
