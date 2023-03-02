@@ -160,6 +160,15 @@ i {
   box-shadow: var(--box-shadow-dark);
 }
 
+.error-box {
+  width: 95%;
+  margin: 0 auto 2rem;
+  border: 1px solid #c62828;
+  padding: 4px 12px;
+  text-align: center;
+  border-radius: var(--radius-round-sm);
+}
+
 /* Home Page */
 .recipe-card {
   min-height: 22rem !important;

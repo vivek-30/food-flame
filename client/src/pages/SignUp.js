@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import useSignup from '../hooks/useSignup';
-import customAlert from '../utils/customAlert';
 
 const emptyCredentials = {
   username: '',
@@ -19,11 +18,6 @@ const SignUp = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     await signupUser(credentials);
-    if(error) {
-      customAlert(error);
-    } else {
-      setCredentials(emptyCredentials);
-    }
   }
 
   return (
@@ -67,6 +61,7 @@ const SignUp = () => {
             />
             <label htmlFor="password">Enter Your Password</label>
           </div>
+          {error !== null && <div className="error-box red lighten-5 red-text text-darken-3"><p>{error}</p></div>}
           <div className="center-align">
             <button disabled={isLoading} className="btn teal darken-1" type="submit">
               Sign Up

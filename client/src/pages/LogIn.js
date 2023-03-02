@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import useLogin from '../hooks/useLogin';
-import customAlert from '../utils/customAlert';
 
 const emptyCredentials = {
   email: '',
@@ -18,11 +17,6 @@ const LogIn = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     await loginUser(credentials);
-    if(error) {
-      customAlert(error);
-    } else {
-      setCredentials(emptyCredentials);
-    }
   }
 
   return (
@@ -54,6 +48,7 @@ const LogIn = () => {
             />
             <label htmlFor="password">Enter Your Password</label>
           </div>
+          {error !== null && <div className="error-box red lighten-5 red-text text-darken-3"><p>{error}</p></div>}
           <div className="center-align">
             <button disabled={isLoading} className="btn teal darken-1" type="submit">
               Log In
