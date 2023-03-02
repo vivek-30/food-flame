@@ -19,17 +19,17 @@ const validateCredentials = (req, res, next) => {
 
   // Check for correctness of email string.
   if(!validator.isEmail(email)) {
-    error = 'Email must be valid.';
+    error = 'Invalid email.';
   }
 
   // Check password strength.
   if(!validator.isStrongPassword(password)) {
-    error = 'Password is not strong (Make sure it is atleast 8 characters long containing atleast one lowercase, uppercase, digit and special character)';
+    error = 'Make sure your password is atleast 8 characters long containing atleast one lowercase, uppercase, digit and a special character.';
   }
 
   // Check if username is valid or not.
-  if(username && !validator.matches(username, /^[A-Za-z][\w_]{2,19}$/)) {
-    error = 'Username is not valid. (Must be alphanumeric and atleast 3 characters long string including "_". But must begin with a letter';
+  if(username && !validator.matches(username, /^[A-Za-z][\w\s_-]{2,19}$/)) {
+    error = 'Invalid username. (Must be alphanumeric and atleast 3 characters long including "_", "-" and "space". But must begin with a letter';
   }
 
   if(error !== '') {
