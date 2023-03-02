@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import useAuthContext from '../../hooks/useAuthContext';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 
 // Utility Stuff.
@@ -7,7 +8,10 @@ import { RECIPE_BASE_URI } from '../../utils/URIs';
 
 const RecipeUpdateBox = ({ recipeID }) => {
   const [isRequestPending, setIsRequestPending] = useState(false);
+  const { state: authState } = useAuthContext();
   const navigate = useNavigate();
+
+  const { user: userID } = authState;
 
   const navigateBackward = () => {
     navigate('/');
@@ -18,7 +22,7 @@ const RecipeUpdateBox = ({ recipeID }) => {
     if(isRequestPending) return;
     else setIsRequestPending(true);
 
-    const response = await fetch(`${RECIPE_BASE_URI}/${recipeID}`, {
+    const response = await fetch(`${RECIPE_BASE_URI}/${recipeID}?id=${userID}`, {
       method: 'DELETE',
       credentials: 'include'
     });

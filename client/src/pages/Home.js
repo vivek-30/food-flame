@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import useAuthContext from '../hooks/useAuthContext';
 import useRecipeContext from '../hooks/useRecipeContext';
 
 // Components.
@@ -12,12 +13,15 @@ import customAlert from '../utils/customAlert';
 import { RECIPE_BASE_URI } from '../utils/URIs';
 
 const Home = () => {
+  const { state: authState } = useAuthContext()
   const { state, dispatch } = useRecipeContext();
   const [isLoading, setIsLoading] = useState(true);
 
+  const { user: userID } = authState;
+
   useEffect(() => {
     (async () => {
-      const response = await fetch(RECIPE_BASE_URI, { credentials: 'include' });
+      const response = await fetch(`${RECIPE_BASE_URI}?id=${userID}`, { credentials: 'include' });
       const data = await response.json();
 
       setIsLoading(false);    
@@ -30,7 +34,7 @@ const Home = () => {
         console.log(`Error Occured While Fetching Recipes ${error}`);
       }
     })();
-  }, [dispatch]);
+  }, [dispatch, userID]);
 
   return (
     <>

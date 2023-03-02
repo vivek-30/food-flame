@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import useAuthContext from '../../hooks/useAuthContext';
 import useRecipeContext from '../../hooks/useRecipeContext';
 
 // Utility Stuff.
@@ -9,14 +10,17 @@ import { RECIPE_BASE_URI } from '../../utils/URIs';
 const RecipeCard = ({ recipe }) => {
   const [isRequestPending, setIsRequestPending] = useState(false);
   const { dispatch } = useRecipeContext();
+  const { state: authState } = useAuthContext();
   const { name, description, imageSRC, _id: recipeID } = recipe;
+
+  const { user: userID } = authState;
 
   const removeRecipe = async () => {
     // Check whether a DELETE request is already made or not.
     if(isRequestPending) return;
     else setIsRequestPending(true);
 
-    const response = await fetch(`${RECIPE_BASE_URI}/${recipeID}`, {
+    const response = await fetch(`${RECIPE_BASE_URI}/${recipeID}?id=${userID}`, {
       method: 'DELETE',
       credentials: 'include'
     });

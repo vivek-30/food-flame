@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import useAuthContext from '../hooks/useAuthContext';
 import useRecipeContext from '../hooks/useRecipeContext';
 
 // Components.
@@ -37,15 +38,18 @@ const AddRecipe = () => {
   const [isLoading, setIsLoading] = useState(true);
   
   const { dispatch } = useRecipeContext();
+  const { state: authState } = useAuthContext();
   const [searchParams] = useSearchParams();
-
+  
+  const { user: userID } = authState;  
+  
   // Extract Query String Parameters.
   const updatingParam = searchParams.get('updating');
   const recipeID = updatingParam === 'true' ? searchParams.get('id') : 'invalid';
 
   const fetchRecipeData = () => {    
     (async () => {
-      const response = await fetch(`${RECIPE_BASE_URI}/${recipeID}`, { credentials: 'include' });
+      const response = await fetch(`${RECIPE_BASE_URI}/${recipeID}?id=${userID}`, { credentials: 'include' });
       const data = await response.json();
 
       setIsLoading(false);
@@ -170,10 +174,13 @@ const AddRecipe = () => {
     let modifiedRecipeData = { ...recipeData, cookingSteps };
     if(validateRecipeData(modifiedRecipeData) === false) return;
 
+    // Attach "userID" field along with the recipe data.
+    modifiedRecipeData.userID = userID;
+
     if(isUpdating === 'false') {
       manageRecipeUtil(ADD_RECIPE_URI, 'POST', modifiedRecipeData);
     } else {
-      manageRecipeUtil(`${RECIPE_BASE_URI}/${recipeID}`, 'PUT', modifiedRecipeData);
+      manageRecipeUtil(`${RECIPE_BASE_URI}/${recipeID}?id=${userID}`, 'PUT', modifiedRecipeData);
     }
   }
 

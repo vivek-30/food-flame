@@ -21,7 +21,7 @@ const useSignup = () => {
 
     setIsLoading(false);
     if(response.ok) {
-      dispatch({ type: 'LOGIN', payload: data });
+      dispatch({ type: 'LOGIN', payload: data._id });
       localStorage.setItem('user', JSON.stringify(data._id));
     } else {
       setError(data.error);

@@ -20,6 +20,10 @@ const recipeSchema = new mongoose.Schema({
   cookingSteps: {
     type: [String],
     required: [true, 'Provide atleast one cooking step to save this recipe.']
+  },
+  userID: {
+    type: String,
+    required: [true, 'Recipe must belong to a user.']
   }
 }, {timestamps: true});
 

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
+import useAuthContext from '../hooks/useAuthContext';
 import M from 'materialize-css';
 
 // Components.
@@ -18,10 +19,13 @@ const Recipe = () => {
 
   const recipeImageRef = useRef();
   const { recipeID } = useParams();
+  const { state: authState } = useAuthContext();
+
+  const { user: userID } = authState;
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(`${RECIPE_BASE_URI}/${recipeID}`, { credentials: 'include' });
+      const response = await fetch(`${RECIPE_BASE_URI}/${recipeID}?id=${userID}`, { credentials: 'include' });
       const data = await response.json();
 
       setIsLoading(false);
@@ -37,7 +41,7 @@ const Recipe = () => {
     setTimeout(() => {
       M.Materialbox.init(recipeImageRef.current);
     }, 1000);
-  }, [recipeID]);
+  }, [recipeID, userID]);
 
   return (
     <>

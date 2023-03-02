@@ -108,7 +108,8 @@ __recipe:__
       description: String,
       imageSRC: String,
       ingredients: [String],
-      cookingSteps: [String]
+      cookingSteps: [String],
+      userID: String
     }
   ```
 > Apart from `imageSRC` field all are required to save / create a recipe.
