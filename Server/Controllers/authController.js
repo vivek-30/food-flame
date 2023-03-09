@@ -1,9 +1,9 @@
 const Users = require('../Models/userModel');
 
-const maxExpireTime = 3 * 24 * 60 * 60 * 1000;   // 3 Days.
+const maxExpireTime = Number(process.env.MAX_EXPIRE_TIME);   // 3 Days.
 
 const handleUserLogOut = async (req, res) => {
-  const { jwt: token } = req.cookies;
+  const { jwt: token } = req.signedCookies;
   if(!token) {
     return res.status(401).json({ error: 'Logout failed (missing authentication token)' });
   }
@@ -19,10 +19,11 @@ const handleUserSignUp = async (req, res) => {
 
     // Set token in user's cookie.
     res.cookie('jwt', token, {
-      maxAge: maxExpireTime,  
       httpOnly: true,
       secure: true,
-      sameSite: 'None'
+      signed: true,
+      sameSite: 'None',
+      maxAge: maxExpireTime
     });
     
     res.status(200).json(user);
@@ -38,10 +39,11 @@ const handleUserLogIn = async (req, res) => {
 
     // Set token in user's cookie.
     res.cookie('jwt', token, {
-      maxAge: maxExpireTime,
       httpOnly: true,
       secure: true,
-      sameSite: 'None'
+      signed: true,
+      sameSite: 'None',
+      maxAge: maxExpireTime
     });
 
     res.status(200).json(user);

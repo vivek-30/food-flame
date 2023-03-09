@@ -49,7 +49,7 @@ userSchema.statics.signup = async function(username, email, password) {
   }
 
   // Create token using "jsonwebtoken".
-  const token = await jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: '3d' });
+  const token = await jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '3d' });
   return { user, token };
 }
 
@@ -66,7 +66,7 @@ userSchema.statics.login = async function(email, password) {
   }
 
   // Create token using "jsonwebtoken".
-  const token = await jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: '3d' });
+  const token = await jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '3d' });
   return { user, token };
 }
 

@@ -11,8 +11,13 @@ const recipesRouter = require('./Router/recipesRouter');
 
 const app = express();
 const server = http.createServer(app);
-const PORT = process.env.PORT || 4000;
-const DATABASE_URI = process.env.DATABASE_URI;
+
+// Environment variables.
+const port = process.env.PORT || 4000;
+const databaseURI = process.env.DATABASE_URI;
+const cookieSecret = process.env.COOKIE_SECRET;
+
+// Configuration values.
 const corsOptions = {
   origin: 'https://foodflame.netlify.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -21,19 +26,19 @@ const corsOptions = {
 
 // Applying middlewares.
 app.use(express.json());
-app.use(cookieParser());
 app.use(cors(corsOptions));
+app.use(cookieParser(cookieSecret));
 
-// Handling api requests.
+// Handling API routes.
 app.use('/user', usersRouter);
 app.use('/recipes', recipesRouter);
 
 // Connecting to mongodb database using mongoose.
 mongoose.set('strictQuery', false);
-mongoose.connect(DATABASE_URI)
+mongoose.connect(databaseURI)
   .then(() => {
-    server.listen(PORT, () => {
-      console.log(`Server is running at PORT: ${PORT}`);
+    server.listen(port, () => {
+      console.log(`Server is running at PORT: ${port}`);
     });
   })
   .catch((error) => console.log(error));
