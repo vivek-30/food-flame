@@ -36,13 +36,15 @@ const EmailVerification = () => {
     <div>
       {
         isLoading ? <LoadingSpinner /> :
-        error !== null && <div className="pos-relative email-verify-conatiner">
-          <img src={AppLogo} alt="app-logo" className="pos-absolute" />
-          <p className="pos-absolute">
+        error !== null && <div className="email-verify-container">
+          <img src={AppLogo} alt="app-logo" className="pos-absolute top-left-center" />
+          <p className="flow-text blue-grey-text text-darken-3 pos-absolute top-left-center">
             {error}
-            <strong>Go Back To: </strong>
-            <Link to="/log-in" className="btn">Login Page</Link>
-            <Link to="/sign-up" className="btn">Signup Page</Link>
+            <div>
+              <em className="flow-text">Go Back To: </em>
+              <Link to="/log-in" className="btn green darken-3">Login Page</Link>
+              <Link to="/sign-up" className="btn cyan darken-3">Signup Page</Link>
+            </div>
           </p>
         </div>
       }
