@@ -16,21 +16,32 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, 'Password is required to signup.']
+  },
+  verified: {
+    type: Boolean,
+    default: false
   }
 });
 
 // Static methods.
 userSchema.statics.signup = async function(username, email, password) {
 
+  // Check whether a user with given username and email is verified or not.
+  const checkUser = await this.findOne({ username, email });
+  if(checkUser && !checkUser.verified) {
+    const deletedUser = await this.findOneAndDelete({ username, email });
+    if(!deletedUser) throw('Internal server error, unable to sign up.');
+  }
+
   // Check whether a user is already exist or not with given username and email.
   const isUserExist = await this.findOne({ username });
   if(isUserExist) {
-    throw Error('Unable to signup as user already exists.');
+    throw Error('This username is already taken.');
   }
 
   const isEmailExist = await this.findOne({ email });
   if(isEmailExist) {
-    throw Error('Unable to signup as email already registered.');
+    throw Error('This email is already registered.');
   }
 
   // Hash password using "bcrypt".
@@ -49,7 +60,7 @@ userSchema.statics.signup = async function(username, email, password) {
   }
 
   // Create token using "jsonwebtoken".
-  const token = await jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '3d' });
+  const token = await jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
   return { user, token };
 }
 
@@ -62,7 +73,7 @@ userSchema.statics.login = async function(email, password) {
   // Compare given password with stored hashed password.
   const isMatching = await bcrypt.compare(password, user.password);
   if(!isMatching) {
-    throw Error('Login failed, incorrect password.');
+    throw Error('Login failed, incorrect username or password.');
   }
 
   // Create token using "jsonwebtoken".
