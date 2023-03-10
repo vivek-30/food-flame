@@ -5,34 +5,31 @@ const service = process.env.SERVICE;
 const userEmail = process.env.EMAIL;
 const emailPassword = process.env.PASSWORD;
 
-const createMailHtmlByToken = (token) => {
+const createMailHtmlByToken = (token, username) => {
   return (`
     <div
-      style="width: 100%;
-      height: 100%;
-      background: #eceff1;
+      style="background: #eceff1;
       padding: 2rem;
     ">
-      <p
-        style="text-align: center;
-        color: #37474f;
-        font-size: 2rem;
-        margin: 1rem 0;
+      <h2
+        style="color: #37474f;
+        text-align: center;
       ">
-        click verify button to verify your email address
-      </p>
+        Welcome ${username}, verify your email account to start enjoying your FoodFlame Recipes 🍽.
+      </h2>
       <a
         href="http://localhost:3000/verify?_token=${token}"
         target="_blank"
-        style="background-color: #009688;
+        style="display: block;
+        background-color: #009688;
         text-decoration: none;
         color: #fff;
         border-radius: 5px;
-        padding: 1rem 2rem;
+        padding: 1rem;
         font-size: 18px;
         font-weight: 600;
-        width: 20%;
-        margin: .5rem auto 1.5rem
+        width: 7.8rem;
+        margin: 1.5rem auto;
       ">
         Click To Verify
       </a>

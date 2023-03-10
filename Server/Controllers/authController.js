@@ -46,7 +46,7 @@ const handleUserSignUp = async (req, res) => {
   const { username, email, password } = req.body;
   try {
     const { token } = await Users.signup(username, email, password);
-    const mailHtml = createMailHtmlByToken(token);
+    const mailHtml = createMailHtmlByToken(token, username);
     await sendMail(email, 'Email Verification For FoodFlame App.', mailHtml);
     res.status(200).json({ message: 'A confirmation mail is sent to your email, verify it to signup.' });
   } 
