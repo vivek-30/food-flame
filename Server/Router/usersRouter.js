@@ -5,7 +5,8 @@ const router = express.Router();
 const {
   handleUserLogOut,
   handleUserSignUp,
-  handleUserLogIn
+  handleUserLogIn,
+  handleEmailVerification
 } = require('../Controllers/authController');
 
 // Middlewares.
@@ -13,6 +14,7 @@ const validateCredentials = require('../Middlewares/validateCredentials');
 
 // Handling all GET requests.
 router.get('/log-out', handleUserLogOut);
+router.get('/verify', handleEmailVerification);
 
 // Applying Middlewares.
 router.use(validateCredentials);
