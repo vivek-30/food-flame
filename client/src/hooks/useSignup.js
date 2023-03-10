@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { SIGNUP_URI } from '../utils/URIs';
-import useAuthContext from './useAuthContext';
 
 const useSignup = () => {
+  const [info, setInfo] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { dispatch } = useAuthContext();
 
   const signupUser = async (signupCredentials) => {
     setIsLoading(true);
+    setError(null);
+    setInfo(null);
     const response = await fetch(SIGNUP_URI, {
       method: 'POST',
       headers: {
@@ -21,14 +22,13 @@ const useSignup = () => {
 
     setIsLoading(false);
     if(response.ok) {
-      dispatch({ type: 'LOGIN', payload: data._id });
-      localStorage.setItem('user', JSON.stringify(data._id));
+      setInfo(data.message);
     } else {
       setError(data.error);
     }
   }
 
-  return { signupUser, isLoading, error };
+  return { signupUser, isLoading, info, error };
 }
 
 export default useSignup;

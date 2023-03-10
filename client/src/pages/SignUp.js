@@ -8,7 +8,7 @@ const emptyCredentials = {
 };
 const SignUp = () => {
   const [credentials, setCredentials] = useState(emptyCredentials);
-  const { signupUser, isLoading, error } = useSignup();
+  const { signupUser, isLoading, info, error } = useSignup();
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -61,7 +61,12 @@ const SignUp = () => {
             />
             <label htmlFor="password">Enter Your Password</label>
           </div>
-          {error !== null && <div className="error-box red lighten-5 red-text text-darken-3"><p>{error}</p></div>}
+          {
+            (error !== null || info !== null) && (
+              <div className={`info-box lighten-5 text-darken-3 ${error ? 'red-border red red-text' : 'green-border green green-text'}`}>
+              <p>{error ? error : info}</p></div>
+            )
+          }
           <div className="center-align">
             <button disabled={isLoading} className="btn teal darken-1" type="submit">
               Sign Up
