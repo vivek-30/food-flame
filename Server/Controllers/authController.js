@@ -16,29 +16,33 @@ const handleUserLogOut = async (req, res) => {
 
 const handleEmailVerification = async (req, res) => {
   const { _token } = req.query;
-  const { _id } = await jwt.verify(_token, process.env.JWT_SECRET);
+  try {
+    const { _id } = await jwt.verify(_token, process.env.JWT_SECRET);
 
-  const user = await Users.findOne({ _id });
-  if(user) {
-    const { username, email, password } = user;
-    const updatedUser = await Users.findByIdAndUpdate(_id, { username, email, password, verified: true }); 
-    if(!updatedUser) {
-      return res.status(500).json({ error: 'Internal server error, unable to complete verification.' });
+    const user = await Users.findOne({ _id });
+    if(user) {
+      const { username, email, password } = user;
+      const updatedUser = await Users.findByIdAndUpdate(_id, { username, email, password, verified: true }); 
+      if(!updatedUser) {
+        return res.status(500).json({ error: 'Internal server error, unable to complete verification.' });
+      }
+
+      const newToken = await jwt.sign({ _id }, process.env.JWT_SECRET, { expiresIn: '3d' });
+
+      res.cookie('jwt', newToken, {
+        httpOnly: true,
+        secure: true,
+        signed: true,
+        sameSite: 'None',
+        maxAge: maxExpireTime
+      });
+
+      return res.status(200).json(user);
     }
-
-    const newToken = await jwt.sign({ _id }, process.env.JWT_SECRET, { expiresIn: '3d' });
-
-    res.cookie('jwt', newToken, {
-      httpOnly: true,
-      secure: true,
-      signed: true,
-      sameSite: 'None',
-      maxAge: maxExpireTime
-    });
-
-    return res.status(200).json(user);
   }
-
+  catch(error) {
+    return res.status(401).json({ error: 'Verification link is either invalid or expired.' });
+  }
   res.status(401).json({ error: 'Verification link is either invalid or expired.' });
 }
 
