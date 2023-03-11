@@ -48,7 +48,7 @@ const LogIn = () => {
             />
             <label htmlFor="password">Enter Your Password</label>
           </div>
-          {error !== null && <div className="error-box red lighten-5 red-text text-darken-3"><p>{error}</p></div>}
+          {error !== null && <div className="info-box red-border red red-text lighten-5 text-darken-3"><p>{error}</p></div>}
           <div className="center-align">
             <button disabled={isLoading} className="btn teal darken-1" type="submit">
               Log In
