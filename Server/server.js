@@ -19,7 +19,7 @@ const cookieSecret = process.env.COOKIE_SECRET;
 
 // Configuration values.
 const corsOptions = {
-  origin: 'https://foodflame.netlify.app',
+  origin: 'https://foodflame-frontend.onrender.com',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 };
