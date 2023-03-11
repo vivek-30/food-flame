@@ -1,4 +1,6 @@
 const createMailHtml = (token, username) => {
+  const redirectURL = `https://foodflame.netlify.app/verify?_token=${token}`;
+  
   return (`
     <div
       style="background: #eceff1;
@@ -11,7 +13,7 @@ const createMailHtml = (token, username) => {
         Welcome ${username}, verify your email account to start enjoying your FoodFlame Recipes 🍽.
       </h2>
       <a
-        href="http://localhost:3000/verify?_token=${token}"
+        href="${redirectURL}"
         target="_blank"
         style="display: block;
         background-color: #009688;

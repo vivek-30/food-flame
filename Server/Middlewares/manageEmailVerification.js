@@ -10,7 +10,7 @@ const sendMail = async (receiver, subject, html) => {
     const transporter = nodemailer.createTransport({
       service,
       port: 587,
-      secure: false,
+      secure: true,
       auth: {
         user: userEmail,
         pass: emailPassword
