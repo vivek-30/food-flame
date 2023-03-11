@@ -66,7 +66,7 @@ userSchema.statics.signup = async function(username, email, password) {
 
 userSchema.statics.login = async function(email, password) {
   const user = await this.findOne({ email });
-  if(!user) {
+  if(!user || (user && !user.verified)) {
     throw Error('This email is not registered yet.');
   }
 

@@ -1,5 +1,5 @@
 const createMailHtml = (token, username) => {
-  const redirectURL = `https://foodflame-frontend.onrender.com/verify?_token=${token}`;
+  const redirectURL = `https://foodflame.netlify.app/verify?_token=${token}`;
   
   return (`
     <div
