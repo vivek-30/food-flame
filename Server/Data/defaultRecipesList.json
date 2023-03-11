@@ -1,0 +1,251 @@
+[
+  {
+    "name":"Cheese Cake.",
+    "description":"Baked cheesecake recipe is an American classic that's loved by everyone.",
+    "imageSRC":"https://images.unsplash.com/photo-1524351199678-941a58a3df50?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2hlZXNlY2FrZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+    "ingredients":[
+      "butter",
+      "sugar",
+      "biscuits",
+      "eggs",
+      "vanilla essence",
+      "cream",
+      "lemon"
+    ],
+    "cookingSteps":[
+      "Grease the sides of a 20cm (8in) springform tin and line the base with non-stick baking paper. ",
+      "Crush the digestive biscuits to fine crumbs. Stir in the melted butter and mix well. Spoon into the prepared tin and press down firmly with a metal spoon.",
+      "Chill in the fridge while you make the filling.",
+      "Cream the butter and caster sugar together with the vanilla essence until fluffy, then beat in the egg yolks and the lemon juice.",
+      "Add the cream and the softened mascarpone. Beat again. Whisk the egg whites until just stiff and fold into the mixture.",
+      "Pour on to the biscuit base and level the surface.",
+      "Bake in the oven preheated to 170°C (325ºF, gas mark 3) for 1¼-1½ hours. When cooked, turn off the oven and leave the cheesecake inside to cool, leaving the door ajar.",
+      "Then carefully remove the cheesecake from the tin and dust with sifted icing sugar."
+    ]
+  },
+  {
+    "name":"Cherry Smoothie",
+    "description":"A Cherry Smoothie is a delicious vegan drink with fresh cherries and almond milk.",
+    "imageSRC":"https://media.istockphoto.com/id/978427704/photo/cherry-banana-smoothies.jpg?s=612x612&w=0&k=20&c=U5ctZJvXAXHr9JVUT-TT-boABAph-mCh26H-sOZI6rI=",
+    "ingredients":[
+      "cherries",
+      "almond",
+      "milk",
+      "banana",
+      "sugar"
+    ],
+    "cookingSteps":[
+      "First rinse ¾ cup of fresh sweet cherries (100 grams) in water for a minute or so.",
+      "If you’ve soaked the cherries, after 20 minutes rinse cherries again a couple of times under fresh water. Gently dry the cherries on a kitchen towel.",
+      "Now add the cherries to a blender.",
+      "Then add 1 large peeled and chopped banana. Pour in ½ cup of almond milk.",
+      "Add ¼ teaspoon of vanilla extract.",
+      "Blend until smooth.",
+      "Pour the cherry smoothie into a tall glass and serve right away."
+    ]
+  },
+  {
+    "name":"Chocolate Brownies.",
+    "description":"purely chocolatey and highly delicious brownies.",
+    "imageSRC":"https://images.unsplash.com/photo-1612886623532-1802833fcc67?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Y2hvY29sYXRlJTIwYnJvd25pZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+    "ingredients":[
+      "dark chocolate",
+      "sugar",
+      "butter",
+      "eggs",
+      "vanilla essence",
+      "flour",
+      "cocoa powder"
+    ],
+    "cookingSteps":[
+      "Preheat the oven to 180C, gas 4. Break up the dark chocolate into chunks. Put the chocolate into a heatproof bowl and place the bowl on top of a saucepan filled with a quarter or less of water.",
+      "Make sure the water doesn't touch the base of the bowl. Turn the heat up on the hob at a low temperature and simmer the water. This will melt the chocolate in the bowl.",
+      "You can also opt to melt chocolate in the microwave. Place in a heatproof bowl, cook in bursts of 10/20 seconds stirring each time. Do not overheat or overcook otherwise the chocolate will burn.",
+      "Put the butter and sugar into the bowl of a food mixer and beat until fluffy.",
+      "Gradually beat in the eggs, beating well after each addition. Beat in the vanilla essence.",
+      "Spoon the cooled melted chocolate into the mixture then mix it thoroughly. Sift the flour and cocoa powder into the mixture and gently fold in.",
+      "When completely combined, spoon the mixture into a greased and lined tin and spread the mixture evenly with the back of a spoon or spatula.",
+      "Bake in the heated oven for about 20 mins until the chocolate brownies are firm to the touch but still a bit fudgy.",
+      "Remove the tin from the oven and set it on a wire cooling rack. Leave the chocolate brownies to cool completely before cutting them into pieces."
+    ]
+  },
+  {
+    "name":"CupCakes",
+    "description":"Ideal for bake sales, school fetes, kids' parties, and more.",
+    "imageSRC":"https://images.unsplash.com/photo-1550617931-e17a7b70dce2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Y3VwJTIwY2FrZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+    "ingredients":[
+      "sugar",
+      "ice cream",
+      "butter",
+      "eggs",
+      "milk",
+      "flour"
+    ],
+    "cookingSteps":[
+      "Preheat the oven to 190C, 375F, gas 5. Line two muffin trays with 12 cupcake cases or bake in batches of 12 using one muffin tray.",
+      "Start by creaming butter and sugar (opens in new tab) together in a bowl using a wooden spoon or electric whisk. Beat until soft and fluffy.",
+      "Then add the flour, eggs, milk, and salt and whisk until the mixture is smooth.",
+      "Use a traditional-style ice-cream scoop, or spoon, to divide the mixture between all the paper cases making sure to get an even amount of mixture in each.",
+      "Place both muffin tins in the oven and bake for 15 minutes, then swap over the position of the tins over and bake for a further 3-7 minutes, until both trays of cupcakes are a light golden colour.",
+      "Remove the tins from the oven. Leave the cupcakes to cool in the tins for a few minutes.",
+      "Then transfer them to a wire rack to cool. Once completely cooled, the cupcakes can be decorated."
+    ]
+  },
+  {
+    "name":"French Fries",
+    "description":"World's best fries.",
+    "imageSRC":"https://media.istockphoto.com/id/1280158821/photo/diverse-keto-dishes.jpg?b=1&s=170667a&w=0&k=20&c=IsvvmxUGvo1MOmW2hlzTQ9MiHtgk7jwggRrZOm6xAOs=",
+    "ingredients":[
+      "patato",
+      " spices",
+      " oil",
+      " tomato sauce."
+    ],
+    "cookingSteps":[
+      "peel patato",
+      " add spices",
+      " Fry them gently.",
+      " finally  server them."
+    ]
+  },
+  {
+    "name":"Macaroni Cheese.",
+    "description":"Macaroni cheese is the ultimate comfort food and you can't avoid.",
+    "imageSRC":"https://images.unsplash.com/photo-1543339520-51ebace10a0a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8bWFjYXJvbml8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+    "ingredients":[
+      "macaroni",
+      "onion",
+      "cheese",
+      "milk",
+      "breadcrumbs",
+      "flour",
+      "salt"
+    ],
+    "cookingSteps":[
+      "Set the oven to 200°C/400°F/Gas Mark 6.",
+      "Pour the milk into a pan and add the onion, bay leaf, peppercorns and parsley stalks. Place the pan on the hob and bring to the boil.",
+      "Remove the pan from the heat and leave the milk to infuse for 30 minutes. Strain the milk into a jug, discarding the flavourings.",
+      "Melt the butter in a clean pan. Tip in the flour and mix well until it binds together to form a thick paste",
+      "Gradually add the infused milk, beating well all the time it’s cooking and allowing the mixture to come to the boil between each addition of milk",
+      "Once all the milk has been added, simmer the sauce for a few minutes and season to taste with salt and white pepper. The sauce can be used immediately.",
+      "Cook the macaroni in boiling water for about 12 mins, or according to the packet instructions, until it’s just tender. Drain it well.",
+      "Stir the Cheddar into the white sauce and then the mustard, if using. Add the pasta and mix well, then turn the mixture out into an ovenproof dish.",
+      "Scatter the breadcrumbs and Parmesan over the top of the macaroni. Bake it in the centre of the oven for 20-30 mins, or until it’s light golden and the sauce is bubbling at the edges. Serve immediately with a freshly made salad."
+    ]
+  },
+  {
+    "name":"Matar Paneer",
+    "description":"This is a super delicious indian dish.",
+    "imageSRC":"https://www.whiskaffair.com/wp-content/uploads/2020/09/Matar-Paneer-2-3.jpg",
+    "ingredients":[
+      "paneer",
+      "cashews",
+      "vegetables",
+      "spices",
+      "oil"
+    ],
+    "cookingSteps":[
+      "First, you will take all of the masala paste ingredients and add them to a grinder or a blender",
+      "After that, you will grind the ingredients into a smooth paste. If needed add 2 to 3 tablespoons of water while grinding the masala paste. When the paste is creamy and blended to a fine consistency, set aside until later.",
+      "Next add 3 tablespoons oil in a 2-litre pressure cooker or a pot. Let the oil become hot. Reduce heat to a medium-low heat. Add half teaspoon cumin seeds and fry until they splutter.",
+      "Now you will sauté the paste mixture for about 10 to 12 minutes on a medium-low heat.",
+      "After sautéing the masala paste, add in all of the dry spice powders, stir to combine well and sauté for a minute.",
+      "Next, add in 1 cup of rinsed green peas or matar. You can chose to add either frozen or fresh green peas.",
+      "Finally, add the paneer cubes and mix well or simmer on a low heat for a few seconds or until the paneer cubes are fully cooked. Don’t overcook as the paneer will become dense and hard.",
+      "Now that your matar paneer is ready to eat, garnish with chopped coriander leaves and serve hot or warm.",
+      "done"
+    ]
+  },
+  {
+    "name":"Penne Pasta",
+    "description":"One of the most delicious spicy food",
+    "imageSRC":"https://img.freepik.com/premium-photo/penne-pasta-tomato-sauce-with-meat-tomatoes-decorated-with-pea-sprouts-dark-table_2829-3411.jpg",
+    "ingredients":[
+      "onion",
+      "garlic",
+      "oil",
+      "tomato",
+      "pasta",
+      "red pepper",
+      "salt"
+    ],
+    "cookingSteps":[
+      "In a large saucepan over medium-low heat, add the olive oil, smashed garlic and crushed red pepper flakes.",
+      "Gently cook, stirring occasionally, until the oil is fragrant and the garlic and crushed red pepper flakes are lightly toasted, about 10 minutes.",
+      "Increase the heat to medium, add the finely diced red onion and garlic, and cook until softened, about 5 minutes.",
+      "Add the tomatoes, breaking them apart into large chunks with a flat wooden spoon, and season with the salt. Bring to a simmer and cook, covered, until a loose sauce forms, 12 minutes.",
+      "While the sauce is cooking, bring a large pot of salted water to a boil. Add the penne to the water and cook until al dente, 7 to 8 minutes. Reserve ¼ cup of the pasta water.",
+      "Drain the pasta and return to the pot with the reserved water.",
+      "Add the arrabiata sauce to the pasta and cook until slightly thickened, 2 to 4 minutes.",
+      "Stir in the basil leaves, then taste and adjust the seasoning with salt.",
+      "Garnish with a few basil leaves and serve."
+    ]
+  },
+  {
+    "name":"Tomato Soup",
+    "description":"mouth-watering soup is bursting with rich tomato flavour",
+    "imageSRC":"https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8dG9tYXRvJTIwc291cHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=700&q=60",
+    "ingredients":[
+      "onion",
+      "garlic",
+      "butter",
+      "tomato",
+      "paprika",
+      "sugar",
+      "bay leaf"
+    ],
+    "cookingSteps":[
+      "Fry the onion in the butter for 10 mins until softened. Stir in the garlic and paprika and cook for 1 minute.",
+      "Add the purée and continue for 2 mins more.",
+      "Add the tomatoes, sugar, bay leaf and chicken or vegetable stock. Bring the soup to the boil then simmer for 20 mins.",
+      "Remove the bay leaf. Blend the soup in batches in a food processor or blender until smooth.",
+      "Push through a sieve to remove any skin or seeds and return the liquid to the rinsed-out pan.",
+      "Stir in two-thirds of the double cream and reheat the soup gently.",
+      "Once it's hot, serve your tomato soup immediately in warmed bowls with a swirl of the remaining cream and a garnish of basil leaves."
+    ]
+  },
+  {
+    "name":"chocolate chip cookies.",
+    "description":"A Highly Delicious Chocolate Dish.",
+    "imageSRC":"https://images.unsplash.com/photo-1583743089695-4b816a340f82?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Y2hvY29sYXRlJTIwY2hpcCUyMGNvb2tpZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+    "ingredients":[
+      "flour",
+      "egg",
+      "butter",
+      "vanilla extract",
+      "baking powder",
+      "chocolate chips"
+    ],
+    "cookingSteps":[
+      "Add the sugar and melted butter in a bowl and mix together - a wooden spoon is fine, no need for a whisk.",
+      "Sift the flour, baking powder, vanilla and salt together and add to the sugar and butter mixture.",
+      "Add the chocolate chips at this stage if you're making chocolate chip cookies.",
+      "Mix together using your hand. Once you get a dough texture, add the egg and knead using your hand again.",
+      "Spread some butter onto a baking tray. Take some of the dough, roll into ball then flatten a little. ",
+      "Keep them on the small side as they spread out during baking. Also, don't keep biscuits close to each other otherwise they will get stuck together.",
+      "Place in the oven and bake at 160C, gas 3 for 10-20 mins. The bigger the cookies, the longer they'll take to cook. They're ready when the edges are a bit golden."
+    ]
+  },
+  {
+    "name":"scrambled egg",
+    "description":"A traditional Indian scrambled egg dish, ande ki bhurji includes an almost equal amount of fresh yellow onion to eggs.",
+    "imageSRC":"https://images.unsplash.com/photo-1582169505937-b9992bd01ed9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fHNjcmFtYmxlZCUyMGVnZ3N8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+    "ingredients":[
+      "eggs",
+      "salt",
+      "cumin seeds",
+      "onion",
+      "vegetable oil"
+    ],
+    "cookingSteps":[
+      "Lightly beat eggs and salt in a small bowl, making sure not to overbeat (eggs should not be foamy or frothy).",
+      "Toast cumin seeds in a dry 10-inch skillet over medium, stirring occasionally, until fragrant, 3 to 5 minutes. Grind seeds, and set aside.",
+      "In same skillet, heat oil over medium.",
+      "Add onion; cook, stirring occasionally, until translucent but still firm and crisp, 5 to 6 minutes.",
+      "Reduce heat to low. Add beaten eggs; cook, undisturbed, 5 seconds.",
+      "Using a spatula, begin pushing eggs toward center of skillet.",
+      "When most of the egg has coagulated, gently flip and cook other side, stirring and turning until eggs are fully cooked, about 3 minutes total.",
+      "Transfer to a warm serving platter. Sprinkle with cumin, cilantro, and sliced chiles."
+    ]
+  }
+]
