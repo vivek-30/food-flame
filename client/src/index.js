@@ -9,11 +9,9 @@ import RecipeContextProvider from './context/RecipeContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <AuthContextProvider>
-      <RecipeContextProvider>
-        <App />
-      </RecipeContextProvider>
-    </AuthContextProvider>
-  </React.StrictMode>
+  <AuthContextProvider>
+    <RecipeContextProvider>
+      <App />
+    </RecipeContextProvider>
+  </AuthContextProvider>
 );
