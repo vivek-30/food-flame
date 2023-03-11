@@ -96,10 +96,11 @@ __user:__
     {
       username: String,
       email: String,
-      password: String
+      password: String,
+      verified: Boolean
     }
   ```
-> All fields are required in case of `signup` but in case of `login` "username" can be omitted.
+> Except for "verified" field, all other fields are required in case of `signup` but in case of `login` both "username" and "verified" fields can be omitted.
 
 __recipe:__
   ```js
