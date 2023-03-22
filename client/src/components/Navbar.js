@@ -19,7 +19,9 @@ const Navbar = () => {
   return (
     <nav className="blue-grey white">
       <div className="nav-wrapper container">
-        <img src={AppLogo} alt="Logo" id="app-logo" />
+        <Link to="/">
+          <img src={AppLogo} alt="Logo" id="app-logo" />
+        </Link>
         <Link to="/" className="brand-logo hide-on-small-only blue-grey-text text-darken-2">
           FoodFlame
         </Link>
