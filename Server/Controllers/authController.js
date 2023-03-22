@@ -9,11 +9,6 @@ const addDefaultData = require('../Utility/addDefaultData');
 const maxExpireTime = Number(process.env.MAX_EXPIRE_TIME);   // 3 Days.
 
 const handleUserLogOut = async (req, res) => {
-  const { jwt: token } = req.signedCookies;
-  if(!token) {
-    return res.status(401).json({ error: 'Logout failed (missing authentication token)' });
-  }
-
   res.clearCookie('jwt');
   res.status(200).json({ message: 'Logged out successfully.'})
 }
