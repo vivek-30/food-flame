@@ -4,11 +4,11 @@
   "description": "This is a cool recipes app",
   "main": "serves.js",
   "scripts": {
-    "build": "rm -rf dist && tsc",
+    "build": "rimraf dist && tsc",
     "prestart": "npm run build",
     "start": "node dist/server.js",
     "preserve": "npm run build",
-    "serve": "tsc -w & nodemon dist/server.js"
+    "serve": "concurrently \"tsc -w\" \"nodemon dist/server.js\""
   },
   "author": "Vivek Singh",
   "license": "MIT",
@@ -23,7 +23,9 @@
     "validator": "^13.9.0"
   },
   "devDependencies": {
+    "concurrently": "^8.0.1",
     "dotenv": "^16.0.3",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "rimraf": "^5.0.1"
   }
 }
