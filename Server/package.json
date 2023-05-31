@@ -4,8 +4,11 @@
   "description": "This is a cool recipes app",
   "main": "serves.js",
   "scripts": {
-    "start": "node server.js",
-    "devStart": "nodemon server.js"
+    "build": "rm -rf dist && tsc",
+    "prestart": "npm run build",
+    "start": "node dist/server.js",
+    "preserve": "npm run build",
+    "serve": "tsc -w & nodemon dist/server.js"
   },
   "author": "Vivek Singh",
   "license": "MIT",
