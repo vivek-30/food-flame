@@ -1,6 +1,13 @@
-const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
+import { config } from 'dotenv';
+import bcrypt from 'bcrypt';
+
+import { Token } from '../types/customTypes';
+import { IUser, ILogInCredentials, ISignUpCredentials } from '../types/interfaces/model';
+
+config();
+const jwtSecret = process.env.JWT_SECRET || 'jwt-secret';
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -24,17 +31,17 @@ const userSchema = new mongoose.Schema({
 });
 
 // Static methods.
-userSchema.statics.signup = async function(username, email, password) {
+userSchema.statics.signup = async function({ username, email, password }: ISignUpCredentials): Promise<Token> {
 
   // Check whether a user with given username and email is verified or not.
-  const checkUser = await this.findOne({ username, email });
+  const checkUser: IUser = await this.findOne({ username, email });
   if(checkUser && !checkUser.verified) {
-    const deletedUser = await this.findOneAndDelete({ username, email });
+    const deletedUser: IUser = await this.findOneAndDelete({ username, email });
     if(!deletedUser) throw('Internal server error, unable to sign up.');
   }
 
   // Check whether a user is already exist or not with given username and email.
-  const isUserExist = await this.findOne({ username });
+  const isUserExist: IUser = await this.findOne({ username });
   if(isUserExist) {
     throw Error('This username is already taken.');
   }
@@ -49,7 +56,7 @@ userSchema.statics.signup = async function(username, email, password) {
   const hashedPassword = await bcrypt.hash(password, salt);
 
   // Try to save user to database.
-  const user = await this.create({
+  const user: IUser = await this.create({
     username,
     email,
     password: hashedPassword
@@ -60,12 +67,12 @@ userSchema.statics.signup = async function(username, email, password) {
   }
 
   // Create token using "jsonwebtoken".
-  const token = await jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+  const token = await jwt.sign({ _id: user._id }, jwtSecret, { expiresIn: '1h' });
   return { user, token };
 }
 
-userSchema.statics.login = async function(email, password) {
-  const user = await this.findOne({ email });
+userSchema.statics.login = async function({ email, password }: ILogInCredentials): Promise<Token> {
+  const user: IUser = await this.findOne({ email });
   if(!user || (user && !user.verified)) {
     throw Error('This email is not registered yet.');
   }
@@ -77,8 +84,8 @@ userSchema.statics.login = async function(email, password) {
   }
 
   // Create token using "jsonwebtoken".
-  const token = await jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '3d' });
+  const token = await jwt.sign({ _id: user._id }, jwtSecret, { expiresIn: '3d' });
   return { user, token };
 }
 
-module.exports = mongoose.model('User', userSchema);
+export default mongoose.model('User', userSchema);
