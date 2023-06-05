@@ -1,7 +1,19 @@
-const validator = require('validator');
+import {
+  RequestHandler,
+  Request,
+  Response,
+  NextFunction 
+} from 'express';
+import validator from 'validator';
 
-const validateCredentials = (req, res, next) => {
-  const { username, email, password } = req.body;
+import { ISignUpCredentials } from '../types/interfaces/model.interface';
+
+const validateCredentials: RequestHandler = async (
+  req: Request, 
+  res: Response, 
+  next: NextFunction
+): Promise<Response | void> => {
+  const { username, email, password }: ISignUpCredentials = req.body;
   let error = '';
 
   // Check if credentials are empty or not.
@@ -40,4 +52,4 @@ const validateCredentials = (req, res, next) => {
   next();
 }
 
-module.exports = validateCredentials;
+export default validateCredentials;
