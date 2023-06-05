@@ -1,17 +1,19 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
 
 // Controllers for managing CRUD operations for recipes.
-const {
+import {
   getAllRecipes,
   getSpecificRecipe,
   addNewRecipe,
   updateOneRecipe,
   removeOneRecipe
-} = require('../Controllers/recipesController');
+} from '../Controllers/recipesController';
+
+// Initialising express router.
+const router = Router();
 
 // Middlewares.
-const authenticateUser = require('../Middlewares/authenticateUser');
+import authenticateUser from '../Middlewares/authenticateUser';
 
 // Applying Middlewares.
 router.use(authenticateUser);
@@ -29,4 +31,4 @@ router.put('/:id', updateOneRecipe);
 // Handling all DELETE requests.
 router.delete('/:id', removeOneRecipe);
 
-module.exports = router;
+export default router;
