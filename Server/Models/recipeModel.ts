@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { IRecipe } from '../types/interfaces/model.interface';
 
 const recipeSchema = new mongoose.Schema({
   name: {
@@ -27,4 +28,4 @@ const recipeSchema = new mongoose.Schema({
   }
 }, {timestamps: true});
 
-export default mongoose.model('Recipe', recipeSchema);
+export default mongoose.model<IRecipe>('Recipe', recipeSchema);

@@ -3,8 +3,8 @@ import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
 import bcrypt from 'bcrypt';
 
-import { Token } from '../types/customTypes';
-import { IUser, ILogInCredentials, ISignUpCredentials } from '../types/interfaces/model';
+import { UserToken } from '../types/customTypes';
+import { IUser, IUserModel } from '../types/interfaces/model.interface';
 
 config();
 const jwtSecret = process.env.JWT_SECRET || 'jwt-secret';
@@ -31,7 +31,11 @@ const userSchema = new mongoose.Schema({
 });
 
 // Static methods.
-userSchema.statics.signup = async function({ username, email, password }: ISignUpCredentials): Promise<Token> {
+userSchema.statics.signup = async function(
+  username: string, 
+  email: string,
+  password: string
+): Promise<UserToken> {
 
   // Check whether a user with given username and email is verified or not.
   const checkUser: IUser = await this.findOne({ username, email });
@@ -50,7 +54,7 @@ userSchema.statics.signup = async function({ username, email, password }: ISignU
   if(isEmailExist) {
     throw Error('This email is already registered.');
   }
-
+  
   // Hash password using "bcrypt".
   const salt = await bcrypt.genSalt();
   const hashedPassword = await bcrypt.hash(password, salt);
@@ -71,7 +75,7 @@ userSchema.statics.signup = async function({ username, email, password }: ISignU
   return { user, token };
 }
 
-userSchema.statics.login = async function({ email, password }: ILogInCredentials): Promise<Token> {
+userSchema.statics.login = async function(email: string, password: string): Promise<UserToken> {
   const user: IUser = await this.findOne({ email });
   if(!user || (user && !user.verified)) {
     throw Error('This email is not registered yet.');
@@ -88,4 +92,4 @@ userSchema.statics.login = async function({ email, password }: ILogInCredentials
   return { user, token };
 }
 
-export default mongoose.model('User', userSchema);
+export default mongoose.model<IUser, IUserModel>('User', userSchema);
