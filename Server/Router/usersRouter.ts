@@ -1,16 +1,18 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
 
 // Controllers for managing users authentication.
-const {
+import {
   handleUserLogOut,
   handleUserSignUp,
   handleUserLogIn,
   handleEmailVerification
-} = require('../Controllers/authController');
+} from '../Controllers/authController';
 
 // Middlewares.
-const validateCredentials = require('../Middlewares/validateCredentials');
+import validateCredentials from '../Middlewares/validateCredentials';
+
+// Initialising express router.
+const router = Router();
 
 // Handling all GET requests.
 router.get('/log-out', handleUserLogOut);
@@ -23,4 +25,4 @@ router.use(validateCredentials);
 router.post('/sign-up', handleUserSignUp);
 router.post('/log-in', handleUserLogIn);
 
-module.exports = router;
+export default router;
