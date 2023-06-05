@@ -33,8 +33,8 @@ class App {
   }
 
   public handleAPIRoutes(routes: RouteController[]): void {
-    routes.forEach(({ route, controller }): void => {
-      this.expressApp.use(route, controller);
+    routes.forEach(({ path, router }): void => {
+      this.expressApp.use(path, router);
     });
   }
 
@@ -70,8 +70,8 @@ class App {
       });
     })
     .catch((error: Error): void => {
-      console.log(error);
-      throw new Error('Failed to establish database connection' + error.message);
+      console.error(`Failed to establish database connection: ${error.message}`);
+      process.exit(1);
     });
   }
 }

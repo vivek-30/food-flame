@@ -14,18 +14,19 @@ const databaseURI = process.env.DATABASE_URI || 'mongodb://localhost:27017';
 
 const controllers: RouteController[] = [
   {
-    route: 'user',
-    controller: userRouter
+    path: '/user',
+    router: userRouter
   },
   {
-    route: 'recipes',
-    controller: recipeRouter
+    path: '/recipes',
+    router: recipeRouter
   }
 ];
 
 const middlewareOptions: IMiddlewareOptions = {
   corsOptions: {
-    origin: 'https://foodflame.netlify.app',
+    origin: '*',
+    // origin: 'https://foodflame.netlify.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
   },
@@ -40,10 +41,6 @@ const middlewareOptions: IMiddlewareOptions = {
 };
 
 const myApp = new App(port, databaseURI, cookieSecret);
-try {
-  myApp.establishDataBaseConnection();
-  myApp.applyMiddlewares(middlewareOptions);
-  myApp.handleAPIRoutes(controllers);
-} catch(error) {
-  console.log(error);
-}
+myApp.establishDataBaseConnection();
+myApp.applyMiddlewares(middlewareOptions);
+myApp.handleAPIRoutes(controllers);

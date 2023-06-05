@@ -1,12 +1,18 @@
 import { Router } from 'express';
-import { IUser } from './interfaces/model';
+import { ObjectId } from 'mongoose';
+import { IUser } from './interfaces/model.interface';
 
 export type RouteController = {
-  route: string,
-  controller: Router 
+  path: string,
+  router: Router 
 };
 
-export type Token = {
+export type UserToken = {
   user: IUser,
   token: string
+}
+
+export type JwtPayload = {
+  _id: ObjectId,
+  expiresIn: number
 }
