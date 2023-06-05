@@ -1,4 +1,4 @@
-const createMailHtml = (token, username) => {
+const createMailHtml = (token: string, username: string): string => {
   const redirectURL = `https://foodflame.netlify.app/verify?_token=${token}`;
   
   return (`
@@ -32,4 +32,4 @@ const createMailHtml = (token, username) => {
   `);
 }
 
-module.exports = createMailHtml;
+export default createMailHtml;
