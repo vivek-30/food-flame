@@ -25,8 +25,7 @@ const controllers: RouteController[] = [
 
 const middlewareOptions: IMiddlewareOptions = {
   corsOptions: {
-    origin: '*',
-    // origin: 'https://foodflame.netlify.app',
+    origin: 'https://foodflame.netlify.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
   },

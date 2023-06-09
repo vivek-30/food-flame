@@ -2,7 +2,6 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
-    "allowJs": true,
     "moduleResolution": "node",
     "outDir": "./dist",
     "strict": true,

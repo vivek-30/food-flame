@@ -37,4 +37,3 @@ export interface ILogInCredentials {
 export interface ISignUpCredentials extends ILogInCredentials {
   username: string
 }
-
