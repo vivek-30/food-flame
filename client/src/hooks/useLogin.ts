@@ -1,13 +1,16 @@
 import { useState } from 'react';
-import { LOGIN_URI } from '../utils/URIs';
+import { LOGIN_URI } from '../../constants/URIs';
 import useAuthContext from './useAuthContext';
 
+import { LogInResponseData } from '../types/index.types';
+import { ILogInCredentials } from '../types/index.interfaces';
+
 const useLogin = () => {
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { dispatch } = useAuthContext();
 
-  const loginUser = async (loginCredentials) => {
+  const loginUser = async (loginCredentials: ILogInCredentials) => {
     setIsLoading(true);
     const response = await fetch(LOGIN_URI, {
       method: 'POST',
@@ -17,14 +20,15 @@ const useLogin = () => {
       body: JSON.stringify(loginCredentials),
       credentials: 'include'
     });
-    const data = await response.json();
+    const data: LogInResponseData = await response.json();
 
     setIsLoading(false);
-    if(response.ok) {
+    if(response.ok && !data.error) {
       dispatch({ type: 'LOGIN', payload: data._id });
       localStorage.setItem('user', JSON.stringify(data._id));
     } else {
-      setError(data.error);
+      const errorMessage = data.error || 'Unknown error occured during login process.';
+      setError(errorMessage);
     }
   }
 
