@@ -1,25 +1,33 @@
+import React, { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// Default Recipe Data.
 import { emptyRecipe, initialCookingStep } from '../../pages/AddRecipe';
+import { ICookingStep } from '../../types/index.interfaces';
+import { PartialRecipeDetails } from '../../types/index.types';
 
-const RecipeToolBar = ({ setRecipeData, setCookingSteps, manageRecipe }) => {
+interface PropType {
+  setRecipeData: Dispatch<SetStateAction<PartialRecipeDetails>>,
+  setCookingSteps: Dispatch<SetStateAction<ICookingStep[]>>,
+  manageRecipe(e: React.FormEvent): void
+}
+
+const RecipeToolBar = ({ setRecipeData, setCookingSteps, manageRecipe }: PropType) => {
   const navigate = useNavigate();
 
   // Toolbar Handlers.
-  const addNewCookingStep = (e) => {
-    e.preventDefault();
+  const addNewCookingStep = (e: React.MouseEvent): void => {
+    e.preventDefault()
     setCookingSteps((currentSteps) => (
-      [ ...currentSteps, { index: currentSteps.length, content: ''}]
+      [ ...currentSteps, { index: currentSteps.length, content: '' } ]
     ));
   }
 
-  const navigateBackward = (e) => {
+  const navigateBackward = (e: React.MouseEvent): void => {
     e.preventDefault();
     navigate('/');
   }
 
-  const clearAllInputFields = (e) => {
+  const clearAllInputFields = (e: React.MouseEvent): void => {
     e.preventDefault();
     setRecipeData(emptyRecipe);
     setCookingSteps(initialCookingStep);
