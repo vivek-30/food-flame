@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import useSignup from '../hooks/useSignup';
+import { ISignUpCredentials } from '../types/index.interfaces';
 
 const emptyCredentials = {
   username: '',
@@ -7,15 +8,15 @@ const emptyCredentials = {
   password: ''
 };
 const SignUp = () => {
-  const [credentials, setCredentials] = useState(emptyCredentials);
+  const [credentials, setCredentials] = useState<ISignUpCredentials>(emptyCredentials);
   const { signupUser, isLoading, info, error } = useSignup();
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { id, value } = e.target;
     setCredentials((currentCredentials) => ({ ...currentCredentials, [id]: value }));
   }
 
-  const handleSignup = async (e) => {
+  const handleSignup = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     await signupUser(credentials);
   }
@@ -63,8 +64,8 @@ const SignUp = () => {
           </div>
           {
             (error !== null || info !== null) && (
-              <div className={`info-box lighten-5 text-darken-3 ${error ? 'red-border red red-text' : 'green-border green green-text'}`}>
-              <p>{error ? error : info}</p></div>
+              <div className={`info-box lighten-5 text-darken-3 ${error !== null ? 'red-border red red-text' : 'green-border green green-text'}`}>
+              <p>{error !== null ? error : info}</p></div>
             )
           }
           <div className="center-align">
