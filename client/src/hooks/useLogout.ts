@@ -1,21 +1,23 @@
 import { useState } from 'react';
-import { LOGOUT_URI } from '../utils/URIs';
+import { LOGOUT_URI } from '../../constants/URIs';
 import useAuthContext from './useAuthContext';
 import useRecipeContext from './useRecipeContext';
 
+import { LogOutResponseData } from '../types/index.types';
+
 const useLogout = () => {
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { dispatch: authDispatch } = useAuthContext();
   const { dispatch: recipeDispatch } = useRecipeContext();
 
   const logoutUser = async () => {
     setIsLoading(true);
     const response = await fetch(LOGOUT_URI, { credentials: 'include' });
-    const data = await response.json();
+    const data: LogOutResponseData = await response.json();
 
     setIsLoading(false);
-    if(!response.ok) {
+    if(!response.ok && data.error) {
       setError(data.error);
       return;
     }
