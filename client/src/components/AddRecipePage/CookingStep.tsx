@@ -1,4 +1,13 @@
-const CookingStep = ({ index, content, handleStepInputChange, removeCookingStep }) => {
+import React from 'react';
+
+interface PropType {
+  index: number,
+  content: string,
+  handleStepInputChange(e: React.ChangeEvent<HTMLInputElement>): void,
+  removeCookingStep(e: React.MouseEvent): void
+}
+
+const CookingStep = ({ index, content, handleStepInputChange, removeCookingStep }: PropType) => {
   return (
     <div className="input-field">
       <i onClick={removeCookingStep} className="material-icons prefix" data-step-index={index}>clear</i>
