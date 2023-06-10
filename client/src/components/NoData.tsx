@@ -1,3 +1,4 @@
+import React from 'react';
 import NoDataImage from '../assets/no-data.svg';
 
 const NoData = () => {
