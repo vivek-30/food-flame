@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import useAuthContext from '../hooks/useAuthContext';
 import useRecipeContext from '../hooks/useRecipeContext';
@@ -18,24 +18,27 @@ import DescriptionIcon from '../assets/AddRecipePage/description.svg';
 
 // Utility Stuff.
 import customAlert from '../utils/customAlert';
-import { RECIPE_BASE_URI, ADD_RECIPE_URI } from '../utils/URIs';
+import { RECIPE_BASE_URI, ADD_RECIPE_URI } from '../../constants/URIs';
+
+import { ICookingStep, IRecipeResponseData } from '../types/index.interfaces';
+import { CompleteRecipeDetails, PartialRecipeDetails, RecipeDetailsForDB, RequestMethods } from '../types/index.types';
 
 // Default Recipe Data.
-export const emptyRecipe = {
+export const emptyRecipe: PartialRecipeDetails = {
   name: '',
   description: '',
   imageSRC: '',
   ingredients: []
 };
-export const initialCookingStep = [{ index: 0, content: '' }];
+export const initialCookingStep: ICookingStep[] = [{ index: 0, content: '' }];
 const defaultImageURL = 'https://cdn.pixabay.com/photo/2015/08/25/03/50/background-906135_960_720.jpg';
 
 const AddRecipe = () => {
-  const [recipeData, setRecipeData] = useState(emptyRecipe);
-  const [isUpdating, setIsUpdating] = useState('false');
-  const [isRequestPending, setIsRequestPending] = useState(false);
-  const [cookingSteps, setCookingSteps] = useState(initialCookingStep);
-  const [isLoading, setIsLoading] = useState(true);
+  const [recipeData, setRecipeData] = useState<PartialRecipeDetails>(emptyRecipe);
+  const [isUpdating, setIsUpdating] = useState<string>('false');
+  const [isRequestPending, setIsRequestPending] = useState<boolean>(false);
+  const [cookingSteps, setCookingSteps] = useState<ICookingStep[]>(initialCookingStep);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   
   const { dispatch } = useRecipeContext();
   const { state: authState } = useAuthContext();
@@ -50,19 +53,20 @@ const AddRecipe = () => {
   const fetchRecipeData = () => {    
     (async () => {
       const response = await fetch(`${RECIPE_BASE_URI}/${recipeID}?id=${userID}`, { credentials: 'include' });
-      const data = await response.json();
+      const data: IRecipeResponseData = await response.json();
 
       setIsLoading(false);
 
-      if(response.ok) {
-        const { name, description, imageSRC, ingredients, cookingSteps } = data;
+      if(response.ok && !data.error) {
+        const { name, description, ingredients, cookingSteps } = data.data;
+        const imageSRC = data.data.imageSRC || defaultImageURL;
 
         setRecipeData({ name, description, imageSRC, ingredients });
-        setCookingSteps(cookingSteps.map((step, index) => {
+        setCookingSteps(cookingSteps.map((step, index): ICookingStep => {
           return { index, content: step };
         }));
       } else {
-        const { message, error } = data;
+        const { message, error } = data.error!;
         customAlert(message);
         console.log(`Error Occured While Fetching A Recipe: ${error}`);
       }
@@ -70,7 +74,7 @@ const AddRecipe = () => {
   }
     
   useEffect(() => {
-    setIsUpdating(updatingParam);
+    setIsUpdating(updatingParam ? updatingParam : 'false');
     if(recipeID !== 'invalid') {
       fetchRecipeData();
     } else {
@@ -79,21 +83,23 @@ const AddRecipe = () => {
     // eslint-disable-next-line
   }, []);
 
-  const handleInputChange = (e) => {
-    let {
-      name: fieldName,
-      value: fieldValue
-    } = e.target;
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    let { name: fieldName, value } = e.target;
 
-    if(fieldName === 'ingredients') {
-      fieldValue = fieldValue.split(',');
-    }
-
-    setRecipeData((recipeData) => ({ ...recipeData, [fieldName]: fieldValue }));
+    setRecipeData((recipeData) => {
+      if(fieldName === 'ingredients') {
+        return { ...recipeData, [fieldName]: value.split(',') };
+      }
+      return { ...recipeData, [fieldName]: value };
+    });
   }
 
   // Recipe Utility Functions.
-  const manageRecipeUtil = (URL, method, body) => {
+  const manageRecipeUtil = (
+    URL: string,
+    method: RequestMethods,
+    body: RecipeDetailsForDB
+  ): void => {
     (async () => {
       const response = await fetch(URL, {
         method,
@@ -103,24 +109,25 @@ const AddRecipe = () => {
         body: JSON.stringify(body),
         credentials: 'include'
       });
-      const data = await response.json();
+      
+      const data: IRecipeResponseData = await response.json();
 
-      if(response.ok) {
+      if(response.ok && !data.error) {
         // Clearing Input Fields.
         setRecipeData(emptyRecipe);
         setCookingSteps(initialCookingStep);
-        
+
         // Updating Global Context State.
-        if(isUpdating) {
-          dispatch({ type: 'UPDATE_RECIPE', payload: data });
+        if(isUpdating === 'true') {
+          dispatch({ type: 'UPDATE_RECIPE', payload: data.data });
           setIsUpdating('false');
         } else {
-          dispatch({ type: 'ADD_RECIPE', payload: data });
+          dispatch({ type: 'ADD_RECIPE', payload: data.data });
         }
         
         customAlert(`Recipe ${method === 'POST' ? 'Saved' : 'Updated'} Successfully.`);
       } else {
-        const { message, error } = data;
+        const { message, error } = data.error!;
         customAlert(message);
         console.log(`Error Occured While ${method === 'POST' ? 'Saving' : 'Updating'} A Recipe: ${error}`);
       }
@@ -130,26 +137,27 @@ const AddRecipe = () => {
     })();
   }
 
-  const validateRecipeData = (data) => {
+  const validateRecipeData = (data: CompleteRecipeDetails): boolean => {
     data.name = data.name.trim();
     data.description = data.description.trim();
     data.ingredients = data.ingredients.filter((ingredient) => ingredient.trim() !== '');
     
     // Cooking Steps Modification
     data.cookingSteps = data.cookingSteps.filter(({ content }) => content.trim() !== '');
-    data.cookingSteps = data.cookingSteps.map(({ content }) => content);
 
-    if(data.imageSRC.trim() === '') {
+    if(!data.imageSRC || data.imageSRC.trim() === '') {
       data.imageSRC = defaultImageURL;
     }
 
     if(data.name === '') {
       customAlert('Recipe Name Is Required');
       return false;
-    } else if(data.description === '') {
+    } 
+    else if(data.description === '') {
       customAlert('Please Provide A Suitable Recipe Description');
       return false;
-    } else { 
+    }
+    else { 
       if(data.ingredients.length === 0) {
         customAlert(`You have to provide some ingredients to ${isUpdating === 'true' ? 'update' : 'save'} this recipe.`);
         return false;
@@ -164,18 +172,24 @@ const AddRecipe = () => {
     return true;
   }
 
-  const manageRecipe = (e) => {
+  const manageRecipe = (e: React.FormEvent): void => {
     e.preventDefault();
     
     // Check whether a POST/PUT request is already made or not.
     if(isRequestPending) return;
     else setIsRequestPending(true);
 
-    let modifiedRecipeData = { ...recipeData, cookingSteps };
-    if(validateRecipeData(modifiedRecipeData) === false) return;
+    const combinedRecipeData: CompleteRecipeDetails = { ...recipeData, cookingSteps };
+    if(validateRecipeData(combinedRecipeData) === false) return;
 
+    // Extract "content" from cookingSteps: ICookingStep
+    const stepsContent: string[] = combinedRecipeData.cookingSteps.map(({ content }) => content);
     // Attach "userID" field along with the recipe data.
-    modifiedRecipeData.userID = userID;
+    const modifiedRecipeData: RecipeDetailsForDB = {
+      ...combinedRecipeData,
+      userID, 
+      cookingSteps: stepsContent
+    };
 
     if(isUpdating === 'false') {
       manageRecipeUtil(ADD_RECIPE_URI, 'POST', modifiedRecipeData);
@@ -184,9 +198,9 @@ const AddRecipe = () => {
     }
   }
 
-  // Cooking Steps Handlers.
-  const handleStepInputChange = (e) => {
-    let stepIndex = parseInt(e.target.dataset.stepIndex);
+  // Cooking steps handlers.
+  const handleStepInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    let stepIndex = parseInt(e.target.dataset.stepIndex!);
     const { value } = e.target;
 
     setCookingSteps((currentCookingSteps) => (
@@ -199,8 +213,9 @@ const AddRecipe = () => {
     ));
   }
 
-  const removeCookingStep = (e) => {
-    let stepIndex = parseInt(e.target.dataset.stepIndex);
+  const removeCookingStep = (e: React.MouseEvent): void => {
+    const target = e.target as HTMLElement;
+    let stepIndex = parseInt(target.dataset.stepIndex!);
     if(cookingSteps.length === 1) {
       customAlert("Single Cooking Step Can't be Deleted.");
       return;
@@ -208,7 +223,7 @@ const AddRecipe = () => {
 
     setCookingSteps((currentCookingSteps) => {
       let newIndex = 0;
-      let updatedCookingSteps = [];
+      let updatedCookingSteps: ICookingStep[] = [];
       currentCookingSteps.forEach(({ index, content }) => {
         if(index !== stepIndex) {
           updatedCookingSteps.push({ index: newIndex++, content });
@@ -243,7 +258,7 @@ const AddRecipe = () => {
               />
               <RecipeInputField 
                 fieldName="imageSRC"
-                fieldValue={recipeData.imageSRC}
+                fieldValue={recipeData.imageSRC!}
                 inputLabel="Paste Image URL (Not Required)"
                 alignRight={false}
                 imageIcon={UrlIcon}
