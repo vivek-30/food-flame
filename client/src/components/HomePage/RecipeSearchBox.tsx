@@ -1,16 +1,22 @@
-import { useState } from 'react';
+import React, { useState, Dispatch, SetStateAction } from 'react';
 import useRecipeContext from '../../hooks/useRecipeContext';
 
-const RecipeSearchBox = ({ setRecipesToDisplay }) => {
-  const [query, setQuery] = useState('');
+import { IRecipe } from '../../types/index.interfaces'; 
+
+interface PropType {
+  setRecipesToDisplay: Dispatch<SetStateAction<IRecipe[]>>
+}
+
+const RecipeSearchBox = ({ setRecipesToDisplay }: PropType) => {
+  const [query, setQuery] = useState<string>('');
   const { state } = useRecipeContext();
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setQuery(e.target.value);
   }
 
   // Search "Query" Inside Name And Ingredients Of A Recipe.
-  const hasQueryString = (name, ingredients, refinedQuery) => {
+  const hasQueryString = (name: string, ingredients: string[], refinedQuery: string): boolean => {
     if(name.toLowerCase().indexOf(refinedQuery) !== -1) return true;
 
     let foundQuery = false;
@@ -24,14 +30,14 @@ const RecipeSearchBox = ({ setRecipesToDisplay }) => {
     return foundQuery;
   }
 
-  const searchRecipe = () => {
+  const searchRecipe = (): void => {
     const refinedQuery = query.trim().toLowerCase();
     if(refinedQuery === '') {
       setRecipesToDisplay(state.recipes);
       return;
     }
 
-    const searchedResults = [];
+    const searchedResults: IRecipe[] = [];
 
     state.recipes.forEach((recipe) => {
       if(hasQueryString(recipe.name, recipe.ingredients, refinedQuery)) {
