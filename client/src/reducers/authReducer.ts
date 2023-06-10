@@ -1,4 +1,10 @@
-const authReducer = (state, action) => {
+import { AuthContextState, AuthReducerAction } from '../types/index.types';
+
+const authReducer = (
+  state: AuthContextState,
+  action: AuthReducerAction
+): AuthContextState => {
+  
   switch (action.type) {
     case 'LOGIN': {
       const updatedState = {
