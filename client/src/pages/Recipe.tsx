@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import useAuthContext from '../hooks/useAuthContext';
 import M from 'materialize-css';
@@ -11,13 +11,15 @@ import RecipeUpdateBox from '../components/RecipePage/RecipeUpdateBox';
 
 // Utility Stuff.
 import customAlert from '../utils/customAlert';
-import { RECIPE_BASE_URI } from '../utils/URIs';
+import { RECIPE_BASE_URI } from '../../constants/URIs';
+
+import { IRecipe, IRecipeResponseData } from '../types/index.interfaces';
 
 const Recipe = () => {
-  const [recipe, setRecipe] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [recipe, setRecipe] = useState<IRecipe | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const recipeImageRef = useRef();
+  const recipeImageRef = useRef<HTMLImageElement | null>(null);
   const { recipeID } = useParams();
   const { state: authState } = useAuthContext();
 
@@ -26,20 +28,20 @@ const Recipe = () => {
   useEffect(() => {
     (async () => {
       const response = await fetch(`${RECIPE_BASE_URI}/${recipeID}?id=${userID}`, { credentials: 'include' });
-      const data = await response.json();
+      const data: IRecipeResponseData = await response.json();
 
       setIsLoading(false);
-      if(response.ok) {
-        setRecipe(data);
+      if(response.ok && !data.error) {
+        setRecipe(data.data);
       } else {
-        const { message, error } = data;
+        const { message, error } = data.error!;
         customAlert(message);
         console.log(`Error Occured While Fetching A Recipe ${error}`);
       }
     })();
 
     setTimeout(() => {
-      M.Materialbox.init(recipeImageRef.current);
+      M.Materialbox.init(recipeImageRef.current!);
     }, 1000);
   }, [recipeID, userID]);
 
@@ -49,7 +51,7 @@ const Recipe = () => {
       isLoading ? <LoadingSpinner /> : (
         <section className="container row pos-relative" id="recipe-page">
           {
-            !recipe ? <NoData /> :
+            recipe === null ? <NoData /> :
             <>
               <RecipeUpdateBox recipeID={recipe._id} />
               <div className="col s12 m5 l5 white img-box z-depth-2">
