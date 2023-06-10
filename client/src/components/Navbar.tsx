@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import useLogout from '../hooks/useLogout';
 import useAuthContext from '../hooks/useAuthContext';
@@ -9,9 +10,9 @@ const Navbar = () => {
   const { state } = useAuthContext();
   const { logoutUser, isLoading, error } = useLogout();
 
-  const handleUserLogout = async () => {
+  const handleUserLogout = async (): Promise<void> => {
     await logoutUser();
-    if(error) {
+    if(error !== null) {
       customAlert(error);
     }
   }
