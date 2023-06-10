@@ -1,23 +1,28 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import useAuthContext from '../../hooks/useAuthContext';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 
 // Utility Stuff.
 import customAlert from '../../utils/customAlert';
-import { RECIPE_BASE_URI } from '../../utils/URIs';
+import { RECIPE_BASE_URI } from '../../../constants/URIs';
+import { IRecipeResponseData } from '../../types/index.interfaces';
 
-const RecipeUpdateBox = ({ recipeID }) => {
-  const [isRequestPending, setIsRequestPending] = useState(false);
+interface PropType {
+  recipeID: string
+}
+
+const RecipeUpdateBox = ({ recipeID }: PropType) => {
+  const [isRequestPending, setIsRequestPending] = useState<boolean>(false);
   const { state: authState } = useAuthContext();
   const navigate = useNavigate();
 
   const { user: userID } = authState;
 
-  const navigateBackward = () => {
+  const navigateBackward = (): void => {
     navigate('/');
   }
 
-  const removeRecipe = async () => {
+  const removeRecipe = async (): Promise<void> => {
     // Check whether a DELETE request is already made or not.
     if(isRequestPending) return;
     else setIsRequestPending(true);
@@ -26,19 +31,19 @@ const RecipeUpdateBox = ({ recipeID }) => {
       method: 'DELETE',
       credentials: 'include'
     });
-    const data = await response.json();
+    const data: IRecipeResponseData = await response.json();
 
-    if(response.ok) {
+    if(response.ok && !data.error) {
       navigate('/');
     } else {
-      const { message, error } = data;
+      const { message, error } = data.error!;
       customAlert(message);
       console.log(`Error Occured While Deleting A Recipes ${error}`);
     }
   }
 
-  const updateRecipe = () => {
-    const params = createSearchParams({ updating: true, id: recipeID });
+  const updateRecipe = (): void => {
+    const params = createSearchParams({ updating: 'true', id: recipeID });
     navigate(`/add-recipe?${params}`);
   }
 
