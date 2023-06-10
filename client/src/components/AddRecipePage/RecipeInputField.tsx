@@ -1,4 +1,22 @@
-const RecipeInputField = ({ fieldName, fieldValue, inputLabel, alignRight, imageIcon, handleInputChange }) => {
+import React from 'react';
+
+interface PropType {
+  fieldName: string,
+  fieldValue: string | string[],
+  inputLabel: string,
+  alignRight: boolean,
+  imageIcon: string,
+  handleInputChange(e: React.ChangeEvent<HTMLInputElement>): void
+}
+
+const RecipeInputField = ({
+  fieldName,
+  fieldValue,
+  inputLabel,
+  alignRight,
+  imageIcon,
+  handleInputChange
+}: PropType) => {
   return (
     <div className={`col s12 m5 l5 recipe-input-field ${alignRight ? 'push-m1 push-l1' : ''}`}>
       <div className="icon-label-container pos-relative">
