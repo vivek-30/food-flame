@@ -1,20 +1,21 @@
 import { createContext, useEffect, useReducer } from 'react';
 
-// Reducers.
 import authReducer from '../reducers/authReducer';
+import { IAuthContext, IAuthContextProp } from '../types/index.interfaces';
+import { AuthContextState } from '../types/index.types';
 
 // Context and state.
-export const AuthContext = createContext(null);
-const initialState = {
+export const AuthContext = createContext<IAuthContext | null>(null);
+const initialState: AuthContextState = {
   user: null
 };
 
-const AuthContextProvider = ({ children }) => {
+const AuthContextProvider = ({ children }: IAuthContextProp) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   useEffect(() => {
-    const user = localStorage.getItem('user');
-    if(user) {
+    const user: string | null = localStorage.getItem('user');
+    if(user !== null) {
       dispatch({ type: 'LOGIN', payload: JSON.parse(user) });
     }
   }, []);
