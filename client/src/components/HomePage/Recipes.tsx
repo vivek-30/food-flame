@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import useRecipeContext from '../../hooks/useRecipeContext';
 
 // Components.
@@ -6,9 +6,11 @@ import RecipeCard from './RecipeCard';
 import RecipeSearchBox from './RecipeSearchBox';
 import AddRecipeCard from './AddRecipeCard';
 
+import { IRecipe } from '../../types/index.interfaces';
+
 const Recipes = () => {
-  const { state }= useRecipeContext();
-  const [recipesToDisplay, setRecipesToDisplay] = useState(state.recipes);
+  const { state } = useRecipeContext();
+  const [recipesToDisplay, setRecipesToDisplay] = useState<IRecipe[]>(state.recipes);
   
   useEffect(() => {
     setRecipesToDisplay(state.recipes);
