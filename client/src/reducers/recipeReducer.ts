@@ -1,4 +1,10 @@
-const recipeReducer = (state, action) => {
+import { RecipeReducerAction, RecipeContextState } from '../types/index.types';
+
+const recipeReducer = (
+  state: RecipeContextState,
+  action: RecipeReducerAction
+): RecipeContextState => {
+  
   switch (action.type) {
     case 'SET_RECIPES': {
       const updatedState = {
