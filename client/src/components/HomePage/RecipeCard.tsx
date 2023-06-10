@@ -1,21 +1,26 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useAuthContext from '../../hooks/useAuthContext';
 import useRecipeContext from '../../hooks/useRecipeContext';
 
 // Utility Stuff.
 import customAlert from '../../utils/customAlert';
-import { RECIPE_BASE_URI } from '../../utils/URIs';
+import { RECIPE_BASE_URI } from '../../../constants/URIs';
+import { IRecipe, IRecipeResponseData } from '../../types/index.interfaces';
 
-const RecipeCard = ({ recipe }) => {
-  const [isRequestPending, setIsRequestPending] = useState(false);
+interface PropType {
+  recipe: IRecipe
+}
+
+const RecipeCard = ({ recipe }: PropType) => {
+  const [isRequestPending, setIsRequestPending] = useState<boolean>(false);
   const { dispatch } = useRecipeContext();
   const { state: authState } = useAuthContext();
   const { name, description, imageSRC, _id: recipeID } = recipe;
 
   const { user: userID } = authState;
 
-  const removeRecipe = async () => {
+  const removeRecipe = async (): Promise<void> => {
     // Check whether a DELETE request is already made or not.
     if(isRequestPending) return;
     else setIsRequestPending(true);
@@ -24,12 +29,12 @@ const RecipeCard = ({ recipe }) => {
       method: 'DELETE',
       credentials: 'include'
     });
-    const data = await response.json();
+    const data: IRecipeResponseData = await response.json();
 
-    if(response.ok) {
-      dispatch({ type: 'REMOVE_RECIPE', payload: data });
+    if(response.ok && !data.error) {
+      dispatch({ type: 'REMOVE_RECIPE', payload: data.data });
     } else {
-      const { message, error } = data;
+      const { message, error } = data.error!;
       customAlert(message);
       console.log(`Error Occured While Deleting A Recipes ${error}`);
     }
