@@ -1,6 +1,6 @@
 import M from 'materialize-css';
 
-const customAlert = (message) => {
+const customAlert = (message: string): void => {
   M.toast({
     html: message,
     inDuration: 800,
