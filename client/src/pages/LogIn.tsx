@@ -1,20 +1,21 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import useLogin from '../hooks/useLogin';
+import { ILogInCredentials } from '../types/index.interfaces';
 
 const emptyCredentials = {
   email: '',
   password: ''
 };
 const LogIn = () => {
-  const [credentials, setCredentials] = useState(emptyCredentials);
+  const [credentials, setCredentials] = useState<ILogInCredentials>(emptyCredentials);
   const { loginUser, isLoading, error } = useLogin();
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { id, value } = e.target;
     setCredentials((currentCredentials) => ({ ...currentCredentials, [id]: value }));
   }
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     await loginUser(credentials);
   }
