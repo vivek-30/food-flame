@@ -1,12 +1,16 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import M from 'materialize-css';
 
-const RecipeSteps = ({ steps }) => {
-  const collapsibleListRef = useRef();
+interface PropType {
+  steps: string[]
+}
+
+const RecipeSteps = ({ steps }: PropType) => {
+  const collapsibleListRef = useRef<HTMLUListElement | null>(null);
   
   useEffect(() => {
     setTimeout(() => {
-      M.Collapsible.init(collapsibleListRef.current);
+      M.Collapsible.init(collapsibleListRef.current!);
     }, 1000);
   }, []);
   
