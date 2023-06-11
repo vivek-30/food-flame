@@ -39,11 +39,6 @@ export type LogInResponseData = {
   error?: string
 }
 
-export type RecipeErrorResonse = {
-  error: string,
-  message: string
-}
-
 export type PartialRecipeDetails = {
   name: string,
   description: string,
@@ -60,4 +55,11 @@ export type RecipeDetailsForDB = PartialRecipeDetails & {
   cookingSteps: string[]
 }
 
+export type RecipeErrorResonse = {
+  error: string,
+  message: string
+}
+
+export type RecipesResponseData = RecipeErrorResonse | IRecipe[];
+export type RecipeResponseData = RecipeErrorResonse | IRecipe;
 export type RequestMethods = 'GET' | 'POST' | 'PUT' | 'DELETE';

@@ -13,7 +13,8 @@ import RecipeUpdateBox from '../components/RecipePage/RecipeUpdateBox';
 import customAlert from '../utils/customAlert';
 import { RECIPE_BASE_URI } from '../constants/URIs';
 
-import { IRecipe, IRecipeResponseData } from '../types/index.interfaces';
+import { IRecipe } from '../types/index.interfaces';
+import { RecipeResponseData } from '../types/index.types';
 
 const Recipe = () => {
   const [recipe, setRecipe] = useState<IRecipe | null>(null);
@@ -28,13 +29,13 @@ const Recipe = () => {
   useEffect(() => {
     (async () => {
       const response = await fetch(`${RECIPE_BASE_URI}/${recipeID}?id=${userID}`, { credentials: 'include' });
-      const data: IRecipeResponseData = await response.json();
+      const data: RecipeResponseData = await response.json();
 
       setIsLoading(false);
-      if(response.ok && !data.error) {
-        setRecipe(data.data);
-      } else {
-        const { message, error } = data.error!;
+      if(response.ok && !('error' in data)) {
+        setRecipe(data);
+      } else if('error' in data) {
+        const { message, error } = data;
         customAlert(message);
         console.log(`Error Occured While Fetching A Recipe ${error}`);
       }

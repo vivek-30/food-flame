@@ -20,8 +20,14 @@ import DescriptionIcon from '../assets/AddRecipePage/description.svg';
 import customAlert from '../utils/customAlert';
 import { RECIPE_BASE_URI, ADD_RECIPE_URI } from '../constants/URIs';
 
-import { ICookingStep, IRecipeResponseData } from '../types/index.interfaces';
-import { CompleteRecipeDetails, PartialRecipeDetails, RecipeDetailsForDB, RequestMethods } from '../types/index.types';
+import { ICookingStep } from '../types/index.interfaces';
+import { 
+  RequestMethods,
+  RecipeResponseData,
+  RecipeDetailsForDB,
+  PartialRecipeDetails,
+  CompleteRecipeDetails
+} from '../types/index.types';
 
 // Default Recipe Data.
 export const emptyRecipe: PartialRecipeDetails = {
@@ -53,20 +59,20 @@ const AddRecipe = () => {
   const fetchRecipeData = () => {    
     (async () => {
       const response = await fetch(`${RECIPE_BASE_URI}/${recipeID}?id=${userID}`, { credentials: 'include' });
-      const data: IRecipeResponseData = await response.json();
+      const data: RecipeResponseData = await response.json();
 
       setIsLoading(false);
 
-      if(response.ok && !data.error) {
-        const { name, description, ingredients, cookingSteps } = data.data;
-        const imageSRC = data.data.imageSRC || defaultImageURL;
+      if(response.ok && !('error' in data)) {
+        const { name, description, ingredients, cookingSteps } = data;
+        const imageSRC = data.imageSRC || defaultImageURL;
 
         setRecipeData({ name, description, imageSRC, ingredients });
         setCookingSteps(cookingSteps.map((step, index): ICookingStep => {
           return { index, content: step };
         }));
-      } else {
-        const { message, error } = data.error!;
+      } else if('error' in data) {
+        const { message, error } = data;
         customAlert(message);
         console.log(`Error Occured While Fetching A Recipe: ${error}`);
       }
@@ -110,24 +116,24 @@ const AddRecipe = () => {
         credentials: 'include'
       });
       
-      const data: IRecipeResponseData = await response.json();
+      const data: RecipeResponseData = await response.json();
 
-      if(response.ok && !data.error) {
+      if(response.ok && !('error' in data)) {
         // Clearing Input Fields.
         setRecipeData(emptyRecipe);
         setCookingSteps(initialCookingStep);
 
         // Updating Global Context State.
         if(isUpdating === 'true') {
-          dispatch({ type: 'UPDATE_RECIPE', payload: data.data });
+          dispatch({ type: 'UPDATE_RECIPE', payload: data });
           setIsUpdating('false');
         } else {
-          dispatch({ type: 'ADD_RECIPE', payload: data.data });
+          dispatch({ type: 'ADD_RECIPE', payload: data });
         }
         
         customAlert(`Recipe ${method === 'POST' ? 'Saved' : 'Updated'} Successfully.`);
-      } else {
-        const { message, error } = data.error!;
+      } else if('error' in data) {
+        const { message, error } = data;
         customAlert(message);
         console.log(`Error Occured While ${method === 'POST' ? 'Saving' : 'Updating'} A Recipe: ${error}`);
       }

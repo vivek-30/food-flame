@@ -2,7 +2,6 @@ import {
   AuthContextState,
   AuthReducerAction,
   RecipeContextState,
-  RecipeErrorResonse,
   RecipeReducerAction
 } from './index.types';
 import { ReactNode, Dispatch } from 'react';
@@ -51,16 +50,6 @@ export interface ILogInCredentials {
 
 export interface ISignUpCredentials extends ILogInCredentials {
   username: string
-}
-
-export interface IRecipesResponseData {
-  error?: RecipeErrorResonse
-  data: IRecipe[]
-}
-
-export interface IRecipeResponseData {
-  error?: RecipeErrorResonse
-  data: IRecipe
 }
 
 export interface ICookingStep {

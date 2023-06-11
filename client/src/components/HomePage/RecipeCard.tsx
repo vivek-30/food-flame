@@ -6,7 +6,8 @@ import useRecipeContext from '../../hooks/useRecipeContext';
 // Utility Stuff.
 import customAlert from '../../utils/customAlert';
 import { RECIPE_BASE_URI } from '../../constants/URIs';
-import { IRecipe, IRecipeResponseData } from '../../types/index.interfaces';
+import { IRecipe } from '../../types/index.interfaces';
+import { RecipeResponseData } from '../../types/index.types';
 
 interface IRecipeCardProps {
   recipe: IRecipe
@@ -29,12 +30,12 @@ const RecipeCard = ({ recipe }: IRecipeCardProps) => {
       method: 'DELETE',
       credentials: 'include'
     });
-    const data: IRecipeResponseData = await response.json();
+    const data: RecipeResponseData = await response.json();
 
-    if(response.ok && !data.error) {
-      dispatch({ type: 'REMOVE_RECIPE', payload: data.data });
-    } else {
-      const { message, error } = data.error!;
+    if(response.ok && !('error' in data)) {
+      dispatch({ type: 'REMOVE_RECIPE', payload: data });
+    } else if('error' in data) {
+      const { message, error } = data;
       customAlert(message);
       console.log(`Error Occured While Deleting A Recipes ${error}`);
     }

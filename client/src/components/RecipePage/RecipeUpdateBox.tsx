@@ -5,7 +5,7 @@ import { createSearchParams, useNavigate } from 'react-router-dom';
 // Utility Stuff.
 import customAlert from '../../utils/customAlert';
 import { RECIPE_BASE_URI } from '../../constants/URIs';
-import { IRecipeResponseData } from '../../types/index.interfaces';
+import { RecipeResponseData } from '../../types/index.types';
 
 interface IRecipeUpdateBoxProps {
   recipeID: string
@@ -31,12 +31,12 @@ const RecipeUpdateBox = ({ recipeID }: IRecipeUpdateBoxProps) => {
       method: 'DELETE',
       credentials: 'include'
     });
-    const data: IRecipeResponseData = await response.json();
+    const data: RecipeResponseData = await response.json();
 
-    if(response.ok && !data.error) {
+    if(response.ok && !('error' in data)) {
       navigate('/');
-    } else {
-      const { message, error } = data.error!;
+    } else if('error' in data) {
+      const { message, error } = data;
       customAlert(message);
       console.log(`Error Occured While Deleting A Recipes ${error}`);
     }

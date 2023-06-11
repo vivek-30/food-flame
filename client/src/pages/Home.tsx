@@ -11,7 +11,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 // Utility Stuff.
 import customAlert from '../utils/customAlert';
 import { RECIPE_BASE_URI } from '../constants/URIs';
-import { IRecipesResponseData } from '../types/index.interfaces';
+import { RecipesResponseData } from '../types/index.types';
 
 const Home = () => {
   const { state: authState } = useAuthContext()
@@ -23,14 +23,13 @@ const Home = () => {
   useEffect(() => {
     (async () => {
       const response = await fetch(`${RECIPE_BASE_URI}?id=${userID}`, { credentials: 'include' });
-      const data: IRecipesResponseData = await response.json();
+      const data: RecipesResponseData = await response.json();
 
       setIsLoading(false);    
-
-      if(response.ok && !data.error) {
-        dispatch({ type: 'SET_RECIPES', payload: data.data });
-      } else {
-        const { message, error } = data.error!;
+      if(response.ok && !('error' in data)) {
+        dispatch({ type: 'SET_RECIPES', payload: data });
+      } else if('error' in data) {
+        const { message, error } = data;
         customAlert(message);
         console.log(`Error Occured While Fetching Recipes ${error}`);
       }
