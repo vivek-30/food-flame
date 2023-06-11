@@ -4,14 +4,14 @@ import { createSearchParams, useNavigate } from 'react-router-dom';
 
 // Utility Stuff.
 import customAlert from '../../utils/customAlert';
-import { RECIPE_BASE_URI } from '../../../constants/URIs';
+import { RECIPE_BASE_URI } from '../../constants/URIs';
 import { IRecipeResponseData } from '../../types/index.interfaces';
 
-interface PropType {
+interface IRecipeUpdateBoxProps {
   recipeID: string
 }
 
-const RecipeUpdateBox = ({ recipeID }: PropType) => {
+const RecipeUpdateBox = ({ recipeID }: IRecipeUpdateBoxProps) => {
   const [isRequestPending, setIsRequestPending] = useState<boolean>(false);
   const { state: authState } = useAuthContext();
   const navigate = useNavigate();

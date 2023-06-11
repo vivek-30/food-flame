@@ -3,11 +3,11 @@ import useRecipeContext from '../../hooks/useRecipeContext';
 
 import { IRecipe } from '../../types/index.interfaces'; 
 
-interface PropType {
+interface IRecipeSearchBoxProps {
   setRecipesToDisplay: Dispatch<SetStateAction<IRecipe[]>>
 }
 
-const RecipeSearchBox = ({ setRecipesToDisplay }: PropType) => {
+const RecipeSearchBox = ({ setRecipesToDisplay }: IRecipeSearchBoxProps) => {
   const [query, setQuery] = useState<string>('');
   const { state } = useRecipeContext();
 

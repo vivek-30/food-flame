@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import M from 'materialize-css';
 
-interface PropType {
+interface IRecipeStepsProps {
   steps: string[]
 }
 
-const RecipeSteps = ({ steps }: PropType) => {
+const RecipeSteps = ({ steps }: IRecipeStepsProps) => {
   const collapsibleListRef = useRef<HTMLUListElement | null>(null);
   
   useEffect(() => {

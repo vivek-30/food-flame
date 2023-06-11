@@ -5,14 +5,14 @@ import useRecipeContext from '../../hooks/useRecipeContext';
 
 // Utility Stuff.
 import customAlert from '../../utils/customAlert';
-import { RECIPE_BASE_URI } from '../../../constants/URIs';
+import { RECIPE_BASE_URI } from '../../constants/URIs';
 import { IRecipe, IRecipeResponseData } from '../../types/index.interfaces';
 
-interface PropType {
+interface IRecipeCardProps {
   recipe: IRecipe
 }
 
-const RecipeCard = ({ recipe }: PropType) => {
+const RecipeCard = ({ recipe }: IRecipeCardProps) => {
   const [isRequestPending, setIsRequestPending] = useState<boolean>(false);
   const { dispatch } = useRecipeContext();
   const { state: authState } = useAuthContext();

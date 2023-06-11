@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { LOGOUT_URI } from '../../constants/URIs';
+import { LOGOUT_URI } from '../constants/URIs';
 import useAuthContext from './useAuthContext';
 import useRecipeContext from './useRecipeContext';
 

@@ -18,7 +18,7 @@ import DescriptionIcon from '../assets/AddRecipePage/description.svg';
 
 // Utility Stuff.
 import customAlert from '../utils/customAlert';
-import { RECIPE_BASE_URI, ADD_RECIPE_URI } from '../../constants/URIs';
+import { RECIPE_BASE_URI, ADD_RECIPE_URI } from '../constants/URIs';
 
 import { ICookingStep, IRecipeResponseData } from '../types/index.interfaces';
 import { CompleteRecipeDetails, PartialRecipeDetails, RecipeDetailsForDB, RequestMethods } from '../types/index.types';

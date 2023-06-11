@@ -10,7 +10,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 
 // Utility Stuff.
 import customAlert from '../utils/customAlert';
-import { RECIPE_BASE_URI } from '../../constants/URIs';
+import { RECIPE_BASE_URI } from '../constants/URIs';
 import { IRecipesResponseData } from '../types/index.interfaces';
 
 const Home = () => {

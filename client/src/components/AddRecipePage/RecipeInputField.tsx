@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface PropType {
+interface IRecipeInputFieldProps {
   fieldName: string,
   fieldValue: string | string[],
   inputLabel: string,
@@ -16,7 +16,7 @@ const RecipeInputField = ({
   alignRight,
   imageIcon,
   handleInputChange
-}: PropType) => {
+}: IRecipeInputFieldProps) => {
   return (
     <div className={`col s12 m5 l5 recipe-input-field ${alignRight ? 'push-m1 push-l1' : ''}`}>
       <div className="icon-label-container pos-relative">

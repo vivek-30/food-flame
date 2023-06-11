@@ -3,7 +3,7 @@ import { useSearchParams, Link } from 'react-router-dom';
 import useAuthContext from '../hooks/useAuthContext';
 
 import AppLogo from '../assets/FoodFlame-logo.png';
-import { VERIFY_EMAIL_URI } from '../../constants/URIs';
+import { VERIFY_EMAIL_URI } from '../constants/URIs';
 import { LogInResponseData } from '../types/index.types';
 
 import LoadingSpinner from '../components/LoadingSpinner';

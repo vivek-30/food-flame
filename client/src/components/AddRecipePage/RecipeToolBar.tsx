@@ -5,13 +5,13 @@ import { emptyRecipe, initialCookingStep } from '../../pages/AddRecipe';
 import { ICookingStep } from '../../types/index.interfaces';
 import { PartialRecipeDetails } from '../../types/index.types';
 
-interface PropType {
+interface IRecipeToolBarProps {
   setRecipeData: Dispatch<SetStateAction<PartialRecipeDetails>>,
   setCookingSteps: Dispatch<SetStateAction<ICookingStep[]>>,
   manageRecipe(e: React.FormEvent): void
 }
 
-const RecipeToolBar = ({ setRecipeData, setCookingSteps, manageRecipe }: PropType) => {
+const RecipeToolBar = ({ setRecipeData, setCookingSteps, manageRecipe }: IRecipeToolBarProps) => {
   const navigate = useNavigate();
 
   // Toolbar Handlers.

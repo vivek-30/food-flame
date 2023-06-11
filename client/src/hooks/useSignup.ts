@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SIGNUP_URI } from '../../constants/URIs';
+import { SIGNUP_URI } from '../constants/URIs';
 
 import { SignUpResponseData } from '../types/index.types';
 import { ISignUpCredentials } from '../types/index.interfaces';

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { LOGIN_URI } from '../../constants/URIs';
+import { LOGIN_URI } from '../constants/URIs';
 import useAuthContext from './useAuthContext';
 
 import { LogInResponseData } from '../types/index.types';

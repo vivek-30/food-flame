@@ -11,7 +11,7 @@ import RecipeUpdateBox from '../components/RecipePage/RecipeUpdateBox';
 
 // Utility Stuff.
 import customAlert from '../utils/customAlert';
-import { RECIPE_BASE_URI } from '../../constants/URIs';
+import { RECIPE_BASE_URI } from '../constants/URIs';
 
 import { IRecipe, IRecipeResponseData } from '../types/index.interfaces';
 
