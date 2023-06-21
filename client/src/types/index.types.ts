@@ -1,27 +1,4 @@
-import { ICookingStep, IRecipe, IUser } from './index.interfaces';
-
-export type AuthContextState = IUser;
-export type AuthReducerAction = {
-  type: 'LOGIN' | 'LOGOUT',
-  payload: string | null
-}
-
-// For all recipes.
-type RecipesAction = {
-  type: 'SET_RECIPES'
-  payload: IRecipe[]
-}
-
-// For single recipe.
-type RecipeAction = {
-  type: 'ADD_RECIPE' | 'UPDATE_RECIPE' | 'REMOVE_RECIPE',
-  payload: IRecipe
-}
-
-export type RecipeReducerAction = RecipesAction | RecipeAction;
-export type RecipeContextState = {
-  recipes: IRecipe[]
-}
+import { ICookingStep, IRecipe } from './index.interfaces';
 
 export type SignUpResponseData = {
   message: string,

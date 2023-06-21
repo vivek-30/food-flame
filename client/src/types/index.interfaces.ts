@@ -1,31 +1,5 @@
-import { 
-  AuthContextState,
-  AuthReducerAction,
-  RecipeContextState,
-  RecipeReducerAction
-} from './index.types';
-import { ReactNode, Dispatch } from 'react';
-
 export interface IUser {
   user: string | null
-}
-
-export interface IAuthContextProp {
-  children: ReactNode
-}
-
-export interface IAuthContext {
-  state: AuthContextState,
-  dispatch: Dispatch<AuthReducerAction>
-}
-
-export interface IRecipeContextProp {
-  children: ReactNode
-}
-
-export interface IRecipeContext {
-  state: RecipeContextState,
-  dispatch: Dispatch<RecipeReducerAction>
 }
 
 interface ITimeStamp {
