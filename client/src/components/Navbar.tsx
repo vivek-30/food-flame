@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import useLogout from '../hooks/useLogout';
-import useAuthContext from '../hooks/useAuthContext';
+import { useSelector } from 'react-redux';
+import { getUser } from '../redux/slices/authSlice';
 
 import customAlert from '../utils/customAlert';
 import AppLogo from '../assets/FoodFlame-logo.png';
 
 const Navbar = () => {
-  const { state } = useAuthContext();
+  const user = useSelector(getUser);
   const { logoutUser, isLoading, error } = useLogout();
 
   const handleUserLogout = async (): Promise<void> => {
@@ -28,7 +29,7 @@ const Navbar = () => {
         </Link>
         <ul id="nav-mobile" className="right">
           {
-            state.user ? 
+            user !== null ? 
               <li>
                 <button 
                   disabled={isLoading}

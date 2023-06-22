@@ -1,14 +1,15 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { LOGIN_URI } from '../constants/URIs';
-import useAuthContext from './useAuthContext';
 
+import { login } from '../redux/slices/authSlice';
 import { LogInResponseData } from '../types/index.types';
 import { ILogInCredentials } from '../types/index.interfaces';
 
 const useLogin = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { dispatch } = useAuthContext();
+  const dispatch = useDispatch();
 
   const loginUser = async (loginCredentials: ILogInCredentials) => {
     setIsLoading(true);
@@ -24,7 +25,7 @@ const useLogin = () => {
 
     setIsLoading(false);
     if(response.ok && !data.error) {
-      dispatch({ type: 'LOGIN', payload: data._id });
+      dispatch(login(data._id));
       localStorage.setItem('user', JSON.stringify(data._id));
     } else {
       const errorMessage = data.error || 'Unknown error occured during login process.';
