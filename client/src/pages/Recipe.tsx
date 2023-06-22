@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { getUser } from '../redux/slices/authSlice';
 import { useParams } from 'react-router-dom';
-import useAuthContext from '../hooks/useAuthContext';
 import M from 'materialize-css';
 
 // Components.
@@ -9,42 +10,31 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import RecipeSteps from '../components/RecipePage/RecipeSteps';
 import RecipeUpdateBox from '../components/RecipePage/RecipeUpdateBox';
 
-// Utility Stuff.
 import customAlert from '../utils/customAlert';
-import { RECIPE_BASE_URI } from '../constants/URIs';
-
-import { IRecipe } from '../types/index.interfaces';
-import { RecipeResponseData } from '../types/index.types';
+import useFetchRecipe from '../hooks/useFetchRecipe';
 
 const Recipe = () => {
-  const [recipe, setRecipe] = useState<IRecipe | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
+  const { fetchRecipe, isLoading, recipe, error } = useFetchRecipe();
   const recipeImageRef = useRef<HTMLImageElement | null>(null);
   const { recipeID } = useParams();
-  const { state: authState } = useAuthContext();
-
-  const { user: userID } = authState;
+  const userID = useSelector(getUser);
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(`${RECIPE_BASE_URI}/${recipeID}?id=${userID}`, { credentials: 'include' });
-      const data: RecipeResponseData = await response.json();
-
-      setIsLoading(false);
-      if(response.ok && !('error' in data)) {
-        setRecipe(data);
-      } else if('error' in data) {
-        const { message, error } = data;
-        customAlert(message);
-        console.log(`Error Occured While Fetching A Recipe ${error}`);
-      }
+      await fetchRecipe(userID, recipeID);
     })();
+
+    if(error) {
+      customAlert(error.message);
+      console.log(`Error occured while fetching a recipe ${error.error}`);
+    }
 
     setTimeout(() => {
       M.Materialbox.init(recipeImageRef.current!);
     }, 1000);
-  }, [recipeID, userID]);
+
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <>

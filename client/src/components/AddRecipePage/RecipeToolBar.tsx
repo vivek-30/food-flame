@@ -16,7 +16,7 @@ const RecipeToolBar = ({ setRecipeData, setCookingSteps, manageRecipe }: IRecipe
 
   // Toolbar Handlers.
   const addNewCookingStep = (e: React.MouseEvent): void => {
-    e.preventDefault()
+    e.preventDefault();
     setCookingSteps((currentSteps) => (
       [ ...currentSteps, { index: currentSteps.length, content: '' } ]
     ));

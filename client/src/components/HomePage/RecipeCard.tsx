@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import useAuthContext from '../../hooks/useAuthContext';
-import useRecipeContext from '../../hooks/useRecipeContext';
+import { useDispatch, useSelector } from 'react-redux';
+import removeRecipe from '../../redux/thunks/removeRecipe';
 
 // Utility Stuff.
 import customAlert from '../../utils/customAlert';
-import { RECIPE_BASE_URI } from '../../constants/URIs';
 import { IRecipe } from '../../types/index.interfaces';
-import { RecipeResponseData } from '../../types/index.types';
+import { ReduxDispatch } from '../../redux/store';
+import { getError, getStatus } from '../../redux/slices/recipeSlice';
 
 interface IRecipeCardProps {
   recipe: IRecipe
@@ -15,29 +15,21 @@ interface IRecipeCardProps {
 
 const RecipeCard = ({ recipe }: IRecipeCardProps) => {
   const [isRequestPending, setIsRequestPending] = useState<boolean>(false);
-  const { dispatch } = useRecipeContext();
-  const { state: authState } = useAuthContext();
+  const dispatch = useDispatch<ReduxDispatch>();
+  
+  const status = useSelector(getStatus);
+  const error = useSelector(getError);
   const { name, description, imageSRC, _id: recipeID } = recipe;
 
-  const { user: userID } = authState;
-
-  const removeRecipe = async (): Promise<void> => {
+  const handleRemoveRecipe = async (): Promise<void> => {
     // Check whether a DELETE request is already made or not.
     if(isRequestPending) return;
     else setIsRequestPending(true);
 
-    const response = await fetch(`${RECIPE_BASE_URI}/${recipeID}?id=${userID}`, {
-      method: 'DELETE',
-      credentials: 'include'
-    });
-    const data: RecipeResponseData = await response.json();
-
-    if(response.ok && !('error' in data)) {
-      dispatch({ type: 'REMOVE_RECIPE', payload: data });
-    } else if('error' in data) {
-      const { message, error } = data;
-      customAlert(message);
-      console.log(`Error Occured While Deleting A Recipes ${error}`);
+    dispatch(removeRecipe(recipeID));
+    if(status === 'failure') {
+      const errorMessage = error || 'Unknown Error Occured during fetching of recipes.';
+      customAlert(errorMessage);
     }
   }
 
@@ -49,7 +41,7 @@ const RecipeCard = ({ recipe }: IRecipeCardProps) => {
       <div className="card-content pos-relative">
         <strong className="card-title truncate grey-text text-darken-4 left full-width">
           {name}
-          <i className="material-icons pos-absolute" onClick={removeRecipe}>delete</i>
+          <i className="material-icons pos-absolute" onClick={handleRemoveRecipe}>delete</i>
         </strong>
       </div>
       <div className="card-reveal grey lighten-4">

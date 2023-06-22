@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import useRecipeContext from '../../hooks/useRecipeContext';
+import { useSelector } from 'react-redux';
+import { getRecipes } from '../../redux/slices/recipeSlice';
 
 // Components.
 import RecipeCard from './RecipeCard';
@@ -9,21 +10,19 @@ import AddRecipeCard from './AddRecipeCard';
 import { IRecipe } from '../../types/index.interfaces';
 
 const Recipes = () => {
-  const { state } = useRecipeContext();
-  const [recipesToDisplay, setRecipesToDisplay] = useState<IRecipe[]>(state.recipes);
+  const recipes = useSelector(getRecipes);
+  const [recipesToDisplay, setRecipesToDisplay] = useState<IRecipe[]>(recipes);
   
   useEffect(() => {
-    setRecipesToDisplay(state.recipes);
-  }, [state.recipes]);
+    setRecipesToDisplay(recipes);
+  }, [recipes]);
 
   return (
     <>
       <RecipeSearchBox setRecipesToDisplay={setRecipesToDisplay} />
-      {
-        recipesToDisplay.map((recipe) => (
-          <RecipeCard key={recipe._id} recipe={recipe} />
-        ))
-      }
+      {recipesToDisplay.map((recipe) => (
+        <RecipeCard key={recipe._id} recipe={recipe} />
+      ))}
       <AddRecipeCard />
     </>
   );

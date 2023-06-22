@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import useAuthContext from '../../hooks/useAuthContext';
 import { createSearchParams, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import removeRecipe from '../../redux/thunks/removeRecipe';
 
 // Utility Stuff.
 import customAlert from '../../utils/customAlert';
-import { RECIPE_BASE_URI } from '../../constants/URIs';
-import { RecipeResponseData } from '../../types/index.types';
+import { getError, getStatus } from '../../redux/slices/recipeSlice';
+import { ReduxDispatch } from '../../redux/store';
 
 interface IRecipeUpdateBoxProps {
   recipeID: string
@@ -13,32 +14,29 @@ interface IRecipeUpdateBoxProps {
 
 const RecipeUpdateBox = ({ recipeID }: IRecipeUpdateBoxProps) => {
   const [isRequestPending, setIsRequestPending] = useState<boolean>(false);
-  const { state: authState } = useAuthContext();
+  const dispatch = useDispatch<ReduxDispatch>();
   const navigate = useNavigate();
 
-  const { user: userID } = authState;
+  const status = useSelector(getStatus);
+  const error = useSelector(getError);
 
   const navigateBackward = (): void => {
     navigate('/');
   }
 
-  const removeRecipe = async (): Promise<void> => {
+  const handleRemoveRecipe = async (): Promise<void> => {
     // Check whether a DELETE request is already made or not.
     if(isRequestPending) return;
     else setIsRequestPending(true);
 
-    const response = await fetch(`${RECIPE_BASE_URI}/${recipeID}?id=${userID}`, {
-      method: 'DELETE',
-      credentials: 'include'
-    });
-    const data: RecipeResponseData = await response.json();
-
-    if(response.ok && !('error' in data)) {
+    dispatch(removeRecipe(recipeID));
+    if(status === 'failure') {
+      const errorMessage = error || 'Unknown Error Occured during fetching of recipes.';
+      customAlert(errorMessage);
+    }
+    
+    if(status === 'success') {
       navigate('/');
-    } else if('error' in data) {
-      const { message, error } = data;
-      customAlert(message);
-      console.log(`Error Occured While Deleting A Recipes ${error}`);
     }
   }
 
@@ -56,7 +54,7 @@ const RecipeUpdateBox = ({ recipeID }: IRecipeUpdateBoxProps) => {
           arrow_back
         </i>
         <i 
-          onClick={removeRecipe}
+          onClick={handleRemoveRecipe}
           className="material-icons small blue-grey-text text-darken-2 z-depth-1">
           delete
         </i>

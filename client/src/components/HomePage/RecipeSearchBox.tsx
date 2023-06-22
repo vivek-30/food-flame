@@ -1,5 +1,6 @@
 import React, { useState, Dispatch, SetStateAction } from 'react';
-import useRecipeContext from '../../hooks/useRecipeContext';
+import { useSelector } from 'react-redux';
+import { getRecipes } from '../../redux/slices/recipeSlice';
 
 import { IRecipe } from '../../types/index.interfaces'; 
 
@@ -9,7 +10,7 @@ interface IRecipeSearchBoxProps {
 
 const RecipeSearchBox = ({ setRecipesToDisplay }: IRecipeSearchBoxProps) => {
   const [query, setQuery] = useState<string>('');
-  const { state } = useRecipeContext();
+  const recipes = useSelector(getRecipes);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setQuery(e.target.value);
@@ -33,13 +34,13 @@ const RecipeSearchBox = ({ setRecipesToDisplay }: IRecipeSearchBoxProps) => {
   const searchRecipe = (): void => {
     const refinedQuery = query.trim().toLowerCase();
     if(refinedQuery === '') {
-      setRecipesToDisplay(state.recipes);
+      setRecipesToDisplay(recipes);
       return;
     }
 
     const searchedResults: IRecipe[] = [];
 
-    state.recipes.forEach((recipe) => {
+    recipes.forEach((recipe) => {
       if(hasQueryString(recipe.name, recipe.ingredients, refinedQuery)) {
         searchedResults.push(recipe);
       }

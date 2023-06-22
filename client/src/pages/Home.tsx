@@ -1,6 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import useAuthContext from '../hooks/useAuthContext';
-import useRecipeContext from '../hooks/useRecipeContext';
+import React, { useEffect } from 'react';
+import { ReduxDispatch } from '../redux/store';
+import { useSelector, useDispatch } from 'react-redux';
+import setRecipes from '../redux/thunks/setRecipes';
+import {
+  getStatus,
+  getError,
+  getRecipes,
+} from '../redux/slices/recipeSlice';
 
 // Components.
 import NoData from '../components/NoData';
@@ -10,50 +16,40 @@ import LoadingSpinner from '../components/LoadingSpinner';
 
 // Utility Stuff.
 import customAlert from '../utils/customAlert';
-import { RECIPE_BASE_URI } from '../constants/URIs';
-import { RecipesResponseData } from '../types/index.types';
 
 const Home = () => {
-  const { state: authState } = useAuthContext()
-  const { state, dispatch } = useRecipeContext();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  const { user: userID } = authState;
+  const dispatch = useDispatch<ReduxDispatch>();
+  const recipes = useSelector(getRecipes);
+  const status = useSelector(getStatus);
+  const error = useSelector(getError);
 
   useEffect(() => {
-    (async () => {
-      const response = await fetch(`${RECIPE_BASE_URI}?id=${userID}`, { credentials: 'include' });
-      const data: RecipesResponseData = await response.json();
+    if(status === 'idle') {
+      dispatch(setRecipes());
+    }
+    
+    if(status === 'failure') {
+      const errorMessage = error || 'Unknown Error Occured during fetching of recipes.';
+      customAlert(errorMessage);
+    }
 
-      setIsLoading(false);    
-      if(response.ok && !('error' in data)) {
-        dispatch({ type: 'SET_RECIPES', payload: data });
-      } else if('error' in data) {
-        const { message, error } = data;
-        customAlert(message);
-        console.log(`Error Occured While Fetching Recipes ${error}`);
-      }
-    })();
-  }, [dispatch, userID]);
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <>
-    {
-      isLoading ? <LoadingSpinner /> : (
+      {status === 'loading' ? <LoadingSpinner /> : (
         <main className="recipes-list-container container pos-relative">
           <div className="row">
-          { 
-            state.recipes.length > 0 ? <Recipes /> : (
+            {recipes.length > 0 ? <Recipes /> : (
               <div>
                 <AddRecipeCard />
                 <NoData />
               </div>
-            )
-          }
+            )}
           </div>
         </main>
-      )
-    }
+      )}
     </>
   );
 }

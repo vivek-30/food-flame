@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import useAuthContext from '../hooks/useAuthContext';
-import useRecipeContext from '../hooks/useRecipeContext';
+import { ReduxDispatch } from '../redux/store';
+import { useSelector, useDispatch } from 'react-redux';
+
+import addRecipe from '../redux/thunks/addRecipe';
+import updateRecipe from '../redux/thunks/updateRecipe';
+import { getUser } from '../redux/slices/authSlice';
+import { getStatus, getError } from '../redux/slices/recipeSlice';
 
 // Components.
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -18,12 +23,11 @@ import DescriptionIcon from '../assets/AddRecipePage/description.svg';
 
 // Utility Stuff.
 import customAlert from '../utils/customAlert';
-import { RECIPE_BASE_URI, ADD_RECIPE_URI } from '../constants/URIs';
+import useFetchRecipe from '../hooks/useFetchRecipe';
 
-import { ICookingStep } from '../types/index.interfaces';
+import { ICookingStep, IRecipe } from '../types/index.interfaces';
 import { 
   RequestMethods,
-  RecipeResponseData,
   RecipeDetailsForDB,
   PartialRecipeDetails,
   CompleteRecipeDetails
@@ -41,53 +45,44 @@ const defaultImageURL = 'https://cdn.pixabay.com/photo/2015/08/25/03/50/backgrou
 
 const AddRecipe = () => {
   const [recipeData, setRecipeData] = useState<PartialRecipeDetails>(emptyRecipe);
-  const [isUpdating, setIsUpdating] = useState<string>('false');
   const [isRequestPending, setIsRequestPending] = useState<boolean>(false);
+  const [isUpdating, setIsUpdating] = useState<string>('false');
   const [cookingSteps, setCookingSteps] = useState<ICookingStep[]>(initialCookingStep);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  
-  const { dispatch } = useRecipeContext();
-  const { state: authState } = useAuthContext();
   const [searchParams] = useSearchParams();
+
+  const dispatch = useDispatch<ReduxDispatch>();
+  const requestStatus = useSelector(getStatus);
+  const error = useSelector(getError);
+  const userID = useSelector(getUser)!;
   
-  const { user: userID } = authState;  
-  
+  const { fetchRecipe, isLoading, recipe: fetchedRecipe } = useFetchRecipe();
+
   // Extract Query String Parameters.
   const updatingParam = searchParams.get('updating');
-  const recipeID = updatingParam === 'true' ? searchParams.get('id') : 'invalid';
-
-  const fetchRecipeData = () => {    
-    (async () => {
-      const response = await fetch(`${RECIPE_BASE_URI}/${recipeID}?id=${userID}`, { credentials: 'include' });
-      const data: RecipeResponseData = await response.json();
-
-      setIsLoading(false);
-
-      if(response.ok && !('error' in data)) {
-        const { name, description, ingredients, cookingSteps } = data;
-        const imageSRC = data.imageSRC || defaultImageURL;
-
-        setRecipeData({ name, description, imageSRC, ingredients });
-        setCookingSteps(cookingSteps.map((step, index): ICookingStep => {
-          return { index, content: step };
-        }));
-      } else if('error' in data) {
-        const { message, error } = data;
-        customAlert(message);
-        console.log(`Error Occured While Fetching A Recipe: ${error}`);
-      }
-    })();
-  }
+  const recipeID = updatingParam === 'true' ? searchParams.get('id') as string : 'invalid';
     
   useEffect(() => {
     setIsUpdating(updatingParam ? updatingParam : 'false');
-    if(recipeID !== 'invalid') {
-      fetchRecipeData();
-    } else {
-      setIsLoading(false);
-    }
-    // eslint-disable-next-line
+    (async () => {
+      if(updatingParam === 'true') {
+        await fetchRecipe(userID, recipeID);
+      }
+    })();
+
+  // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    if(fetchedRecipe) {
+      const { name, description, ingredients, cookingSteps } = fetchedRecipe;
+      const imageSRC = fetchedRecipe.imageSRC || defaultImageURL;
+      
+      setRecipeData({ name, description, imageSRC, ingredients });
+      setCookingSteps(cookingSteps.map((step, index): ICookingStep => {
+        return { index, content: step };
+      }));
+    }
+  }, [fetchedRecipe]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     let { name: fieldName, value } = e.target;
@@ -101,46 +96,38 @@ const AddRecipe = () => {
   }
 
   // Recipe Utility Functions.
-  const manageRecipeUtil = (
-    URL: string,
-    method: RequestMethods,
-    body: RecipeDetailsForDB
-  ): void => {
-    (async () => {
-      const response = await fetch(URL, {
-        method,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body),
-        credentials: 'include'
-      });
-      
-      const data: RecipeResponseData = await response.json();
-
-      if(response.ok && !('error' in data)) {
-        // Clearing Input Fields.
-        setRecipeData(emptyRecipe);
-        setCookingSteps(initialCookingStep);
-
-        // Updating Global Context State.
-        if(isUpdating === 'true') {
-          dispatch({ type: 'UPDATE_RECIPE', payload: data });
-          setIsUpdating('false');
-        } else {
-          dispatch({ type: 'ADD_RECIPE', payload: data });
+  const manageRecipeUtil = (method: RequestMethods, body: RecipeDetailsForDB): void => {
+    if(method === 'POST') {
+      dispatch(addRecipe(body));
+    } else {
+      if(fetchedRecipe) {
+        const recipeDataForUpdation: IRecipe = {
+          ...fetchedRecipe,
+          ...body,
+          userID
         }
-        
-        customAlert(`Recipe ${method === 'POST' ? 'Saved' : 'Updated'} Successfully.`);
-      } else if('error' in data) {
-        const { message, error } = data;
-        customAlert(message);
-        console.log(`Error Occured While ${method === 'POST' ? 'Saving' : 'Updating'} A Recipe: ${error}`);
+        dispatch(updateRecipe(recipeDataForUpdation));
       }
+    }
 
-      // Allow user to make another request.
-      setIsRequestPending((state) => !state);
-    })();
+    if(requestStatus === 'success') {
+      // Clearing Input Fields.
+      setRecipeData(emptyRecipe);
+      setCookingSteps(initialCookingStep);
+
+      if(isUpdating === 'true') {
+        setIsUpdating('false');
+      }
+      
+      customAlert(`Recipe ${method === 'POST' ? 'Saved' : 'Updated'} Successfully.`);
+    }
+    
+    if(requestStatus === 'failure' && error) {
+      customAlert(error);
+      console.log(`Error cccured while ${method === 'POST' ? 'saving' : 'updating'} a recipe.`);
+    }
+
+    setIsRequestPending(state => !state);
   }
 
   const validateRecipeData = (data: CompleteRecipeDetails): boolean => {
@@ -180,13 +167,16 @@ const AddRecipe = () => {
 
   const manageRecipe = (e: React.FormEvent): void => {
     e.preventDefault();
-    
+
     // Check whether a POST/PUT request is already made or not.
     if(isRequestPending) return;
     else setIsRequestPending(true);
-
+    
     const combinedRecipeData: CompleteRecipeDetails = { ...recipeData, cookingSteps };
-    if(validateRecipeData(combinedRecipeData) === false) return;
+    if(validateRecipeData(combinedRecipeData) === false) {
+      setIsRequestPending(false);
+      return;
+    }
 
     // Extract "content" from cookingSteps: ICookingStep
     const stepsContent: string[] = combinedRecipeData.cookingSteps.map(({ content }) => content);
@@ -197,10 +187,10 @@ const AddRecipe = () => {
       cookingSteps: stepsContent
     };
 
-    if(isUpdating === 'false') {
-      manageRecipeUtil(ADD_RECIPE_URI, 'POST', modifiedRecipeData);
+    if(isUpdating === 'true') {
+      manageRecipeUtil('PUT', modifiedRecipeData);
     } else {
-      manageRecipeUtil(`${RECIPE_BASE_URI}/${recipeID}?id=${userID}`, 'PUT', modifiedRecipeData);
+      manageRecipeUtil('POST', modifiedRecipeData);
     }
   }
 
@@ -223,7 +213,7 @@ const AddRecipe = () => {
     const target = e.target as HTMLElement;
     let stepIndex = parseInt(target.dataset.stepIndex!);
     if(cookingSteps.length === 1) {
-      customAlert("Single Cooking Step Can't be Deleted.");
+      customAlert('Single cooking step can not be deleted.');
       return;
     }
 
