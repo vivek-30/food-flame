@@ -96,7 +96,8 @@ export const handleUserLogIn: RequestHandler = async (
     });
 
     res.status(200).json(user);
-  } catch(error) {
+  }
+  catch(error) {
     const errorMessage = (error as Error).message;
     res.status(401).json({ error: errorMessage });
   }

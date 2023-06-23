@@ -9,7 +9,7 @@ import IMiddlewareOptions from './types/interfaces/middlewareOptions.interface';
 config(); // Load .env file on process.env
 
 const port = Number(process.env.PORT) || 4000;
-const cookieSecret = process.env.COOKIE_SECRET || 'my-cookie-secret';;
+const cookieSecret = process.env.COOKIE_SECRET || 'my-cookie-secret';
 const databaseURI = process.env.DATABASE_URI || 'mongodb://localhost:27017';
 
 const controllers: RouteController[] = [
@@ -30,7 +30,7 @@ const middlewareOptions: IMiddlewareOptions = {
     credentials: true
   },
   cookieParserOptions: {
-    secret: cookieSecret,
+    secret: cookieSecret
   },
   rateLimitOptions: {
     max: 100,

@@ -5,7 +5,7 @@ import setRecipes from '../redux/thunks/setRecipes';
 import {
   getStatus,
   getError,
-  getRecipes,
+  getRecipes
 } from '../redux/slices/recipeSlice';
 
 // Components.

@@ -99,7 +99,8 @@ const AddRecipe = () => {
   const manageRecipeUtil = (method: RequestMethods, body: RecipeDetailsForDB): void => {
     if(method === 'POST') {
       dispatch(addRecipe(body));
-    } else {
+    }
+    else {
       if(fetchedRecipe) {
         const recipeDataForUpdation: IRecipe = {
           ...fetchedRecipe,
@@ -189,7 +190,8 @@ const AddRecipe = () => {
 
     if(isUpdating === 'true') {
       manageRecipeUtil('PUT', modifiedRecipeData);
-    } else {
+    }
+    else {
       manageRecipeUtil('POST', modifiedRecipeData);
     }
   }

@@ -20,7 +20,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     login: (state: IAuthState, action: PayloadAction<(string | null)>): void => {
-      state.user = action.payload
+      state.user = action.payload;
     },
     logout: (state: IAuthState, action: PayloadAction<(string | null)>): void => {
       state.user = null;

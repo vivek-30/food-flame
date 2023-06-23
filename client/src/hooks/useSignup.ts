@@ -13,6 +13,7 @@ const useSignup = () => {
     setIsLoading(true);
     setError(null);
     setInfo(null);
+    
     const response = await fetch(SIGNUP_URI, {
       method: 'POST',
       headers: {
@@ -26,7 +27,8 @@ const useSignup = () => {
     setIsLoading(false);
     if(response.ok && data.message) {
       setInfo(data.message);
-    } else {
+    }
+    else {
       const errorMessage = data.error || 'Unknown error occured during signup process.';
       setError(errorMessage);
     }

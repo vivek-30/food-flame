@@ -12,7 +12,7 @@ export type LogInResponseData = {
   username: string,
   email: string,
   password: string,
-  verified: boolean
+  verified: boolean,
   error?: string
 }
 
@@ -28,7 +28,7 @@ export type CompleteRecipeDetails = PartialRecipeDetails & {
 }
 
 export type RecipeDetailsForDB = PartialRecipeDetails & {
-  userID: string | null
+  userID: string | null,
   cookingSteps: string[]
 }
 

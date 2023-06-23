@@ -12,7 +12,7 @@ import { RecipeErrorResonse } from '../../types/index.types';
 
 interface IRecipeState {
   recipes: IRecipe[],
-  status: 'idle' | 'loading' | 'success' | 'failure'
+  status: 'idle' | 'loading' | 'success' | 'failure',
   error: string | null
 }
 

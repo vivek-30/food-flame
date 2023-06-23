@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ReduxStore, ReduxDispatch } from '../store';
 import { RECIPE_BASE_URI } from '../../constants/URIs';
+
 import { IRecipe } from '../../types/index.interfaces';
 import { RecipeErrorResonse, RecipesResponseData } from '../../types/index.types';
 

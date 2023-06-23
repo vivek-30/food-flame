@@ -8,7 +8,7 @@ const recipeSchema = new mongoose.Schema({
   },
   imageSRC: {
     type: String,
-    default: process.env.IMAGE_URL,
+    default: process.env.IMAGE_URL
   },
   description: {
     type: String, 

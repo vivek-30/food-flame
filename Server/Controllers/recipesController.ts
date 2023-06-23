@@ -1,4 +1,4 @@
-import { RequestHandler, Request, Response } from "express";
+import { RequestHandler, Request, Response } from 'express';
 
 import Recipes from '../Models/recipeModel';
 
@@ -7,7 +7,8 @@ export const getAllRecipes: RequestHandler = async (req: Request, res: Response)
   try {
     const recipes = await Recipes.find({ userID }).sort({ name: 'asc' });
     res.status(200).json(recipes);
-  } catch(error) {
+  }
+  catch(error) {
     const errorMessage = (error as Error).message;
     res.status(500).json({ message: 'Internal Server Error.', error: errorMessage });
   }
@@ -24,7 +25,8 @@ export const getSpecificRecipe: RequestHandler = async (req: Request, res: Respo
     } else {
       res.status(200).json(recipe);
     }
-  } catch(error) {
+  }
+  catch(error) {
     const errorMessage = (error as Error).message;
     res.status(500).json({ message: 'Internal Server Error.', error: errorMessage });
   }
@@ -34,7 +36,8 @@ export const addNewRecipe: RequestHandler = async (req: Request, res: Response):
   try {
     const recipe = await Recipes.create(req.body);
     res.status(200).json(recipe);
-  } catch(error) {
+  }
+  catch(error) {
     const errorMessage = (error as Error).message;
     res.status(500).json({ message: 'Unable To Add Recipe.', error: errorMessage });
   }
@@ -48,7 +51,8 @@ export const updateOneRecipe: RequestHandler = async (req: Request, res: Respons
     const outdatedRecipe = await Recipes.findOneAndUpdate({ _id: recipeID, userID }, req.body);
     const updatedRecipe = await Recipes.findById(recipeID);
     res.status(200).json(updatedRecipe);
-  } catch(error) {
+  }
+  catch(error) {
     const errorMessage = (error as Error).message;
     res.status(500).json({ message: 'Unable To Update Recipe.', error: errorMessage });
   }
@@ -65,7 +69,8 @@ export const removeOneRecipe: RequestHandler = async (req: Request, res: Respons
     } else {
       res.status(200).json(recipe);
     }
-  } catch(error) {
+  }
+  catch(error) {
     const errorMessage = (error as Error).message;
     res.status(500).json({ message: 'Error Removing Recipe!!!', error: errorMessage });
   } 
@@ -77,7 +82,8 @@ export const getLimitedRecipes: RequestHandler = async (req: Request, res: Respo
   try {
     const recipes = await Recipes.find({}).limit(quantity).sort({ createdAt: 'desc' });
     res.status(200).json(recipes);
-  } catch(error) {
+  }
+  catch(error) {
     const errorMessage = (error as Error).message;
     res.status(500).json({ message: 'Internal Server Error.', error: errorMessage });
   }

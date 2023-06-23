@@ -45,7 +45,8 @@ const authenticateUser: RequestHandler = async (
     req.id = user._id;
 
     next();
-  } catch(error) {
+  }
+  catch(error) {
     const errorMessage = (error as Error).message;
     res.status(401).json({ message: errorMessage });
   }

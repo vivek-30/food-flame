@@ -27,7 +27,8 @@ const useLogin = () => {
     if(response.ok && !data.error) {
       dispatch(login(data._id));
       localStorage.setItem('user', JSON.stringify(data._id));
-    } else {
+    }
+    else {
       const errorMessage = data.error || 'Unknown error occured during login process.';
       setError(errorMessage);
     }
