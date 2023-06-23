@@ -18,21 +18,19 @@ Discover mouth watering dishes or share your loving recipe with others in minima
 <a name="setup-and-installation"></a>
 
 ## Setup and Installation:
-  1. Clone this Repo.
+  1. Clone this Repository.
   ```bash
     git clone https://github.com/vivek-30/food-flame.git
   ```
-  2. Start server inside `Server` directory.
+  2. Rename `.env.example` to `.env`
   ```bash
-    cd food-flame/Server
-    npm install
-    npm run dev
+    mv Server/.env{.example,}
   ```
-  3. Start react development environment inside `client` directory.
+  3. Enter values for enviornment variables in `.env` file.
+
+  4. Build Images and Run Docker Containers using `docker-compose`
   ```bash
-    cd food-flame/client
-    npm install
-    npm start
+    docker compose up -d
   ```
 
 <a name="available-scripts"></a>
@@ -52,11 +50,14 @@ __Frontend:__
   This command will remove the single build dependency from your project.
 
 __Backend:__
-  1. `npm start`  
+  1. `npm run build`  
+  To generate the production build inside `/dist` folder.
+
+  2. `npm start`  
   To start the server using `node`.
 
-  2. `npm run devStart`  
-  To start the server using `nodemon`.
+  3. `npm run serve`  
+  To concurrently transpile `*.ts` files in watch mode  and start the server using `nodemon`.
 
 <a name="api-routes"></a>
 
@@ -106,8 +107,8 @@ __recipe:__
   ```js
     {
       name: String,
-      description: String,
       imageSRC: String,
+      description: String,
       ingredients: [String],
       cookingSteps: [String],
       userID: String
